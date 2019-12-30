@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:Button text="Button" name="Button_Close" style="width: 10%; height: 10%; align-items: flex-end;">
+        <Style src="TestUI.uss" />
+    </ui:Button>
+</ui:UXML>
