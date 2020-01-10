@@ -12,7 +12,6 @@ public class RoadNodeAuthoring : MonoBehaviour, IConvertGameObjectToEntity
     {
         RoadNodeComponent _nodeComponent = new RoadNodeComponent
         {
-            nextNode = _nextNode != null ? conversionSystem.GetPrimaryEntity(_nextNode.gameObject) : Entity.Null,
             isAvalible = true
         };
 

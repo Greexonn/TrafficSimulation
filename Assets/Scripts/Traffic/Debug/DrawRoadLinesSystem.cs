@@ -17,17 +17,30 @@ public class DrawRoadLinesSystem : ComponentSystem
 
     protected override void OnUpdate()
     {
-        Entities.WithAll<RoadNodeComponent>().ForEach((ref RoadNodeComponent node, ref LocalToWorld localToWorld) =>
+        if (TrafficSystem.instance != null)
         {
-            if (node.nextNode != Entity.Null)
+            var _graphs = TrafficSystem.instance.graphs;
+            for (int i = 0; i < _graphs.Count; i++)
             {
-                var _nextNodeData = _manager.GetComponentData<RoadNodeComponent>(node.nextNode);
-                var _nextNodeLocalToWorld = _manager.GetComponentData<LocalToWorld>(node.nextNode);
+                var _keys = _graphs[i].GetKeyArray(Allocator.Temp);
 
-                Color _lineColor = _nextNodeData.isAvalible ? Color.green : Color.red;
+                for (int k = 0; k < _keys.Length; k++)
+                {
+                    var _values = _graphs[i].GetValuesForKey(_keys[k]);
 
-                Debug.DrawLine(localToWorld.Position, _nextNodeLocalToWorld.Position, _lineColor);
+                    var _keyLocalToWorld = _manager.GetComponentData<LocalToWorld>(_keys[k]);
+
+                    foreach (var node in _values)
+                    {
+                        var _valueLocalToWorld = _manager.GetComponentData<LocalToWorld>(node);
+
+                        Debug.DrawLine(_keyLocalToWorld.Position, _valueLocalToWorld.Position, Color.green);
+                    }
+                }
+
+                //dispose temporals
+                _keys.Dispose();
             }
-        });
+        }
     }
 }

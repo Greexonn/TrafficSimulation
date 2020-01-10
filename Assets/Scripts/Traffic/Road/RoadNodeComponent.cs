@@ -6,6 +6,5 @@ using Unity.Mathematics;
 [Serializable]
 public struct RoadNodeComponent : IComponentData
 {
-    public Entity nextNode;
     public bool isAvalible;
 }
