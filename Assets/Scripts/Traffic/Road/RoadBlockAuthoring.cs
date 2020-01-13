@@ -17,6 +17,10 @@ public class RoadBlockAuthoring : MonoBehaviour, IConvertGameObjectToEntity
 
     [SerializeField] private List<RoadLine> _lines;
 
+    //
+    [Header("Gizmos")]
+    [SerializeField] private Mesh _arrow;
+
     void Awake()
     {
         ConnectNodes();
@@ -64,11 +68,15 @@ public class RoadBlockAuthoring : MonoBehaviour, IConvertGameObjectToEntity
 
     void OnDrawGizmos()
     {
-        Gizmos.color = Color.blue;
+        Gizmos.color = Color.white;
 
         foreach (var line in _lines)
         {
+            //draw line
             Gizmos.DrawLine(line.A.transform.position, line.B.transform.position);
+            //draw arrows
+            Gizmos.DrawMesh(_arrow, line.A.transform.position, line.A.transform.rotation, new Vector3(3, 3, 3));
+            Gizmos.DrawMesh(_arrow, line.B.transform.position, line.B.transform.rotation, new Vector3(3, 3, 3));
         }
     }
 
