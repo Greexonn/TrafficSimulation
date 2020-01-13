@@ -62,6 +62,16 @@ public class RoadBlockAuthoring : MonoBehaviour, IConvertGameObjectToEntity
         }
     }
 
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+
+        foreach (var line in _lines)
+        {
+            Gizmos.DrawLine(line.A.transform.position, line.B.transform.position);
+        }
+    }
+
     [System.Serializable]
     public struct RoadLine
     {
