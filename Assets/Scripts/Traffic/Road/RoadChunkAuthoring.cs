@@ -31,7 +31,5 @@ public class RoadChunkAuthoring : MonoBehaviour, IConvertGameObjectToEntity
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {       
         TrafficSystem.instance.graphs.Add(chunkGraph);
-
-
     }
 }

@@ -286,6 +286,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34a4af3f86356d54b85a5fe5e5dfe197, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _connectedBlocks: []
+  _exits:
+  - {fileID: 7875416219142573753}
+  - {fileID: 7875416219020714996}
+  enters:
+  - {fileID: 7875416217969588592}
+  - {fileID: 7875416219463484788}
   parentChunk: {fileID: 0}
   _lines:
   - A: {fileID: 7875416217969588599}
