@@ -72,6 +72,9 @@ public class RoadBlockAuthoring : MonoBehaviour, IConvertGameObjectToEntity
 
         foreach (var line in _lines)
         {
+            if (line.A == null || line.B == null)
+                return;
+                
             //draw line
             Gizmos.DrawLine(line.A.transform.position, line.B.transform.position);
             //draw arrows

@@ -6,8 +6,6 @@ using UnityEngine;
 [RequiresEntityConversion]
 public class RoadNodeAuthoring : MonoBehaviour, IConvertGameObjectToEntity
 {
-    [SerializeField] private RoadNodeAuthoring _nextNode;
-
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
         RoadNodeComponent _nodeComponent = new RoadNodeComponent
