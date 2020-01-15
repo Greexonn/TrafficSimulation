@@ -26,13 +26,16 @@ public class CarSpawnSystem : ComponentSystem
         if ((_currentTime - _lastSpawnTime) < _secondsTillSpawn)
             return;
 
-        Entities.ForEach((ref CarSpawnerComponent spawner, ref LocalToWorld transform) => 
+        Entities.ForEach((Entity spawnerEntity, ref CarSpawnerComponent spawner, ref LocalToWorld transform) => 
         {
             int _index = UnityEngine.Random.Range(0, CarPrefabsStorage.instance.carPrefabs.Length);
 
-            Entity _carEntity = _manager.Instantiate(CarPrefabsStorage.instance.carPrefabs[_index]);
+            Entity _vehicleEntity = _manager.Instantiate(CarPrefabsStorage.instance.carPrefabs[_index]);
 
-            _manager.SetComponentData(_carEntity, new Translation{Value = transform.Position});
+            _manager.SetName(_vehicleEntity, "vehicle");
+            _manager.SetComponentData(_vehicleEntity, new Translation{Value = transform.Position});
+            _manager.AddComponentData(_vehicleEntity, new VehicleCurrentNodeComponent{node = spawnerEntity});
+            _manager.AddBuffer<NodeBufferElement>(_vehicleEntity);
         });
 
         _lastSpawnTime = _currentTime;
