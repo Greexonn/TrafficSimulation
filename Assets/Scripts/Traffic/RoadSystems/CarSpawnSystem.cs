@@ -35,6 +35,7 @@ public class CarSpawnSystem : ComponentSystem
             _manager.SetName(_vehicleEntity, "vehicle");
             _manager.SetComponentData(_vehicleEntity, new Translation{Value = transform.Position});
             _manager.AddComponentData(_vehicleEntity, new VehicleCurrentNodeComponent{node = spawnerEntity});
+            _manager.AddComponentData(_vehicleEntity, new VehiclePathNodeIndexComponent{value = 0});
             _manager.AddBuffer<NodeBufferElement>(_vehicleEntity);
             //
             _manager.AddComponent(_vehicleEntity, typeof(PathfindingRequestComponent));

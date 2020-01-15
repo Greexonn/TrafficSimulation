@@ -33,16 +33,17 @@ public class VehiclePathfindingSystem : ComponentSystem
         else if (_targetPoints.Length < 1)
             return;
 
-        Entities.WithAll(typeof(VehicleComponent), typeof(PathfindingRequestComponent)).ForEach((Entity vehicleEntity, ref VehicleCurrentNodeComponent vehicleCurrentNode) => 
+        Entities.WithAll(typeof(VehicleComponent), typeof(PathfindingRequestComponent)).ForEach((Entity vehicleEntity, ref VehicleCurrentNodeComponent vehicleCurrentNode, ref VehiclePathNodeIndexComponent vehiclePathNodeIndex) => 
         {
             var _pathBuffer = _manager.GetBuffer<NodeBufferElement>(vehicleEntity);
             _pathBuffer.Clear();
             _pathBuffer.Add(new NodeBufferElement{node = vehicleCurrentNode.node});
+            vehiclePathNodeIndex.value = 0;
 
             //select target
             int _targetId = UnityEngine.Random.Range(0, _targetPoints.Length);
             Entity _targetPoint = _targetPoints[_targetId].node;
-            UnityEngine.Debug.Log("TargetNode: " + _targetPoint.ToString());
+            // UnityEngine.Debug.Log("TargetNode: " + _targetPoint.ToString());
 
             //find path
             Entity _foundNode = vehicleCurrentNode.node;
