@@ -36,6 +36,8 @@ public class CarSpawnSystem : ComponentSystem
             _manager.SetComponentData(_vehicleEntity, new Translation{Value = transform.Position});
             _manager.AddComponentData(_vehicleEntity, new VehicleCurrentNodeComponent{node = spawnerEntity});
             _manager.AddBuffer<NodeBufferElement>(_vehicleEntity);
+            //
+            _manager.AddComponent(_vehicleEntity, typeof(PathfindingRequestComponent));
         });
 
         _lastSpawnTime = _currentTime;
