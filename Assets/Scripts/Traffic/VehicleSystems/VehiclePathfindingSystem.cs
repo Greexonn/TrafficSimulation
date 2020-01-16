@@ -82,6 +82,11 @@ public class VehiclePathfindingSystem : ComponentSystem
 
             while (!_foundNode.Equals(_targetPoint))
             {
+                if (_openList.Length < 1)
+                {
+                    UnityEngine.Debug.Log("Not Found");
+                    break;
+                }
                 //get node with min result value
                 var _bestNode = _openList[0];
                 var _bestNodeId = 0;

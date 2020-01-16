@@ -38,6 +38,11 @@ public class VehicleTestTransitionSystem : ComponentSystem
                 pathNodeIndex.value = math.clamp((pathNodeIndex.value + 1), 0, (_pathBuffer.Length - 1));
                 currentNode.node = _pathBuffer[pathNodeIndex.value].node;
             }
+
+            if (currentNode.node.Equals(_pathBuffer[_pathBuffer.Length - 1].node))
+            {
+                _manager.RemoveComponent(vehicleEntity, typeof(VehicleComponent));
+            }
         });
     }
 }
