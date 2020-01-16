@@ -98,6 +98,9 @@ public class VehiclePathfindingSystem : ComponentSystem
                         _bestNodeId = i;
                     }
                 }
+
+                var _bestNodePos = _manager.GetComponentData<LocalToWorld>(_bestNode.nodeEntity).Position;
+
                 //add all paths from "best" node
                 var _variants = TrafficSystem.instance.graphs[0].GetValuesForKey(_bestNode.nodeEntity);
                 foreach (var node in _variants)
@@ -111,15 +114,26 @@ public class VehiclePathfindingSystem : ComponentSystem
                     if (!_closeList.Contains(node))
                     {
                         var _nodePos = _manager.GetComponentData<LocalToWorld>(node).Position;
-                        int _sValue = (int)(math.distance(_startPos, _nodePos) * 10);
+                        int _sValue = _bestNode.sValue + (int)(math.distance(_bestNodePos, _nodePos) * 10);
                         int _fValue = (int)(math.distance(_finishPos, _nodePos) * 10);
-                        _openList.Add(new PathNode
+                        var _newNode = new PathNode
                         {
                             nodeEntity = node,
                             sValue = _sValue,
                             fValue = _fValue,
                             rValue = _sValue + _fValue
-                        });
+                        };
+                        
+                        int _nodeId = _openList.IndexOf(_newNode);
+
+                        if (_nodeId != -1)
+                        {
+                            _openList[_nodeId] = _newNode;
+                        }
+                        else
+                        {
+                            _openList.Add(_newNode);
+                        }
                     }
                 }
 
@@ -143,9 +157,14 @@ public class VehiclePathfindingSystem : ComponentSystem
         });
     }
 
-    private struct PathNode
+    private struct PathNode : System.IEquatable<PathNode>
     {
         public Entity nodeEntity;
         public int sValue, fValue, rValue;
+
+        public bool Equals(PathNode other)
+        {
+            return nodeEntity.Equals(other.nodeEntity);
+        }
     }
 }
