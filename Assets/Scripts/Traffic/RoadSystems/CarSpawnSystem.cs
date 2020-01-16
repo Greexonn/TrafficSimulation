@@ -7,7 +7,7 @@ using Unity.Transforms;
 
 public class CarSpawnSystem : ComponentSystem
 {
-    private float _secondsTillSpawn = 3;
+    private float _secondsTillSpawn = 10;
 
     private float _lastSpawnTime = 0;
 
