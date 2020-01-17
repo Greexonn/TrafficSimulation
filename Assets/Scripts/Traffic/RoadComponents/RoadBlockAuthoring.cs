@@ -21,6 +21,7 @@ public class RoadBlockAuthoring : MonoBehaviour, IConvertGameObjectToEntity
     [Header("Gizmos")]
     [SerializeField] private Mesh _arrow;
 
+
     void Awake()
     {
         ConnectNodes();
@@ -66,6 +67,7 @@ public class RoadBlockAuthoring : MonoBehaviour, IConvertGameObjectToEntity
         }
     }
     
+#if UNITY_EDITOR
     void OnDrawGizmos()
     {
         Gizmos.color = Color.white;
@@ -75,16 +77,21 @@ public class RoadBlockAuthoring : MonoBehaviour, IConvertGameObjectToEntity
             if (line.A == null || line.B == null)
                 return;
                 
+            var _lineDir = line.B.transform.position - line.A.transform.position;
+            var _arrowRot = Quaternion.LookRotation(_lineDir);
             //draw line
             Gizmos.DrawLine(line.A.transform.position, line.B.transform.position);
             //draw arrows
-            Gizmos.DrawMesh(_arrow, line.A.transform.position, line.A.transform.rotation, new Vector3(3, 3, 3));
-            Gizmos.DrawMesh(_arrow, line.B.transform.position, line.B.transform.rotation, new Vector3(3, 3, 3));
+            Gizmos.color = new Color(0, 255, 0, 0.7f);
+            Gizmos.DrawMesh(_arrow, line.A.transform.position, _arrowRot, new Vector3(3, 3, 3));
+            Gizmos.DrawMesh(_arrow, line.B.transform.position, _arrowRot, new Vector3(3, 3, 3));
             //draw node names
+            Gizmos.color = Color.white;
             UnityEditor.Handles.Label(line.A.transform.position, line.A.gameObject.name);
             UnityEditor.Handles.Label(line.B.transform.position, line.B.gameObject.name);
         }
     }
+#endif
 
     [System.Serializable]
     public struct RoadLine
