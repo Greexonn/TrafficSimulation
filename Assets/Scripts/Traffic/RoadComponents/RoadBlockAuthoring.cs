@@ -65,7 +65,7 @@ public class RoadBlockAuthoring : MonoBehaviour, IConvertGameObjectToEntity
             }
         }
     }
-
+    
     void OnDrawGizmos()
     {
         Gizmos.color = Color.white;
@@ -80,6 +80,9 @@ public class RoadBlockAuthoring : MonoBehaviour, IConvertGameObjectToEntity
             //draw arrows
             Gizmos.DrawMesh(_arrow, line.A.transform.position, line.A.transform.rotation, new Vector3(3, 3, 3));
             Gizmos.DrawMesh(_arrow, line.B.transform.position, line.B.transform.rotation, new Vector3(3, 3, 3));
+            //draw node names
+            UnityEditor.Handles.Label(line.A.transform.position, line.A.gameObject.name);
+            UnityEditor.Handles.Label(line.B.transform.position, line.B.gameObject.name);
         }
     }
 

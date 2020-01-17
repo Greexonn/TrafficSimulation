@@ -4,7 +4,6 @@ using Unity.Entities;
 using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Transforms;
-using static Unity.Mathematics.math;
 
 public class VehiclePathfindingSystem : ComponentSystem
 {
@@ -48,25 +47,152 @@ public class VehiclePathfindingSystem : ComponentSystem
             //find path
             Entity _foundNode = vehicleCurrentNode.node;
             //very straight algorithm
-            int _stopCounter = 0;
+            // int _stopCounter = 0;
+            // while (!_foundNode.Equals(_targetPoint))
+            // {
+            //     _stopCounter++;
+            //     NativeMultiHashMapIterator<Entity> _iterator;
+            //     if (TrafficSystem.instance.graphs[0].TryGetFirstValue(_foundNode, out _foundNode, out _iterator))
+            //     {
+            //         _pathBuffer.Add(new NodeBufferElement{node = _foundNode});
+            //         // UnityEngine.Debug.Log(_foundNode);
+            //     }
+
+            //     if (_stopCounter >= 20)
+            //     {
+            //         UnityEngine.Debug.Log("Not Found");
+            //         break;
+            //     }
+            // }
+
+            //perform pathfinding
+            NativeList<PathNode> _closeList = new NativeList<PathNode>(Allocator.Temp);
+            NativeList<PathNode> _openList = new NativeList<PathNode>(Allocator.Temp);
+            NativeList<NodeBufferElement> _reversePathList = new NativeList<NodeBufferElement>(Allocator.Temp);
+            _foundNode = vehicleCurrentNode.node;
+            var _startPos = _manager.GetComponentData<LocalToWorld>(_foundNode).Position;
+            var _finishPos = _manager.GetComponentData<LocalToWorld>(_targetPoint).Position;
+            int _distanceToFinish = (int)(math.distance(_finishPos, _startPos) * 10);
+            _openList.Add(new PathNode
+            {
+                nodeEntity = _foundNode,
+                parentNode = Entity.Null,
+                sValue = 0,
+                fValue = _distanceToFinish,
+                rValue = _distanceToFinish
+            });
+
             while (!_foundNode.Equals(_targetPoint))
             {
-                _stopCounter++;
-                NativeMultiHashMapIterator<Entity> _iterator;
-                if (TrafficSystem.instance.graphs[0].TryGetFirstValue(_foundNode, out _foundNode, out _iterator))
-                {
-                    _pathBuffer.Add(new NodeBufferElement{node = _foundNode});
-                    // UnityEngine.Debug.Log(_foundNode);
-                }
-
-                if (_stopCounter >= 20)
+                if (_openList.Length < 1)
                 {
                     UnityEngine.Debug.Log("Not Found");
                     break;
                 }
+                //get node with min result value
+                var _bestNode = _openList[0];
+                var _bestNodeId = 0;
+                for (int i = 1; i < _openList.Length; i++)
+                {
+                    if (_openList[i].rValue < _bestNode.rValue)
+                    {
+                        _bestNode = _openList[i];
+                        _bestNodeId = i;
+                    }
+                }
+
+                var _bestNodePos = _manager.GetComponentData<LocalToWorld>(_bestNode.nodeEntity).Position;
+
+                //add all paths from "best" node
+                var _variants = TrafficSystem.instance.graphs[0].GetValuesForKey(_bestNode.nodeEntity);
+                foreach (var node in _variants)
+                {
+                    if (node.Equals(_targetPoint))
+                    {
+                        _foundNode = node;
+                        break;
+                    }
+
+                    if (!_closeList.Contains(node))
+                    {
+                        var _nodePos = _manager.GetComponentData<LocalToWorld>(node).Position;
+                        int _sValue = _bestNode.sValue + (int)(math.distance(_bestNodePos, _nodePos) * 10);
+                        int _fValue = (int)(math.distance(_finishPos, _nodePos) * 10);
+                        int _rValue = _sValue + _fValue;
+                        var _newNode = new PathNode
+                        {
+                            nodeEntity = node,
+                            parentNode = _bestNode.nodeEntity,
+                            sValue = _sValue,
+                            fValue = _fValue,
+                            rValue = _rValue
+                        };
+                        
+                        int _nodeId = _openList.IndexOf(_newNode);
+
+                        if (_nodeId != -1)
+                        {
+                            if (_rValue < _openList[_nodeId].rValue)
+                            {
+                                _openList[_nodeId] = _newNode;
+
+                            }
+                        }
+                        else
+                        {
+                            _openList.Add(_newNode);
+                        }
+                    }
+                }
+
+                _openList.RemoveAtSwapBack(_bestNodeId);
+                _closeList.Add(_bestNode);
             }
+
+            //get correct reverse path
+            _reversePathList.Add(new NodeBufferElement{node = _targetPoint});
+            _reversePathList.Add(new NodeBufferElement{node = _closeList[_closeList.Length - 1].nodeEntity});
+            Entity _parentEntity = _closeList[_closeList.Length - 1].parentNode;
+            for (int i = (_closeList.Length - 2); i >= 0; i--)
+            {
+                var _node = _closeList[i];
+                if (_node.Equals(_parentEntity))
+                {
+                    _parentEntity = _node.parentNode;
+                    _reversePathList.Add(new NodeBufferElement{node = _node.nodeEntity});
+                }
+            }
+
+            //write correct path to path buffer
+            for (int i = (_reversePathList.Length - 1); i >= 0 ; i--)
+            {
+                _pathBuffer.Add(_reversePathList[i]);
+            }
+
+            //dispose temporal containers
+            _openList.Dispose();
+            _closeList.Dispose();
+            _reversePathList.Dispose();
+
             //remove request component
             _manager.RemoveComponent(vehicleEntity, typeof(PathfindingRequestComponent));
         });
+    }
+
+    private struct PathNode : System.IEquatable<PathNode>, System.IEquatable<Entity>
+    {
+        public Entity nodeEntity;
+        public Entity parentNode;
+        public int sValue, fValue, rValue;
+
+        public bool Equals(PathNode other)
+        {
+            return nodeEntity.Equals(other.nodeEntity);
+        }
+
+        public bool Equals(Entity other)
+        {
+            return nodeEntity.Equals(other);
+        }
     }
 }
