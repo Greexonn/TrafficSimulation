@@ -31,8 +31,9 @@ public class CarSpawnSystem : ComponentSystem
             int _index = UnityEngine.Random.Range(0, CarPrefabsStorage.instance.carPrefabs.Length);
 
             Entity _vehicleEntity = _manager.Instantiate(CarPrefabsStorage.instance.carPrefabs[_index]);
-
+            #if UNITY_EDITOR
             _manager.SetName(_vehicleEntity, "vehicle");
+            #endif
             _manager.SetComponentData(_vehicleEntity, new Translation{Value = transform.Position});
             _manager.AddComponentData(_vehicleEntity, new VehicleCurrentNodeComponent{node = spawnerEntity});
             _manager.AddComponentData(_vehicleEntity, new VehiclePathNodeIndexComponent{value = 0});

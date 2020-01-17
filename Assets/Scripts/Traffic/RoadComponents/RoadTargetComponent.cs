@@ -3,7 +3,7 @@ using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 
-[Serializable] [GenerateAuthoringComponent]
+[GenerateAuthoringComponent]
 public struct RoadTargetComponent : IComponentData
 {
     public Entity node;

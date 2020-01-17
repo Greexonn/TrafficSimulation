@@ -67,6 +67,7 @@ public class RoadBlockAuthoring : MonoBehaviour, IConvertGameObjectToEntity
         }
     }
     
+#if UNITY_EDITOR
     void OnDrawGizmos()
     {
         Gizmos.color = Color.white;
@@ -90,6 +91,7 @@ public class RoadBlockAuthoring : MonoBehaviour, IConvertGameObjectToEntity
             UnityEditor.Handles.Label(line.B.transform.position, line.B.gameObject.name);
         }
     }
+#endif
 
     [System.Serializable]
     public struct RoadLine
