@@ -77,14 +77,15 @@ public class RoadBlockAuthoring : MonoBehaviour, IConvertGameObjectToEntity
             if (line.A == null || line.B == null)
                 return;
                 
-            var _lineDir = line.B.transform.position - line.A.transform.position;
+            var _lineDir = (line.B.transform.position - line.A.transform.position).normalized;
+            var _delta = _lineDir * 0.05f;
             var _arrowRot = Quaternion.LookRotation(_lineDir);
             //draw line
             Gizmos.DrawLine(line.A.transform.position, line.B.transform.position);
             //draw arrows
             Gizmos.color = new Color(0, 255, 0, 0.7f);
-            Gizmos.DrawMesh(_arrow, line.A.transform.position, _arrowRot, new Vector3(3, 3, 3));
-            Gizmos.DrawMesh(_arrow, line.B.transform.position, _arrowRot, new Vector3(3, 3, 3));
+            Gizmos.DrawMesh(_arrow, line.A.transform.position + _delta, _arrowRot, new Vector3(3, 3, 3));
+            Gizmos.DrawMesh(_arrow, line.B.transform.position + _delta, _arrowRot, new Vector3(3, 3, 3));
             //draw node names
             Gizmos.color = Color.white;
             UnityEditor.Handles.Label(line.A.transform.position, line.A.gameObject.name);
