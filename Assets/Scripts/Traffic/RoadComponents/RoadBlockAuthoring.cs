@@ -88,8 +88,8 @@ public class RoadBlockAuthoring : MonoBehaviour, IConvertGameObjectToEntity
             Gizmos.DrawMesh(_arrow, line.B.transform.position + _delta, _arrowRot, new Vector3(3, 3, 3));
             //draw node names
             Gizmos.color = Color.white;
-            UnityEditor.Handles.Label(line.A.transform.position, line.A.gameObject.name);
-            UnityEditor.Handles.Label(line.B.transform.position, line.B.gameObject.name);
+            UnityEditor.Handles.Label(line.A.transform.position - _delta, line.A.gameObject.name);
+            UnityEditor.Handles.Label(line.B.transform.position + _delta, line.B.gameObject.name);
         }
     }
 #endif
