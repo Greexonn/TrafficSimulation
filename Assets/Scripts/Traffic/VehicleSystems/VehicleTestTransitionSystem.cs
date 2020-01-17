@@ -41,7 +41,8 @@ public class VehicleTestTransitionSystem : ComponentSystem
 
             if (currentNode.node.Equals(_pathBuffer[_pathBuffer.Length - 1].node))
             {
-                _manager.RemoveComponent(vehicleEntity, typeof(VehicleComponent));
+                // _manager.RemoveComponent(vehicleEntity, typeof(VehicleComponent));
+                _manager.AddComponent(vehicleEntity, typeof(PathfindingRequestComponent));
             }
         });
     }
