@@ -5,7 +5,6 @@ using System.Collections.Generic;
 
 [DisallowMultipleComponent]
 [RequiresEntityConversion]
-[ExecuteInEditMode]
 public class TrafficControlBlockAuthoring : MonoBehaviour, IConvertGameObjectToEntity
 {
     [Header("Node Groups")]
@@ -16,7 +15,6 @@ public class TrafficControlBlockAuthoring : MonoBehaviour, IConvertGameObjectToE
 
     [Header("Start Setup")]
     [SerializeField] private int _startStateId;
-    [SerializeField] private int _startDelay;
 
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
@@ -25,23 +23,27 @@ public class TrafficControlBlockAuthoring : MonoBehaviour, IConvertGameObjectToE
         {
             if (state.mask.Count != _groups.Count)
                 throw new System.Exception(gameObject.name + ": Traffic Control Mask value count is not equal to groups count");
+
+            if (_startStateId >= _stateMasks.Count)
+                throw new System.Exception(gameObject.name + ": Start state ID is out of bounds");
         }
 
         //convert
         var _manager = World.DefaultGameObjectInjectionWorld.EntityManager;
         //add components
+        _manager.AddComponent(entity, typeof(TrafficControlBlockInitComponent));
         _manager.AddComponentData<TrafficControlBlockComponent>(entity, new TrafficControlBlockComponent { groupsCount = _groups.Count, statesCount = _stateMasks.Count });
-        _manager.AddComponentData<TrafficControlStartDelayComponent>(entity, new TrafficControlStartDelayComponent { value = _startDelay });
         _manager.AddComponentData<TrafficControlStateComponent>(entity, new TrafficControlStateComponent { stateId = _startStateId, stateRemainingTime = _stateMasks[_startStateId].stateLifetime });
         //add buffers
         var _groupsBuffer = _manager.AddBuffer<NodeBufferElement>(entity);
         var _groupStartIdsBuffer = _manager.AddBuffer<IntBufferElement>(entity);
         int _startCounter = 0;
+        _groupStartIdsBuffer.Add(new IntBufferElement { value = _startCounter });
         //add groups
         for (int i = 0; i < _groups.Count; i++)
         {
-            _groupStartIdsBuffer.Add(new IntBufferElement { value = _startCounter });
             _startCounter += _groups[i].groupNodes.Count;
+            _groupStartIdsBuffer.Add(new IntBufferElement { value = _startCounter });
 
             for (int j = 0; j < _groups[i].groupNodes.Count; j++)
             {

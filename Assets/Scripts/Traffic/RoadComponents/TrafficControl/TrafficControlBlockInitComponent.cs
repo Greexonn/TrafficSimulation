@@ -4,7 +4,6 @@ using Unity.Entities;
 using Unity.Mathematics;
 
 [Serializable]
-public struct TrafficControlStartDelayComponent : IComponentData
+public struct TrafficControlBlockInitComponent : IComponentData
 {
-    public float value;
 }

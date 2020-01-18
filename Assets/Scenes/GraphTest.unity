@@ -579,7 +579,6 @@ MonoBehaviour:
   _groups: []
   _stateMasks: []
   _startStateId: 0
-  _startDelay: 0
 --- !u!4 &913158647
 Transform:
   m_ObjectHideFlags: 0
