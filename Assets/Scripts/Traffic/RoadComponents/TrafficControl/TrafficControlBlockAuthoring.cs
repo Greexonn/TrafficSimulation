@@ -52,12 +52,15 @@ public class TrafficControlBlockAuthoring : MonoBehaviour, IConvertGameObjectToE
         }
         //add states
         var _statesBuffer = _manager.AddBuffer<BoolBufferElement>(entity);
+        var _stateTimesBuffer = _manager.AddBuffer<StateTimeBufferElement>(entity);
         for (int i = 0; i < _stateMasks.Count; i++)
         {
             for (int j = 0; j < _stateMasks[i].mask.Count; j++)
             {
                 _statesBuffer.Add(new BoolBufferElement { value = _stateMasks[i].mask[i] });
             }
+
+            _stateTimesBuffer.Add(new StateTimeBufferElement { value = _stateMasks[i].stateLifetime });
         }
     }
 
