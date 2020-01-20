@@ -5,5 +5,5 @@ using Unity.Mathematics;
 
 public struct RoadNodeComponent : IComponentData
 {
-    public bool isAvalible;
+    public bool isOpen;
 }

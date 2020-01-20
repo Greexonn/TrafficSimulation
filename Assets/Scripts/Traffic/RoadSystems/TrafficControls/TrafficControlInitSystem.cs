@@ -21,7 +21,7 @@ public class TrafficControlInitSystem : ComponentSystem
         Entities.WithAll(typeof(TrafficControlBlockInitComponent)).ForEach((Entity blockEntity, ref TrafficControlBlockComponent controlBlock, ref TrafficControlStateComponent controlState) =>
         {
             var _groupsBuffer = _manager.GetBuffer<NodeBufferElement>(blockEntity);
-            var _groupStartIdsBuffer = _manager.GetBuffer<IntBufferElement>(blockEntity);
+            var _groupStartIdsBuffer = _manager.GetBuffer<StartIDsBufferElement>(blockEntity);
             var _statesBuffer = _manager.GetBuffer<BoolBufferElement>(blockEntity);
 
             int _stateId = controlState.stateId;
@@ -35,7 +35,7 @@ public class TrafficControlInitSystem : ComponentSystem
                 int _groupEndId = _groupStartIdsBuffer[i + 1].value;
                 for (int g = _groupStartId; g < _groupEndId; g++)
                 {
-                    _manager.SetComponentData<RoadNodeComponent>(_groupsBuffer[g].node, new RoadNodeComponent { isAvalible = _groupState });
+                    _manager.SetComponentData<RoadNodeComponent>(_groupsBuffer[g].node, new RoadNodeComponent { isOpen = _groupState });
                 }
             }
 
