@@ -47,7 +47,7 @@ public class TrafficControlBlockAuthoring : MonoBehaviour, IConvertGameObjectToE
 
             for (int j = 0; j < _groups[i].groupNodes.Count; j++)
             {
-                _groupsBuffer.Add(new NodeBufferElement { node = conversionSystem.GetPrimaryEntity(_groups[i].groupNodes[j]) });
+                _groupsBuffer.Add(new NodeBufferElement { node = conversionSystem.GetPrimaryEntity(_groups[i].groupNodes[j].gameObject) });
             }
         }
         //add states
@@ -68,7 +68,7 @@ public class TrafficControlBlockAuthoring : MonoBehaviour, IConvertGameObjectToE
     private struct ControlGroup
     {
         public string groupName;
-        public List<GameObject> groupNodes;
+        public List<RoadNodeAuthoring> groupNodes;
     }
 
     [System.Serializable]
