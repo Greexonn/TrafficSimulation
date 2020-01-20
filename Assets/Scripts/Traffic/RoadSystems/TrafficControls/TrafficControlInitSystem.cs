@@ -22,7 +22,7 @@ public class TrafficControlInitSystem : ComponentSystem
         {
             var _groupsBuffer = _manager.GetBuffer<NodeBufferElement>(blockEntity);
             var _groupStartIdsBuffer = _manager.GetBuffer<StartIDsBufferElement>(blockEntity);
-            var _statesBuffer = _manager.GetBuffer<BoolBufferElement>(blockEntity);
+            var _statesBuffer = _manager.GetBuffer<TCStateBufferElement>(blockEntity);
 
             int _stateId = controlState.stateId;
             int _stateOffset = _stateId * controlBlock.groupsCount;
