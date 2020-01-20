@@ -3,7 +3,7 @@ using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 
-public struct RoadNodeComponent : IComponentData
+[Serializable]
+public struct TrafficControlBlockInitComponent : IComponentData
 {
-    public bool isOpen;
 }

@@ -30,11 +30,18 @@ public class DrawRoadLinesSystem : ComponentSystem
 
                     var _keyLocalToWorld = _manager.GetComponentData<LocalToWorld>(_keys[k]);
 
+                    Color _lineColor;
+                    bool _keyOpen = _manager.GetComponentData<RoadNodeComponent>(_keys[k]).isOpen;
+                    if (!_keyOpen)
+                        _lineColor = Color.red;
+                    else
+                        _lineColor = Color.green;
+
                     foreach (var node in _values)
                     {
                         var _valueLocalToWorld = _manager.GetComponentData<LocalToWorld>(node);
 
-                        Debug.DrawLine(_keyLocalToWorld.Position, _valueLocalToWorld.Position, Color.green);
+                        Debug.DrawLine(_keyLocalToWorld.Position, _valueLocalToWorld.Position, _lineColor);
                     }
                 }
 

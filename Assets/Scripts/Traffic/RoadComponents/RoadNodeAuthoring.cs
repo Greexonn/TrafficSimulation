@@ -10,7 +10,7 @@ public class RoadNodeAuthoring : MonoBehaviour, IConvertGameObjectToEntity
     {
         RoadNodeComponent _nodeComponent = new RoadNodeComponent
         {
-            isAvalible = true
+            isOpen = true
         };
 
         dstManager.AddComponentData(entity, _nodeComponent);

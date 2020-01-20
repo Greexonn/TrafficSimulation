@@ -42,34 +42,16 @@ public class VehiclePathfindingSystem : ComponentSystem
             //select target
             int _targetId = UnityEngine.Random.Range(0, _targetPoints.Length);
             Entity _targetPoint = _targetPoints[_targetId].node;
+            if (_targetPoint.Equals(vehicleCurrentNode.node))
+                return;
             // UnityEngine.Debug.Log("TargetNode: " + _targetPoint.ToString());
 
-            //find path
             Entity _foundNode = vehicleCurrentNode.node;
-            //very straight algorithm
-            // int _stopCounter = 0;
-            // while (!_foundNode.Equals(_targetPoint))
-            // {
-            //     _stopCounter++;
-            //     NativeMultiHashMapIterator<Entity> _iterator;
-            //     if (TrafficSystem.instance.graphs[0].TryGetFirstValue(_foundNode, out _foundNode, out _iterator))
-            //     {
-            //         _pathBuffer.Add(new NodeBufferElement{node = _foundNode});
-            //         // UnityEngine.Debug.Log(_foundNode);
-            //     }
-
-            //     if (_stopCounter >= 20)
-            //     {
-            //         UnityEngine.Debug.Log("Not Found");
-            //         break;
-            //     }
-            // }
 
             //perform pathfinding
             NativeList<PathNode> _closeList = new NativeList<PathNode>(Allocator.Temp);
             NativeList<PathNode> _openList = new NativeList<PathNode>(Allocator.Temp);
             NativeList<NodeBufferElement> _reversePathList = new NativeList<NodeBufferElement>(Allocator.Temp);
-            _foundNode = vehicleCurrentNode.node;
             var _startPos = _manager.GetComponentData<LocalToWorld>(_foundNode).Position;
             var _finishPos = _manager.GetComponentData<LocalToWorld>(_targetPoint).Position;
             int _distanceToFinish = (int)(math.distance(_finishPos, _startPos) * 10);

@@ -27,22 +27,30 @@ public class VehicleTestTransitionSystem : ComponentSystem
             var _currentNodePos = _manager.GetComponentData<LocalToWorld>(currentNode.node).Position;
             var _nextNodePos = _manager.GetComponentData<LocalToWorld>(_pathBuffer[_nextNodeId].node).Position;
 
-            float3 _moveDirection = math.normalizesafe(_nextNodePos - translation.Value);
-            //move
-            translation.Value += _moveDirection * _deltaTime;
+            if (currentNode.node.Equals(_pathBuffer[_pathBuffer.Length - 1].node))
+            {
+                // _manager.RemoveComponent(vehicleEntity, typeof(VehicleComponent));
+                _manager.AddComponent(vehicleEntity, typeof(PathfindingRequestComponent));
+                return;
+            }
+
             //check node reach
             float _distanceToNextNode = math.distance(translation.Value, _nextNodePos);
 
             if (_distanceToNextNode < 0.01f)
             {
                 pathNodeIndex.value = math.clamp((pathNodeIndex.value + 1), 0, (_pathBuffer.Length - 1));
-                currentNode.node = _pathBuffer[pathNodeIndex.value].node;
+                if (_manager.GetComponentData<RoadNodeComponent>(_pathBuffer[pathNodeIndex.value].node).isOpen)
+                    currentNode.node = _pathBuffer[pathNodeIndex.value].node;
+                else
+                    pathNodeIndex.value--;
+
+                return;
             }
 
-            if (currentNode.node.Equals(_pathBuffer[_pathBuffer.Length - 1].node))
-            {
-                _manager.RemoveComponent(vehicleEntity, typeof(VehicleComponent));
-            }
+            //move
+            float3 _moveDirection = math.normalizesafe(_nextNodePos - translation.Value);
+            translation.Value += _moveDirection * _deltaTime;
         });
     }
 }
