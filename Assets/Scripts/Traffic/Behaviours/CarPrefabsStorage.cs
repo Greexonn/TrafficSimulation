@@ -40,6 +40,8 @@ public class CarPrefabsStorage : MonoBehaviour
 
     void OnDestroy()
     {
+        _assetStore?.Dispose();
+
         if (carPrefabs.IsCreated)
             carPrefabs.Dispose();
     }

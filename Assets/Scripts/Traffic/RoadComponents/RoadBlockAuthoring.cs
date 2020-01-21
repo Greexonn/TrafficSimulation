@@ -22,11 +22,6 @@ public class RoadBlockAuthoring : MonoBehaviour, IConvertGameObjectToEntity
     [SerializeField] private Mesh _arrow;
 
 
-    void Awake()
-    {
-        ConnectNodes();
-    }
-
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
         if (parentChunk != null)
@@ -46,21 +41,29 @@ public class RoadBlockAuthoring : MonoBehaviour, IConvertGameObjectToEntity
             return 0;
     }
 
-    private void ConnectNodes()
+    public void ConnectNodes()
     {
-        foreach (var block in _connectedBlocks)
+        foreach (var exit in _exits)
         {
-            foreach (var exit in _exits)
+            var _exitNode = exit.GetComponent<RoadNodeAuthoring>();
+
+            foreach (var block in _connectedBlocks)
             {
                 foreach (var enter in block.enters)
                 {
                     if (Vector3.Distance(exit.position, enter.position) < 0.2f)
                     {
-                        _lines.Add(new RoadLine
+                        var _enterNode = enter.GetComponent<RoadNodeAuthoring>();
+
+                        for (int i = 0; i < _lines.Count; i++)
                         {
-                            A = exit.gameObject.GetComponent<RoadNodeAuthoring>(),
-                            B = enter.gameObject.GetComponent<RoadNodeAuthoring>()
-                        });
+                            if (_lines[i].B == _exitNode)
+                            {
+                                var _line = _lines[i];
+                                _line.B = _enterNode;
+                                _lines[i] = _line;
+                            }
+                        }
                     }
                 }
             }

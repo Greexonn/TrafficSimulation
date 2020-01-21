@@ -69,6 +69,12 @@ public class VehiclePathfindingSystem : ComponentSystem
                 if (_openList.Length < 1)
                 {
                     UnityEngine.Debug.Log("Not Found");
+                    string _path = "";
+                    foreach (var node in _closeList)
+                    {
+                        _path += _manager.GetName(node.nodeEntity) + "\n";
+                    }
+                    UnityEngine.Debug.Log(_path);
                     break;
                 }
                 //get node with min result value

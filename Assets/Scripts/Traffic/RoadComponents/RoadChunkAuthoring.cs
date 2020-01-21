@@ -13,6 +13,11 @@ public class RoadChunkAuthoring : MonoBehaviour, IConvertGameObjectToEntity
     {
         var _roadBlocks = GetComponentsInChildren<RoadBlockAuthoring>();
 
+        foreach (var block in _roadBlocks)
+        {
+            block.ConnectNodes();
+        }
+
         int _linesCount = 0;
 
         for (int i = 0; i < _roadBlocks.Length; i++)
