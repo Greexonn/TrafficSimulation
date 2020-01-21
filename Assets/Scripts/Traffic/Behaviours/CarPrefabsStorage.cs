@@ -12,6 +12,8 @@ public class CarPrefabsStorage : MonoBehaviour
 
     public NativeArray<Entity> carPrefabs;
 
+    private BlobAssetStore _assetStore;
+
     void Awake()
     {
         if (instance != this)
@@ -25,7 +27,9 @@ public class CarPrefabsStorage : MonoBehaviour
 
     void Start()
     {
-        GameObjectConversionSettings _convSettings = GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, null);
+        _assetStore = new BlobAssetStore();
+
+        GameObjectConversionSettings _convSettings = GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, _assetStore);
         carPrefabs = new NativeArray<Entity>(_carPrefabs.Count, Allocator.Persistent);
 
         for (int i = 0; i < _carPrefabs.Count; i++)
