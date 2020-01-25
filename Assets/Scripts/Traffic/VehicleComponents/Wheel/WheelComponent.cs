@@ -7,10 +7,13 @@ using UnityEngine;
 [Serializable]
 public struct WheelComponent : IComponentData
 {
-    public float wheelRadius;
+    public float radius;
     [Header("Friction")]
     public float sideFriction;
     public float forwardFriction;
     public float maxSideFriction;
     public float maxForwardFriction;
+    
+    public Entity wheelModel;
+    public Entity vehiclePhysicsBody;
 }

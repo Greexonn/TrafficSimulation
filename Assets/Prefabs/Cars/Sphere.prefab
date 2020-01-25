@@ -92,6 +92,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d36c11ea8bc058b409fca1d76f76f90b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _driveWheels: []
-  _steeringWheels: []
-  _brakeWheels: []
+  driveWheels: []
+  steeringWheels: []
+  breakWheels: []

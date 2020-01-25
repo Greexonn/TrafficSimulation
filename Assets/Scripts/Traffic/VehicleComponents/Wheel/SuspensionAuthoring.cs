@@ -8,7 +8,7 @@ using UnityEngine;
 public class SuspensionAuthoring : MonoBehaviour, IConvertGameObjectToEntity
 {
     [SerializeField] private SuspensionComponent _suspension;
-    [SerializeField] private Transform _wheelModel;
+    [SerializeField] public Transform wheelModel;
 
     private WheelAuthoring _wheel;
 
@@ -36,15 +36,15 @@ public class SuspensionAuthoring : MonoBehaviour, IConvertGameObjectToEntity
         //place model in pos
         Vector3 _wheelCenter = Vector3.Lerp(_fromPos, _toPos, _suspension.wheelPosition);
         Gizmos.DrawWireSphere(_wheelCenter, (_suspension.suspensionLength / 20));
-        if (_wheelModel != null)
+        if (wheelModel != null)
         {
-            _wheelModel.position = _wheelCenter;
+            wheelModel.position = _wheelCenter;
         }
         //draw wheel
         UnityEditor.Handles.color = Color.green;
         if (_wheel != null)
         {
-            float _radius = _wheel.wheel.wheelRadius;
+            float _radius = _wheel.wheel.radius;
             UnityEditor.Handles.DrawWireDisc(_wheelCenter, transform.forward, _radius);
         }
         else

@@ -19,7 +19,7 @@ MonoBehaviour:
     z: 0.014999999
   m_PrimitiveSize:
     x: 0.42
-    y: 0.17999998
+    y: 0.17
     z: 0.08999999
   m_PrimitiveOrientation:
     Value:
@@ -29,18 +29,18 @@ MonoBehaviour:
     RotationOrder: 4
   m_Capsule:
     Height: 0.42
-    Radius: 0.08999999
+    Radius: 0.085
     Axis: 0
   m_Cylinder:
     Height: 0.42
-    Radius: 0.08999999
+    Radius: 0.085
     Axis: 0
   m_CylinderSideCount: 20
   m_SphereRadius: 0.21
   m_MinimumSkinnedVertexWeight: 0.1
   m_ConvexHullGenerationParameters:
     m_SimplificationTolerance: 0.01
-    m_BevelRadius: 0.008999999
+    m_BevelRadius: 0.005
     m_MinimumAngle: 2.5000002
   m_CustomMesh: {fileID: 0}
   m_ForceUnique: 0
@@ -137,7 +137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MotionType: 0
-  m_Mass: 1
+  m_Mass: 700
   m_LinearDamping: 0.01
   m_AngularDamping: 0.05
   m_InitialLinearVelocity:
