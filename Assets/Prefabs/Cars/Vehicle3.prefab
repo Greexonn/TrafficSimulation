@@ -289,6 +289,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wheel_BR
       objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: _suspension.springStrength
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: _suspension.damperStrength
+      value: 2000
+      objectReference: {fileID: 0}
     - target: {fileID: 4005545419133638311, guid: 4a72d9c7c30ef9848b9fb347527479bc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -391,6 +401,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Wheel_FL
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: _suspension.springStrength
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: _suspension.damperStrength
+      value: 2000
       objectReference: {fileID: 0}
     - target: {fileID: 4005545419133638311, guid: 4a72d9c7c30ef9848b9fb347527479bc,
         type: 3}
@@ -495,6 +515,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wheel_BL
       objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: _suspension.springStrength
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: _suspension.damperStrength
+      value: 2000
+      objectReference: {fileID: 0}
     - target: {fileID: 4005545419133638311, guid: 4a72d9c7c30ef9848b9fb347527479bc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -597,6 +627,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Wheel_FR
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: _suspension.springStrength
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: _suspension.damperStrength
+      value: 2000
       objectReference: {fileID: 0}
     - target: {fileID: 4005545419133638311, guid: 4a72d9c7c30ef9848b9fb347527479bc,
         type: 3}

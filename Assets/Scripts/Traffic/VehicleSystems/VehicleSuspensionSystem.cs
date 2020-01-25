@@ -74,18 +74,24 @@ public class VehicleSuspensionSystem : ComponentSystem
                     }
                     #endregion
 
+                    float _delta = math.abs(math.length(_wheelPos - _wheelComponent.wheelPosition));
+
                     #region suspension
                     {
                         //get spring compression'
                         float _suspensionCurrentLength = math.length(_wheelPos - _suspensionTop);
                         float _compression = 1.0f - (_suspensionCurrentLength / _suspensionComponent.suspensionLength);
 
-                        var _impulse = _dirUp * _compression * _suspensionComponent.springStrength;
+                        var _impulse = _dirUp * (_compression * _suspensionComponent.springStrength - (_suspensionComponent.damperStrength * _delta));
 
                         _physicsWorld.ApplyImpulse(_vehicleRBIndex, _impulse, _suspensionTop);
                         _physicsWorld.ApplyImpulse(_hit.RigidBodyIndex, -_impulse, _hit.Position);
                     }
                     #endregion
+
+                    //set new wheel psosition
+                    _wheelComponent.wheelPosition = _wheelPos;
+                    _manager.SetComponentData<WheelComponent>(wheel, _wheelComponent);
                 }
                 else
                 {

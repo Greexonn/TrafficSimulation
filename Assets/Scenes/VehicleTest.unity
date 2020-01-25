@@ -202,7 +202,7 @@ PrefabInstance:
     - target: {fileID: 6377361187116278779, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.47
+      value: 0.76
       objectReference: {fileID: 0}
     - target: {fileID: 6377361187116278779, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
         type: 3}
@@ -273,26 +273,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SphereRadius
       value: 2.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8004724338484280101, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
-        type: 3}
-      propertyPath: _suspension.springStrength
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 8004724338927168535, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
-        type: 3}
-      propertyPath: _suspension.springStrength
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 8004724339253598232, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
-        type: 3}
-      propertyPath: _suspension.springStrength
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 8004724340176022005, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
-        type: 3}
-      propertyPath: _suspension.springStrength
-      value: 200
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3fdc7dd6a5b1a84ea0495aaf798043e, type: 3}

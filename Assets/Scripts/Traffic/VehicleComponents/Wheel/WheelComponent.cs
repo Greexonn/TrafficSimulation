@@ -15,4 +15,5 @@ public struct WheelComponent : IComponentData
     public float maxForwardFriction;
     
     public Entity wheelModel;
+    [HideInInspector] public float3 wheelPosition;
 }
