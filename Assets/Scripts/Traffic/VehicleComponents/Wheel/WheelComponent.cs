@@ -15,5 +15,4 @@ public struct WheelComponent : IComponentData
     public float maxForwardFriction;
     
     public Entity wheelModel;
-    public Entity vehiclePhysicsBody;
 }

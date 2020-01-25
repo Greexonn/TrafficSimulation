@@ -3,8 +3,8 @@ using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 
-[Serializable]
-public struct VehicleEngineComponent : ISharedComponentData
+[GenerateAuthoringComponent]
+public struct VehicleEngineComponent : IComponentData
 {
     public int maxSpeed;
     public float acceleration;

@@ -61,7 +61,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wheel:
-    radius: 0.03
+    radius: 0.3
     sideFriction: 0.4
     forwardFriction: 0.3
     maxSideFriction: 2.5
@@ -79,11 +79,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _suspension:
-    suspensionLength: 0.015
-    wheelPosition: 0.5
+    suspensionLength: 0.15
     springStrength: 2000
     damperStrength: 200
   wheelModel: {fileID: 8281058242198525454}
+  _wheelPos: 1
 --- !u!114 &4005545419133638315
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -9,6 +9,7 @@ public class SuspensionAuthoring : MonoBehaviour, IConvertGameObjectToEntity
 {
     [SerializeField] private SuspensionComponent _suspension;
     [SerializeField] public Transform wheelModel;
+    [SerializeField] [Range(0, 1)] private float _wheelPos;
 
     private WheelAuthoring _wheel;
 
@@ -21,8 +22,8 @@ public class SuspensionAuthoring : MonoBehaviour, IConvertGameObjectToEntity
     void OnDrawGizmos()
     {
         //draw suspension line
-        Vector3 _fromPos = transform.position - (transform.up * _suspension.suspensionLength / 2);
-        Vector3 _toPos = transform.position + (transform.up * _suspension.suspensionLength / 2);
+        Vector3 _fromPos = transform.position;
+        Vector3 _toPos = _fromPos - (transform.up * _suspension.suspensionLength);
         Gizmos.color = Color.green;
         Gizmos.DrawLine(_fromPos, _toPos);
         //draw suspension ends
@@ -34,7 +35,7 @@ public class SuspensionAuthoring : MonoBehaviour, IConvertGameObjectToEntity
         _toEnd = _toPos + (transform.right * _suspension.suspensionLength / 10);
         Gizmos.DrawLine(_fromEnd, _toEnd);
         //place model in pos
-        Vector3 _wheelCenter = Vector3.Lerp(_fromPos, _toPos, _suspension.wheelPosition);
+        Vector3 _wheelCenter = Vector3.Lerp(_fromPos, _toPos, _wheelPos);
         Gizmos.DrawWireSphere(_wheelCenter, (_suspension.suspensionLength / 20));
         if (wheelModel != null)
         {

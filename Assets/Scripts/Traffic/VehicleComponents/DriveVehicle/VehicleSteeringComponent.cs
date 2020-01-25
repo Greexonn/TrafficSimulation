@@ -3,8 +3,8 @@ using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 
-[Serializable]
-public struct VehicleSteeringComponent : ISharedComponentData
+[GenerateAuthoringComponent]
+public struct VehicleSteeringComponent : IComponentData
 {
     public float currentAngle;
     public float maxAngle;

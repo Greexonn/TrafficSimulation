@@ -24,16 +24,17 @@ public class WheelUpdateSystem : ComponentSystem
 
     protected override void OnUpdate()
     {
+        return;
         _buildPhysicsWorldSystem.FinalJobHandle.Complete();
 
         PhysicsWorld _physicsWorld = _buildPhysicsWorldSystem.PhysicsWorld;
 
         Entities.ForEach((Entity wheelEntity, ref WheelComponent wheel, ref SuspensionComponent suspension, ref LocalToWorld localToWorld) =>
         {
-            int _vehicleRBIndex = _physicsWorld.GetRigidBodyIndex(wheel.vehiclePhysicsBody);
+            int _vehicleRBIndex = _physicsWorld.GetRigidBodyIndex(wheelEntity);
             if (_vehicleRBIndex == -1 || _vehicleRBIndex >= _physicsWorld.NumDynamicBodies)
                 return;
-            
+
             var _suspensionCenter = localToWorld.Position;
             var _wheelModelTransforms = _manager.GetComponentData<LocalToWorld>(wheel.wheelModel);
             var _currentWheelPos = _wheelModelTransforms.Position;
@@ -45,15 +46,15 @@ public class WheelUpdateSystem : ComponentSystem
             CollisionFilter _filter = _physicsWorld.GetCollisionFilter(_vehicleRBIndex);
             RaycastInput _raycastInput = new RaycastInput
             {
-                Start = (_suspensionCenter + (_dirUp * suspension.suspensionLength / 2)),
-                End = (_suspensionCenter - (_dirUp * (wheel.radius + suspension.suspensionLength / 2))),
+                Start = _suspensionCenter,
+                End = (_suspensionCenter - (_dirUp * (wheel.radius + suspension.suspensionLength))),
                 Filter = _filter
             };
             RaycastHit _hit;
 
             if (_physicsWorld.CastRay(_raycastInput, out _hit))
             {
-                var _vehiclePos = _manager.GetComponentData<LocalToWorld>(wheel.vehiclePhysicsBody).Position;
+                var _vehiclePos = _manager.GetComponentData<LocalToWorld>(wheelEntity).Position;
                 var _vehicleCenterOfMass = _physicsWorld.GetCenterOfMass(_vehicleRBIndex);
 
                 //calculate velocity at wheel
@@ -86,8 +87,8 @@ public class WheelUpdateSystem : ComponentSystem
                     float _downForceLimit = -0.25f;
                     if (_downForceLimit < _impulseUp)
                     {
-                        _impulse = _impulseUp * _dirUp;
-                        _impulse *= _physicsWorld.GetEffectiveMass(_vehicleRBIndex, _dirUp, _suspensionCenter) * 0.6f;
+                        _impulse = _impulseUp * _dirUp / 4;
+                        //_impulse *= _physicsWorld.GetEffectiveMass(_vehicleRBIndex, _dirUp, _suspensionCenter) * 0.6f;
 
                         _physicsWorld.ApplyImpulse(_vehicleRBIndex, _impulse, _suspensionCenter);
 
@@ -109,13 +110,13 @@ public class WheelUpdateSystem : ComponentSystem
 
                     var _impulse = _deltaSpeedRight * _dirRight;
                     float _effectiveMass = _physicsWorld.GetEffectiveMass(_vehicleRBIndex, _impulse, _hit.Position);
-                    _impulse *= _effectiveMass;
+                    _impulse *= _effectiveMass / 4;
 
                     _physicsWorld.ApplyImpulse(_vehicleRBIndex, _impulse, _hit.Position);
                     _physicsWorld.ApplyImpulse(_hit.RigidBodyIndex, -_impulse, _hit.Position);
 
                     //debug
-                    Debug.Log(_currentSpeedRight);
+                    //Debug.Log(_currentSpeedRight);
                     Debug.DrawRay(_suspensionCenter, _impulse, Color.red);
                 }
                 #endregion

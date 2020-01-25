@@ -11,7 +11,6 @@ public class WheelAuthoring : MonoBehaviour, IConvertGameObjectToEntity
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
         wheel.wheelModel = conversionSystem.GetPrimaryEntity(GetComponent<SuspensionAuthoring>().wheelModel);
-        wheel.vehiclePhysicsBody = conversionSystem.GetPrimaryEntity(GetComponentInParent<Unity.Physics.Authoring.PhysicsBodyAuthoring>().gameObject);
 
         dstManager.AddComponentData<WheelComponent>(entity, wheel);
     }

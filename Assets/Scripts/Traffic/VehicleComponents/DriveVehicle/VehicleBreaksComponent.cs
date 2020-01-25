@@ -3,8 +3,8 @@ using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 
-[Serializable]
-public struct VehicleBreaksComponent : ISharedComponentData
+[GenerateAuthoringComponent]
+public struct VehicleBreaksComponent : IComponentData
 {
     public float breaksUsage;
 }
