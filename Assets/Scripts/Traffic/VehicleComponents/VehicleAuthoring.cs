@@ -9,7 +9,7 @@ public class VehicleAuthoring : MonoBehaviour, IConvertGameObjectToEntity
 {
     [SerializeField] public List<WheelAuthoring> driveWheels;
     [SerializeField] public List<WheelAuthoring> steeringWheels;
-    [SerializeField] public List<WheelAuthoring> brakeWheels;
+    [SerializeField] public List<WheelAuthoring> breakWheels;
 
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {

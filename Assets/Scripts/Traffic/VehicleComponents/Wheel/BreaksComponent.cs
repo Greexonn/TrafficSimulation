@@ -4,5 +4,7 @@ using Unity.Entities;
 using Unity.Mathematics;
 
 [GenerateAuthoringComponent]
-public struct BrakesComponent : IComponentData
-{}
+public struct BreaksComponent : IComponentData
+{
+    public float maxBreakForce;
+}
