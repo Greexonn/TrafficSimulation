@@ -481,7 +481,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _suspension:
-    suspensionLength: 0.04
+    suspensionLength: 0.03
     wheelPosition: 0.5
     springStrength: 2
     damperStrength: 2
