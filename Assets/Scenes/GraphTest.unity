@@ -415,6 +415,7 @@ GameObject:
   - component: {fileID: 530058773}
   - component: {fileID: 530058774}
   - component: {fileID: 530058775}
+  - component: {fileID: 530058776}
   m_Layer: 0
   m_Name: Wheel
   m_TagString: Untagged
@@ -464,10 +465,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wheel:
     wheelRadius: 0.02
-    sideFriction: 0
-    forwardFriction: 0
-    maxSideFriction: 0
-    maxForwardFriction: 0
+    sideFriction: 0.4
+    forwardFriction: 0.3
+    maxSideFriction: 2
+    maxForwardFriction: 2
 --- !u!114 &530058775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -486,6 +487,19 @@ MonoBehaviour:
     springStrength: 2
     damperStrength: 2
   _wheelModel: {fileID: 5006512735487200957}
+--- !u!114 &530058776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 530058771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3eb60ee2db9590f4c9e99475b6199cf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  breakForce: 10
 --- !u!1 &640959618 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3110032833073635939, guid: 40c1475c09f82ec4296f29ec2b323e3b,
