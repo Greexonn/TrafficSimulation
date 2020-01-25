@@ -38,8 +38,8 @@ public class WheelUpdateSystem : ComponentSystem
             var _wheelModelTransforms = _manager.GetComponentData<LocalToWorld>(wheel.wheelModel);
             var _currentWheelPos = _wheelModelTransforms.Position;
             var _dirUp = localToWorld.Up;
-            var _dirForward = localToWorld.Forward;
-            var _dirRight = localToWorld.Right;
+            var _dirForward = localToWorld.Right;
+            var _dirRight = localToWorld.Forward;
 
             //cast ray
             CollisionFilter _filter = _physicsWorld.GetCollisionFilter(_vehicleRBIndex);
@@ -59,9 +59,6 @@ public class WheelUpdateSystem : ComponentSystem
                 //calculate velocity at wheel
                 var _wheelPos = _hit.Position - (_vehiclePos - _vehicleCenterOfMass);
                 var _velocityAtWheel = _physicsWorld.GetLinearVelocity(_vehicleRBIndex, _wheelPos);
-
-                //calculate slip factor
-                float _slopeSlipFactor = math.pow(math.abs(math.dot(_dirUp, math.up())), 4.0f);
 
                 //apply volocity changes
                 float _currentSpeedUp = math.dot(_velocityAtWheel, _dirUp);
@@ -95,8 +92,31 @@ public class WheelUpdateSystem : ComponentSystem
                         _physicsWorld.ApplyImpulse(_vehicleRBIndex, _impulse, _suspensionCenter);
 
                         //debug
-                        Debug.DrawRay(_suspensionCenter, _impulse, Color.red);
+                        //Debug.DrawRay(_suspensionCenter, _impulse, Color.red);
                     }
+                }
+                #endregion
+
+                #region sideways friction
+                {
+                    //calculate slip factor
+                    float _slopeSlipFactor = math.pow(math.abs(math.dot(_dirUp, math.up())), 4.0f);
+
+                    float _deltaSpeedRight = -_currentSpeedRight;
+                    _deltaSpeedRight = math.clamp(_deltaSpeedRight, -wheel.maxSideFriction, wheel.maxSideFriction);
+                    _deltaSpeedRight *= wheel.sideFriction;
+                    _deltaSpeedRight *= _slopeSlipFactor;
+
+                    var _impulse = _deltaSpeedRight * _dirRight;
+                    float _effectiveMass = _physicsWorld.GetEffectiveMass(_vehicleRBIndex, _impulse, _hit.Position);
+                    _impulse *= _effectiveMass;
+
+                    _physicsWorld.ApplyImpulse(_vehicleRBIndex, _impulse, _hit.Position);
+                    _physicsWorld.ApplyImpulse(_hit.RigidBodyIndex, -_impulse, _hit.Position);
+
+                    //debug
+                    Debug.Log(_currentSpeedRight);
+                    Debug.DrawRay(_suspensionCenter, _impulse, Color.red);
                 }
                 #endregion
 

@@ -64,7 +64,7 @@ MonoBehaviour:
     radius: 0.03
     sideFriction: 0.4
     forwardFriction: 0.3
-    maxSideFriction: 2
+    maxSideFriction: 2.5
     maxForwardFriction: 2
 --- !u!114 &4005545419133638308
 MonoBehaviour:
