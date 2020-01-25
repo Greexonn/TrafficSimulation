@@ -5,6 +5,4 @@ using Unity.Mathematics;
 
 [GenerateAuthoringComponent]
 public struct BrakesComponent : IComponentData
-{
-    public float breakForce;
-}
+{}
