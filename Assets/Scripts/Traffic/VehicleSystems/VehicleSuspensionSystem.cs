@@ -58,7 +58,7 @@ public class VehicleSuspensionSystem : ComponentSystem
                 RaycastInput _raycastInput = new RaycastInput
                 {
                     Start = _suspensionTop,
-                    End = (_suspensionTop - (_dirUp * (_wheelComponent.radius + _suspensionComponent.suspensionLength))),
+                    End = (_suspensionTop - (_dirUp * _wheelComponent.radius) + _wheelTranslation.Value),
                     Filter = _filter
                 };
                 RaycastHit _hit;
@@ -72,12 +72,14 @@ public class VehicleSuspensionSystem : ComponentSystem
                         float _fraction = _hit.Fraction - (_wheelComponent.radius / (_suspensionComponent.suspensionLength + _wheelComponent.radius));
                         _wheelPos = math.lerp(_raycastInput.Start, (_raycastInput.End + _wheelComponent.radius), _fraction);
                         var _wheelLocalPos = _wheelPos - _suspensionTop;
+                        _wheelTranslation.Value = float3.zero;
                         _wheelTranslation.Value.y = _wheelLocalPos.y;
                         _manager.SetComponentData<Translation>(_wheelComponent.wheelModel, _wheelTranslation);
                         _wheelPos = _wheelTranslation.Value + _suspensionTop;
                     }
                     #endregion
 
+                    //wheel transidion along the y axis
                     float _delta = math.abs(math.length(_wheelPos - _wheelComponent.wheelPosition));
 
                     #region suspension
@@ -86,7 +88,8 @@ public class VehicleSuspensionSystem : ComponentSystem
                         float _suspensionCurrentLength = math.length(_wheelPos - _suspensionTop);
                         float _compression = 1.0f - (_suspensionCurrentLength / _suspensionComponent.suspensionLength);
 
-                        var _impulse = _dirUp * (_compression * _suspensionComponent.springStrength - (_suspensionComponent.damperStrength * _delta));
+                        var _impulse = _dirUp * (_compression * _suspensionComponent.springStrength);
+                        _impulse *= Time.DeltaTime * 10;
 
                         _physicsWorld.ApplyImpulse(_vehicleRBIndex, _impulse, _suspensionTop);
                         _physicsWorld.ApplyImpulse(_hit.RigidBodyIndex, -_impulse, _hit.Position);
@@ -108,7 +111,7 @@ public class VehicleSuspensionSystem : ComponentSystem
                         var _maxImpulse = _wheelRight * _wheelComponent.maxSideFriction;
                         var _impulse = _deltaSpeedRight * _wheelRight;
                         _impulse *= _physicsWorld.GetEffectiveMass(_vehicleRBIndex, _impulse, _hit.Position);
-                        _impulse = math.clamp(_impulse, -_maxImpulse, _maxImpulse);
+                        _impulse = math.clamp(_impulse, -_maxImpulse, _maxImpulse) / 4;
 
                         _physicsWorld.ApplyImpulse(_vehicleRBIndex, _impulse, _wheelPos);
                         _physicsWorld.ApplyImpulse(_vehicleRBIndex, -_impulse, _hit.Position);
@@ -124,7 +127,7 @@ public class VehicleSuspensionSystem : ComponentSystem
                 }
                 else
                 {
-                    var _wheelLocalPos = -_dirUp * _suspensionComponent.suspensionLength;
+                    var _wheelLocalPos = math.lerp(_wheelTranslation.Value, -_dirUp * _suspensionComponent.suspensionLength, _suspensionComponent.damperStrength / _suspensionComponent.springStrength * Time.DeltaTime * 100);
                     _manager.SetComponentData<Translation>(_wheelComponent.wheelModel, new Translation { Value = _wheelLocalPos });
                 }
             }
