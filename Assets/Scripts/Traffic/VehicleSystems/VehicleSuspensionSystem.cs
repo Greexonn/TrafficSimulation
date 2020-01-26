@@ -51,14 +51,13 @@ public class VehicleSuspensionSystem : ComponentSystem
                 var _wheelRoot = _manager.GetComponentData<LocalToWorld>(wheel);
                 var _suspensionTop = _wheelRoot.Position;
                 var _wheelRight = _wheelRoot.Forward;
-                var _wheelTranslation = _manager.GetComponentData<Translation>(_wheelComponent.wheelModel);
 
                 //cast ray
                 CollisionFilter _filter = _physicsWorld.GetCollisionFilter(_vehicleRBIndex);
                 RaycastInput _raycastInput = new RaycastInput
                 {
                     Start = _suspensionTop,
-                    End = (_suspensionTop - (_dirUp * _wheelComponent.radius) + _wheelTranslation.Value),
+                    End = (_suspensionTop - (_dirUp * (_wheelComponent.radius + _suspensionComponent.suspensionLength))),
                     Filter = _filter
                 };
                 RaycastHit _hit;
@@ -67,35 +66,32 @@ public class VehicleSuspensionSystem : ComponentSystem
                 {
                     float3 _wheelPos;
 
+                    //debug
+                    Debug.DrawLine(_raycastInput.Start, _raycastInput.End, Color.green);
+
                     #region set wheel position
                     {
-                        float _fraction = _hit.Fraction - (_wheelComponent.radius / (_suspensionComponent.suspensionLength + _wheelComponent.radius));
-                        _wheelPos = math.lerp(_raycastInput.Start, (_raycastInput.End + _wheelComponent.radius), _fraction);
+                        _wheelPos = _hit.Position + _dirUp * _wheelComponent.radius;
                         var _wheelLocalPos = _wheelPos - _suspensionTop;
-                        _wheelTranslation.Value = float3.zero;
-                        _wheelTranslation.Value.y = _wheelLocalPos.y;
-                        _manager.SetComponentData<Translation>(_wheelComponent.wheelModel, _wheelTranslation);
-                        _wheelPos = _wheelTranslation.Value + _suspensionTop;
+                        _manager.SetComponentData<Translation>(_wheelComponent.wheelModel, new Translation { Value = _wheelLocalPos });
                     }
                     #endregion
 
-                    //wheel transidion along the y axis
-                    float _delta = math.abs(math.length(_wheelPos - _wheelComponent.wheelPosition));
-
                     #region suspension
                     {
+                        //get vehicle up speed
+                        var _vehicleUpAtWheel = _physicsWorld.GetLinearVelocity(_vehicleRBIndex, _suspensionTop);
+                        float _speedUp = math.dot(_vehicleUpAtWheel, _dirUp);
                         //get spring compression'
                         float _suspensionCurrentLength = math.length(_wheelPos - _suspensionTop);
+
                         float _compression = 1.0f - (_suspensionCurrentLength / _suspensionComponent.suspensionLength);
 
-                        var _impulse = _dirUp * (_compression * _suspensionComponent.springStrength);
+                        var _impulse = _dirUp * (_compression * _suspensionComponent.springStrength - _suspensionComponent.damperStrength * _speedUp);
                         _impulse *= Time.DeltaTime * 10;
 
                         _physicsWorld.ApplyImpulse(_vehicleRBIndex, _impulse, _suspensionTop);
                         _physicsWorld.ApplyImpulse(_hit.RigidBodyIndex, -_impulse, _hit.Position);
-
-                        //debug
-                        Debug.DrawRay(_wheelPos, _impulse);
                     }
                     #endregion
 
@@ -127,8 +123,19 @@ public class VehicleSuspensionSystem : ComponentSystem
                 }
                 else
                 {
-                    var _wheelLocalPos = math.lerp(_wheelTranslation.Value, -_dirUp * _suspensionComponent.suspensionLength, _suspensionComponent.damperStrength / _suspensionComponent.springStrength * Time.DeltaTime * 100);
+                    var _wheelDesiredPos = _suspensionTop - _dirUp * _suspensionComponent.suspensionLength;
+                    float _height = math.dot((_wheelComponent.wheelPosition - _suspensionTop), (_wheelDesiredPos - _suspensionTop));
+                    float _fraction = _suspensionComponent.suspensionLength / _height;
+                    _fraction += (_suspensionComponent.damperStrength / _suspensionComponent.springStrength * Time.DeltaTime * 100);
+                    _fraction = math.clamp(_fraction, 0, 1);
+                    var _wheelPos = math.lerp(_suspensionTop, _wheelDesiredPos, _fraction);
+                    var _wheelLocalPos = _wheelPos - _suspensionTop;
                     _manager.SetComponentData<Translation>(_wheelComponent.wheelModel, new Translation { Value = _wheelLocalPos });
+
+                    //set new wheel psosition
+                    _wheelComponent.wheelPosition = _wheelPos;
+                    _manager.SetComponentData<WheelComponent>(wheel, _wheelComponent);
+
                 }
             }
 

@@ -189,11 +189,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6377361187116278726, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
-        type: 3}
-      propertyPath: m_Mass
-      value: 500
-      objectReference: {fileID: 0}
     - target: {fileID: 6377361187116278777, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
         type: 3}
       propertyPath: m_Name
@@ -299,6 +294,11 @@ PrefabInstance:
       propertyPath: _wheelPos
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8004724338484280101, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
+        type: 3}
+      propertyPath: _suspension.suspensionLength
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 8004724338927168534, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
         type: 3}
       propertyPath: wheel.maxSideFriction
@@ -319,6 +319,11 @@ PrefabInstance:
       propertyPath: _wheelPos
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8004724338927168535, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
+        type: 3}
+      propertyPath: _suspension.suspensionLength
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 8004724339253598232, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
         type: 3}
       propertyPath: _suspension.damperStrength
@@ -333,6 +338,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _wheelPos
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8004724339253598232, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
+        type: 3}
+      propertyPath: _suspension.suspensionLength
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8004724339253598233, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
         type: 3}
@@ -358,6 +368,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _wheelPos
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8004724340176022005, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
+        type: 3}
+      propertyPath: _suspension.suspensionLength
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3fdc7dd6a5b1a84ea0495aaf798043e, type: 3}
@@ -541,14 +556,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1403133414}
-  m_LocalRotation: {x: 0, y: 0, z: -0.022600135, w: 0.9997446}
+  m_LocalRotation: {x: 0, y: 0, z: -0.01745245, w: 0.99984777}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 1464721337}
   m_Father: {fileID: 0}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -2.59}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -2}
 --- !u!114 &1403133419
 MonoBehaviour:
   m_ObjectHideFlags: 0
