@@ -40,8 +40,8 @@ public class VehicleSuspensionSystem : ComponentSystem
 
             var _vehicleTransforms = _manager.GetComponentData<LocalToWorld>(vehicleEntity);
             var _dirUp = _vehicleTransforms.Up;
-            var _dirForward = _vehicleTransforms.Forward;
-            var _dirRight = _vehicleTransforms.Right;
+            var _dirForward = _vehicleTransforms.Right;
+            var _dirRight = _vehicleTransforms.Forward;
 
             foreach (var wheel in _wheelArray)
             {
@@ -50,6 +50,8 @@ public class VehicleSuspensionSystem : ComponentSystem
 
                 var _wheelRoot = _manager.GetComponentData<LocalToWorld>(wheel);
                 var _suspensionTop = _wheelRoot.Position;
+                var _wheelRight = _wheelRoot.Forward;
+                var _wheelTranslation = _manager.GetComponentData<Translation>(_wheelComponent.wheelModel);
 
                 //cast ray
                 CollisionFilter _filter = _physicsWorld.GetCollisionFilter(_vehicleRBIndex);
@@ -70,7 +72,9 @@ public class VehicleSuspensionSystem : ComponentSystem
                         float _fraction = _hit.Fraction - (_wheelComponent.radius / (_suspensionComponent.suspensionLength + _wheelComponent.radius));
                         _wheelPos = math.lerp(_raycastInput.Start, (_raycastInput.End + _wheelComponent.radius), _fraction);
                         var _wheelLocalPos = _wheelPos - _suspensionTop;
-                        _manager.SetComponentData<Translation>(_wheelComponent.wheelModel, new Translation { Value = _wheelLocalPos });
+                        _wheelTranslation.Value.y = _wheelLocalPos.y;
+                        _manager.SetComponentData<Translation>(_wheelComponent.wheelModel, _wheelTranslation);
+                        _wheelPos = _wheelTranslation.Value + _suspensionTop;
                     }
                     #endregion
 
@@ -86,6 +90,31 @@ public class VehicleSuspensionSystem : ComponentSystem
 
                         _physicsWorld.ApplyImpulse(_vehicleRBIndex, _impulse, _suspensionTop);
                         _physicsWorld.ApplyImpulse(_hit.RigidBodyIndex, -_impulse, _hit.Position);
+
+                        //debug
+                        Debug.DrawRay(_wheelPos, _impulse);
+                    }
+                    #endregion
+
+                    #region sideways friction
+                    {
+                        var _velocityAtWheel = _physicsWorld.GetLinearVelocity(_vehicleRBIndex, _hit.Position);
+
+                        float _currentSpeedRight = math.dot(_velocityAtWheel, _wheelRight);
+
+                        float _deltaSpeedRight = -_currentSpeedRight;
+                        _deltaSpeedRight *= _wheelComponent.sideFriction;
+
+                        var _maxImpulse = _wheelRight * _wheelComponent.maxSideFriction;
+                        var _impulse = _deltaSpeedRight * _wheelRight;
+                        _impulse *= _physicsWorld.GetEffectiveMass(_vehicleRBIndex, _impulse, _hit.Position);
+                        _impulse = math.clamp(_impulse, -_maxImpulse, _maxImpulse);
+
+                        _physicsWorld.ApplyImpulse(_vehicleRBIndex, _impulse, _wheelPos);
+                        _physicsWorld.ApplyImpulse(_vehicleRBIndex, -_impulse, _hit.Position);
+
+                        //debug
+                        Debug.DrawRay(_wheelPos, _impulse, Color.red);
                     }
                     #endregion
 
