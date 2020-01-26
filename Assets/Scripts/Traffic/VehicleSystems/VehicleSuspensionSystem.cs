@@ -107,10 +107,10 @@ public class VehicleSuspensionSystem : ComponentSystem
                         var _maxImpulse = _wheelRight * _wheelComponent.maxSideFriction;
                         var _impulse = _deltaSpeedRight * _wheelRight;
                         _impulse *= _physicsWorld.GetEffectiveMass(_vehicleRBIndex, _impulse, _hit.Position);
-                        _impulse = math.clamp(_impulse, -_maxImpulse, _maxImpulse) / 4;
+                        _impulse = math.clamp(_impulse, -_maxImpulse, _maxImpulse);
 
-                        _physicsWorld.ApplyImpulse(_vehicleRBIndex, _impulse, _wheelPos);
-                        _physicsWorld.ApplyImpulse(_vehicleRBIndex, -_impulse, _hit.Position);
+                        _physicsWorld.ApplyImpulse(_vehicleRBIndex, _impulse, _hit.Position);
+                        _physicsWorld.ApplyImpulse(_hit.RigidBodyIndex, -_impulse, _hit.Position);
 
                         //debug
                         Debug.DrawRay(_wheelPos, _impulse, Color.red);
