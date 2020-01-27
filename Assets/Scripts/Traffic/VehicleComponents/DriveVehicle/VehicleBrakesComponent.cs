@@ -6,5 +6,5 @@ using Unity.Mathematics;
 [GenerateAuthoringComponent]
 public struct VehicleBrakesComponent : IComponentData
 {
-    [UnityEngine.HideInInspector] public float brakesUsage;
+    [UnityEngine.HideInInspector] public int brakesUsage;
 }

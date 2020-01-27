@@ -242,7 +242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d77297749a63db54d9c43c0f43930060, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  breaksUsage: 0
+  brakesUsage: 0
 --- !u!1 &6377361188168603798
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,7 +297,17 @@ PrefabInstance:
     - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
         type: 3}
       propertyPath: _suspension.damperStrength
-      value: 2000
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: _wheelPos
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638309, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: wheel.maxSideFriction
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 4005545419133638311, guid: 4a72d9c7c30ef9848b9fb347527479bc,
         type: 3}
@@ -410,7 +420,17 @@ PrefabInstance:
     - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
         type: 3}
       propertyPath: _suspension.damperStrength
-      value: 2000
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: _wheelPos
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638309, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: wheel.maxSideFriction
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 4005545419133638311, guid: 4a72d9c7c30ef9848b9fb347527479bc,
         type: 3}
@@ -523,7 +543,17 @@ PrefabInstance:
     - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
         type: 3}
       propertyPath: _suspension.damperStrength
-      value: 2000
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: _wheelPos
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638309, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: wheel.maxSideFriction
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 4005545419133638311, guid: 4a72d9c7c30ef9848b9fb347527479bc,
         type: 3}
@@ -636,7 +666,17 @@ PrefabInstance:
     - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
         type: 3}
       propertyPath: _suspension.damperStrength
-      value: 2000
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: _wheelPos
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638309, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: wheel.maxSideFriction
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 4005545419133638311, guid: 4a72d9c7c30ef9848b9fb347527479bc,
         type: 3}

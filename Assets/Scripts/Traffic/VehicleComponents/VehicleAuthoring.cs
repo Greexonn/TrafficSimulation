@@ -20,12 +20,12 @@ public class VehicleAuthoring : MonoBehaviour, IConvertGameObjectToEntity
         dstManager.AddBuffer<IWheelBufferComponent>(entity);
         dstManager.AddBuffer<IDriveWheelBufferComponent>(entity);
         dstManager.AddBuffer<IControlWheelBufferComponent>(entity);
-        dstManager.AddBuffer<IBreakWheelBufferComponent>(entity);
+        dstManager.AddBuffer<IBrakeWheelBufferComponent>(entity);
         //get buffers
         var _wheelBuffer = dstManager.GetBuffer<IWheelBufferComponent>(entity);
         var _driveWheelBuffer = dstManager.GetBuffer<IDriveWheelBufferComponent>(entity);
         var _controlWheelBuffer = dstManager.GetBuffer<IControlWheelBufferComponent>(entity);
-        var _breakWheelBuffer = dstManager.GetBuffer<IBreakWheelBufferComponent>(entity);
+        var _breakWheelBuffer = dstManager.GetBuffer<IBrakeWheelBufferComponent>(entity);
         //fill buffers
         foreach (var wheel in _wheels)
         {
@@ -33,15 +33,15 @@ public class VehicleAuthoring : MonoBehaviour, IConvertGameObjectToEntity
         }
         foreach (var wheel in _driveWheels)
         {
-            _driveWheelBuffer.Add(new IDriveWheelBufferComponent { wheel = conversionSystem.GetPrimaryEntity(wheel) });
+            _driveWheelBuffer.Add(new IDriveWheelBufferComponent { wheelID = _wheels.IndexOf(wheel) });
         }
         foreach (var wheel in _controlWheels)
         {
-            _controlWheelBuffer.Add(new IControlWheelBufferComponent { wheel = conversionSystem.GetPrimaryEntity(wheel) });
+            _controlWheelBuffer.Add(new IControlWheelBufferComponent { wheelID = _wheels.IndexOf(wheel) });
         }
         foreach (var wheel in _breakWheels)
         {
-            _breakWheelBuffer.Add(new IBreakWheelBufferComponent { wheel = conversionSystem.GetPrimaryEntity(wheel) });
+            _breakWheelBuffer.Add(new IBrakeWheelBufferComponent { wheelID = _wheels.IndexOf(wheel) });
         }
     }
 }

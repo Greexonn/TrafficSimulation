@@ -34,9 +34,14 @@ public class VehicleSuspensionSystem : ComponentSystem
             if (_vehicleRBIndex == -1 || _vehicleRBIndex >= _physicsWorld.NumDynamicBodies)
                 return;
 
-            var _wheelElementBuffer = _manager.GetBuffer<IWheelBufferComponent>(vehicleEntity);
-            var _wheelBuffer = _wheelElementBuffer.Reinterpret<Entity>();
-            var _wheelArray = _wheelBuffer.AsNativeArray();
+            //get wheels buffer
+            var _wheelArray = _manager.GetBuffer<IWheelBufferComponent>(vehicleEntity).Reinterpret<Entity>().AsNativeArray();
+            //get drive wheels ids
+            var _driveIdsArray = _manager.GetBuffer<IDriveWheelBufferComponent>(vehicleEntity).Reinterpret<int>().AsNativeArray();
+            //get control wheels ids
+            var _controlIdsArray = _manager.GetBuffer<IControlWheelBufferComponent>(vehicleEntity).Reinterpret<int>().AsNativeArray();
+            //get brake wheels ids
+            var _brakeIdsArray = _manager.GetBuffer<IBrakeWheelBufferComponent>(vehicleEntity).Reinterpret<int>().AsNativeArray();
 
             var _vehicleTransforms = _manager.GetComponentData<LocalToWorld>(vehicleEntity);
             var _dirUp = _vehicleTransforms.Up;
@@ -49,14 +54,17 @@ public class VehicleSuspensionSystem : ComponentSystem
             //    _physicsWorld.SetLinearVelocity(_vehicleRBIndex, float3.zero);
             //}
 
-            foreach (var wheel in _wheelArray)
+            for (int i = 0; i < _wheelArray.Length; i++)
             {
-                var _wheelComponent = _manager.GetComponentData<WheelComponent>(wheel);
-                var _suspensionComponent = _manager.GetComponentData<SuspensionComponent>(wheel);
+                var _wheel = _wheelArray[i];
 
-                var _wheelRoot = _manager.GetComponentData<LocalToWorld>(wheel);
+                var _wheelComponent = _manager.GetComponentData<WheelComponent>(_wheel);
+                var _suspensionComponent = _manager.GetComponentData<SuspensionComponent>(_wheel);
+
+                var _wheelRoot = _manager.GetComponentData<LocalToWorld>(_wheel);
                 var _suspensionTop = _wheelRoot.Position;
                 var _wheelRight = _wheelRoot.Forward;
+                var _wheelForward = _wheelRoot.Right;
 
                 //cast ray
                 CollisionFilter _filter = _physicsWorld.GetCollisionFilter(_vehicleRBIndex);
@@ -137,9 +145,36 @@ public class VehicleSuspensionSystem : ComponentSystem
                     }
                     #endregion
 
+                    #region breaks
+                    {
+                        //if current wheel is brake wheel
+                        if (_brakeIdsArray.Contains(i))
+                        {
+                            var _velocityForward = math.dot(_velocityAtWheel, _wheelForward);
+
+                            //debug
+                            Debug.DrawRay(_wheelPos, _wheelForward * _velocityForward, Color.white);
+
+                            float _impulseValue = -_velocityForward * _wheelComponent.forwardFriction;
+                            var _impulse = _wheelForward * _impulseValue;
+                            float _effectiveMass = _physicsWorld.GetEffectiveMass(_vehicleRBIndex, _impulse, _hit.Position);
+                            _impulseValue *= _effectiveMass * brakes.brakesUsage / 100;
+                            _impulseValue = math.clamp(_impulseValue, -_wheelComponent.maxForwardFriction, _wheelComponent.maxForwardFriction);
+
+                            _impulse = _wheelForward * _impulseValue;
+
+                            _physicsWorld.ApplyImpulse(_vehicleRBIndex, _impulse, _hit.Position);
+                            _physicsWorld.ApplyImpulse(_hit.RigidBodyIndex, -_impulse, _hit.Position);
+
+                            //debug
+                            Debug.DrawRay(_wheelPos, _impulse, Color.red);
+                        }
+                    }
+                    #endregion
+
                     //set new wheel psosition
                     _wheelComponent.wheelPosition = _wheelPos;
-                    _manager.SetComponentData<WheelComponent>(wheel, _wheelComponent);
+                    _manager.SetComponentData<WheelComponent>(_wheel, _wheelComponent);
                 }
                 else
                 {
@@ -154,7 +189,7 @@ public class VehicleSuspensionSystem : ComponentSystem
 
                     //set new wheel psosition
                     _wheelComponent.wheelPosition = _wheelPos;
-                    _manager.SetComponentData<WheelComponent>(wheel, _wheelComponent);
+                    _manager.SetComponentData<WheelComponent>(_wheel, _wheelComponent);
 
                 }
             }
