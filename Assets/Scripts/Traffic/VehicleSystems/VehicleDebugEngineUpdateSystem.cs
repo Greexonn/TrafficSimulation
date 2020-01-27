@@ -39,6 +39,7 @@ public class VehicleDebugEngineUpdateSystem : ComponentSystem
 
             //debug
             engine.direction = 1;
+            engine.acceleration = 50;
 
         });
     }

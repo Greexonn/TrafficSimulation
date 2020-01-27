@@ -183,7 +183,7 @@ public class VehicleSuspensionSystem : ComponentSystem
                             var _impulse = _wheelForward * _direction;
                             float _impulseKoef = 1.0f - (engine.currentSpeed / engine.maxSpeed);
                             float _effectiveMass = _physicsWorld.GetEffectiveMass(_vehicleRBIndex, _impulse, _wheelPos);
-                            float _impulseValue = _effectiveMass * _wheelComponent.forwardFriction * _impulseKoef * engine.direction;
+                            float _impulseValue = _effectiveMass * _wheelComponent.forwardFriction * _impulseKoef * engine.direction * engine.acceleration / 100;
                             _impulseValue = math.clamp(_impulseValue, -_wheelComponent.maxForwardFriction, _wheelComponent.maxForwardFriction);
 
                             _impulse *= _impulseValue;
