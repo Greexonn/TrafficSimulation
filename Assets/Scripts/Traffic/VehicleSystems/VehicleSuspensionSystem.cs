@@ -28,7 +28,7 @@ public class VehicleSuspensionSystem : ComponentSystem
 
         PhysicsWorld _physicsWorld = _buildPhysicsWorldSystem.PhysicsWorld;
 
-        Entities.WithAll(typeof(VehicleComponent)).ForEach((Entity vehicleEntity) =>
+        Entities.WithAll(typeof(VehicleComponent)).ForEach((Entity vehicleEntity, ref VehicleEngineComponent engine, ref VehicleSteeringComponent steering, ref VehicleBrakesComponent brakes) =>
         {
             int _vehicleRBIndex = _physicsWorld.GetRigidBodyIndex(vehicleEntity);
             if (_vehicleRBIndex == -1 || _vehicleRBIndex >= _physicsWorld.NumDynamicBodies)
@@ -43,11 +43,11 @@ public class VehicleSuspensionSystem : ComponentSystem
             var _dirForward = _vehicleTransforms.Right;
             var _dirRight = _vehicleTransforms.Forward;
 
-            //debug linear velocity
-            if (math.length(_physicsWorld.GetLinearVelocity(_vehicleRBIndex)) < 0.1f)
-            {
-                _physicsWorld.SetLinearVelocity(_vehicleRBIndex, float3.zero);
-            }
+            ////debug linear velocity
+            //if (math.length(_physicsWorld.GetLinearVelocity(_vehicleRBIndex)) < 0.1f)
+            //{
+            //    _physicsWorld.SetLinearVelocity(_vehicleRBIndex, float3.zero);
+            //}
 
             foreach (var wheel in _wheelArray)
             {

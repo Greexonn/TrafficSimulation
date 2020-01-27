@@ -4,7 +4,7 @@ using Unity.Entities;
 using Unity.Mathematics;
 
 [GenerateAuthoringComponent]
-public struct VehicleBreaksComponent : IComponentData
+public struct VehicleBrakesComponent : IComponentData
 {
-    public float breaksUsage;
+    [UnityEngine.HideInInspector] public float brakesUsage;
 }
