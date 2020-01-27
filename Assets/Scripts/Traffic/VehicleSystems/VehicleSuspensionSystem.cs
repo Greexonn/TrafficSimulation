@@ -153,7 +153,7 @@ public class VehicleSuspensionSystem : ComponentSystem
                             var _velocityForward = math.dot(_velocityAtWheel, _wheelForward);
 
                             //debug
-                            Debug.DrawRay(_wheelPos, _wheelForward * _velocityForward, Color.white);
+                            //Debug.DrawRay(_wheelPos, _wheelForward * _velocityForward, Color.white);
 
                             float _impulseValue = -_velocityForward * _wheelComponent.forwardFriction;
                             var _impulse = _wheelForward * _impulseValue;
@@ -164,6 +164,31 @@ public class VehicleSuspensionSystem : ComponentSystem
                             _impulse = _wheelForward * _impulseValue;
 
                             _physicsWorld.ApplyImpulse(_vehicleRBIndex, _impulse, _hit.Position);
+                            _physicsWorld.ApplyImpulse(_hit.RigidBodyIndex, -_impulse, _hit.Position);
+
+                            //debug
+                            //Debug.DrawRay(_wheelPos, _impulse, Color.red);
+                        }
+                    }
+                    #endregion
+
+                    #region drive
+                    {
+                        //if current wheel is drive wheel
+                        if (_driveIdsArray.Contains(i))
+                        {
+                            float _direction = math.dot(_wheelForward, _dirForward);
+                            _direction /= math.abs(_direction);
+
+                            var _impulse = _wheelForward * _direction;
+                            float _impulseKoef = 1.0f - (engine.currentSpeed / engine.maxSpeed);
+                            float _effectiveMass = _physicsWorld.GetEffectiveMass(_vehicleRBIndex, _impulse, _wheelPos);
+                            float _impulseValue = _effectiveMass * _wheelComponent.forwardFriction * _impulseKoef * engine.direction;
+                            _impulseValue = math.clamp(_impulseValue, -_wheelComponent.maxForwardFriction, _wheelComponent.maxForwardFriction);
+
+                            _impulse *= _impulseValue;
+
+                            _physicsWorld.ApplyImpulse(_vehicleRBIndex, _impulse, _wheelPos);
                             _physicsWorld.ApplyImpulse(_hit.RigidBodyIndex, -_impulse, _hit.Position);
 
                             //debug

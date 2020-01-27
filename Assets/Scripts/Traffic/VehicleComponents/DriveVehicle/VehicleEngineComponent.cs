@@ -7,5 +7,7 @@ using Unity.Mathematics;
 public struct VehicleEngineComponent : IComponentData
 {
     public int maxSpeed;
-    public float acceleration;
+
+    [UnityEngine.HideInInspector] public float currentSpeed;
+    [UnityEngine.HideInInspector] public int direction;
 }
