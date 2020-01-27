@@ -87,11 +87,16 @@ public class VehicleSuspensionSystem : ComponentSystem
 
                         float _compression = 1.0f - (_suspensionCurrentLength / _suspensionComponent.suspensionLength);
 
-                        var _impulse = _dirUp * (_compression * _suspensionComponent.springStrength - _suspensionComponent.damperStrength * _speedUp);
-                        _impulse *= Time.DeltaTime * 10;
+                        var _impulseValue = _compression * _suspensionComponent.springStrength - _suspensionComponent.damperStrength * _speedUp * Time.DeltaTime * 10;
 
-                        _physicsWorld.ApplyImpulse(_vehicleRBIndex, _impulse, _suspensionTop);
-                        _physicsWorld.ApplyImpulse(_hit.RigidBodyIndex, -_impulse, _hit.Position);
+                        if (_impulseValue > 0)
+                        {
+                            var _impulse = _dirUp * _impulseValue;
+
+                            _physicsWorld.ApplyImpulse(_vehicleRBIndex, _impulse, _suspensionTop);
+                            _physicsWorld.ApplyImpulse(_hit.RigidBodyIndex, -_impulse, _hit.Position);
+                        }
+
                     }
                     #endregion
 
@@ -109,8 +114,8 @@ public class VehicleSuspensionSystem : ComponentSystem
                         _impulse *= _physicsWorld.GetEffectiveMass(_vehicleRBIndex, _impulse, _hit.Position);
                         _impulse = math.clamp(_impulse, -_maxImpulse, _maxImpulse);
 
-                        _physicsWorld.ApplyImpulse(_vehicleRBIndex, _impulse, _hit.Position);
-                        _physicsWorld.ApplyImpulse(_hit.RigidBodyIndex, -_impulse, _hit.Position);
+                        //_physicsWorld.ApplyImpulse(_vehicleRBIndex, _impulse, _hit.Position);
+                        //_physicsWorld.ApplyImpulse(_hit.RigidBodyIndex, -_impulse, _hit.Position);
 
                         //debug
                         Debug.DrawRay(_wheelPos, _impulse, Color.red);
