@@ -6,7 +6,10 @@ using Unity.Mathematics;
 [GenerateAuthoringComponent]
 public struct VehicleSteeringComponent : IComponentData
 {
-    public float currentAngle;
     public float maxAngle;
     public float steeringSpeed;
+
+    [UnityEngine.HideInInspector] public quaternion currentRotation;
+    public float currentTransition;
+    [UnityEngine.HideInInspector] public int direction;
 }

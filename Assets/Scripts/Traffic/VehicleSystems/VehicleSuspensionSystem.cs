@@ -192,7 +192,7 @@ public class VehicleSuspensionSystem : ComponentSystem
                             _physicsWorld.ApplyImpulse(_hit.RigidBodyIndex, -_impulse, _hit.Position);
 
                             //debug
-                            Debug.DrawRay(_wheelPos, _impulse, Color.red);
+                            //Debug.DrawRay(_wheelPos, _impulse, Color.red);
                         }
                     }
                     #endregion
@@ -217,6 +217,20 @@ public class VehicleSuspensionSystem : ComponentSystem
                     _manager.SetComponentData<WheelComponent>(_wheel, _wheelComponent);
 
                 }
+
+                #region steering
+                {
+                    //if current wheel is control wheel
+                    if (_controlIdsArray.Contains(i))
+                    {
+                        _manager.SetComponentData<Rotation>(_wheel, new Rotation { Value = steering.currentRotation });
+
+                        //debug
+                        //Debug.Log(steering.currentTransition);
+                    }
+                }
+                #endregion
+
             }
 
             //dispose temporal containers
