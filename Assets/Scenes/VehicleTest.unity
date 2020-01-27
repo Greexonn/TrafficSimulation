@@ -277,7 +277,7 @@ PrefabInstance:
     - target: {fileID: 8004724338484280100, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
         type: 3}
       propertyPath: wheel.maxSideFriction
-      value: 8
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 8004724338484280101, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
         type: 3}
@@ -302,7 +302,7 @@ PrefabInstance:
     - target: {fileID: 8004724338927168534, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
         type: 3}
       propertyPath: wheel.maxSideFriction
-      value: 8
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 8004724338927168535, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
         type: 3}
@@ -347,12 +347,12 @@ PrefabInstance:
     - target: {fileID: 8004724339253598233, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
         type: 3}
       propertyPath: wheel.maxSideFriction
-      value: 8
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 8004724340176022004, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
         type: 3}
       propertyPath: wheel.maxSideFriction
-      value: 8
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 8004724340176022005, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
         type: 3}

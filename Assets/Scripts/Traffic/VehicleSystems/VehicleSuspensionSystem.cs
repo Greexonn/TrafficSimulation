@@ -43,6 +43,12 @@ public class VehicleSuspensionSystem : ComponentSystem
             var _dirForward = _vehicleTransforms.Right;
             var _dirRight = _vehicleTransforms.Forward;
 
+            //debug linear velocity
+            if (math.length(_physicsWorld.GetLinearVelocity(_vehicleRBIndex)) < 0.1f)
+            {
+                _physicsWorld.SetLinearVelocity(_vehicleRBIndex, float3.zero);
+            }
+
             foreach (var wheel in _wheelArray)
             {
                 var _wheelComponent = _manager.GetComponentData<WheelComponent>(wheel);
@@ -65,9 +71,10 @@ public class VehicleSuspensionSystem : ComponentSystem
                 if (_physicsWorld.CastRay(_raycastInput, out _hit))
                 {
                     float3 _wheelPos;
+                    var _velocityAtWheel = _physicsWorld.GetLinearVelocity(_vehicleRBIndex, _hit.Position);
 
                     //debug
-                    Debug.DrawLine(_raycastInput.Start, _raycastInput.End, Color.green);
+                    //Debug.DrawLine(_raycastInput.Start, _raycastInput.End, Color.green);
 
                     #region set wheel position
                     {
@@ -102,23 +109,31 @@ public class VehicleSuspensionSystem : ComponentSystem
 
                     #region sideways friction
                     {
-                        var _velocityAtWheel = _physicsWorld.GetLinearVelocity(_vehicleRBIndex, _hit.Position);
+                        //debug
+                        //Debug.DrawRay(_wheelPos, _velocityAtWheel, Color.green);
 
                         float _currentSpeedRight = math.dot(_velocityAtWheel, _wheelRight);
 
-                        float _deltaSpeedRight = -_currentSpeedRight;
-                        _deltaSpeedRight *= _wheelComponent.sideFriction;
+                        //debug
+                        //Debug.DrawRay(_wheelPos, _wheelRight * _currentSpeedRight, Color.red);
 
-                        var _maxImpulse = _wheelRight * _wheelComponent.maxSideFriction;
-                        var _impulse = _deltaSpeedRight * _wheelRight;
-                        _impulse *= _physicsWorld.GetEffectiveMass(_vehicleRBIndex, _impulse, _hit.Position);
-                        _impulse = math.clamp(_impulse, -_maxImpulse, _maxImpulse);
+                        float _impulseValue = -_currentSpeedRight * _wheelComponent.sideFriction;
+                        var _impulse = _impulseValue * _wheelRight;
 
-                        //_physicsWorld.ApplyImpulse(_vehicleRBIndex, _impulse, _hit.Position);
-                        //_physicsWorld.ApplyImpulse(_hit.RigidBodyIndex, -_impulse, _hit.Position);
+                        float _effectiveMass = _physicsWorld.GetEffectiveMass(_vehicleRBIndex, _impulse, _hit.Position) / _wheelArray.Length;
+                        _impulseValue *= _effectiveMass;
+
+                        _impulseValue = math.clamp(_impulseValue, -_wheelComponent.maxSideFriction, _wheelComponent.maxSideFriction);
+                        _impulse = _impulseValue * _wheelRight;
 
                         //debug
-                        Debug.DrawRay(_wheelPos, _impulse, Color.red);
+                        //Debug.DrawRay(_wheelPos, _impulse, Color.blue);
+
+                        _physicsWorld.ApplyImpulse(_vehicleRBIndex, _impulse, _hit.Position);
+                        _physicsWorld.ApplyImpulse(_hit.RigidBodyIndex, -_impulse, _hit.Position);
+
+                        //debug
+                        //Debug.DrawRay(_wheelPos, _impulse, Color.red);
                     }
                     #endregion
 
