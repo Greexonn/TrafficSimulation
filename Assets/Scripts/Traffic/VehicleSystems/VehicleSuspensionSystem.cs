@@ -204,9 +204,10 @@ public class VehicleSuspensionSystem : ComponentSystem
                 else
                 {
                     var _wheelDesiredPos = _suspensionTop - _dirUp * _suspensionComponent.suspensionLength;
-                    float _height = math.dot((_wheelComponent.wheelPosition - _suspensionTop), (_wheelDesiredPos - _suspensionTop));
-                    float _fraction = _suspensionComponent.suspensionLength / _height;
-                    _fraction += (_suspensionComponent.damperStrength / _suspensionComponent.springStrength);
+                    float _height = math.dot((_wheelComponent.wheelPosition - _suspensionTop), _dirUp);
+                    _height = math.abs(_height);
+                    float _fraction = _height / _suspensionComponent.suspensionLength;
+                    _fraction += (_suspensionComponent.damperStrength / _suspensionComponent.springStrength * Time.DeltaTime * 2);
                     _fraction = math.clamp(_fraction, 0, 1);
                     var _wheelPos = math.lerp(_suspensionTop, _wheelDesiredPos, _fraction);
                     var _wheelLocalPos = _wheelPos - _suspensionTop;
