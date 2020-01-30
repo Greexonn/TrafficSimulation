@@ -8,6 +8,8 @@ using UnityEngine;
 public class SuspensionAuthoring : MonoBehaviour, IConvertGameObjectToEntity
 {
     [SerializeField] private SuspensionComponent _suspension;
+    [SerializeField] private float _springStrengthKoef;
+    [SerializeField] private float _damperStrengthKoef;
     [SerializeField] public Transform wheelModel;
     [SerializeField] [Range(0, 1)] private float _wheelPos;
 
@@ -15,6 +17,11 @@ public class SuspensionAuthoring : MonoBehaviour, IConvertGameObjectToEntity
 
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
+        var _vehicleMass = GetComponentInParent<Unity.Physics.Authoring.PhysicsBodyAuthoring>().Mass;
+
+        _suspension.springStrength = _vehicleMass / 10 * _springStrengthKoef;
+        _suspension.damperStrength = _vehicleMass / 10 * _damperStrengthKoef;
+
         dstManager.AddComponentData<SuspensionComponent>(entity, _suspension);
     }
 

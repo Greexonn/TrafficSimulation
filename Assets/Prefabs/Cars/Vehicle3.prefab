@@ -313,6 +313,16 @@ PrefabInstance:
       propertyPath: _wheelPos
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: _springStrengthKoef
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: _damperStrengthKoef
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4005545419133638309, guid: 4a72d9c7c30ef9848b9fb347527479bc,
         type: 3}
       propertyPath: wheel.maxSideFriction
@@ -435,6 +445,16 @@ PrefabInstance:
         type: 3}
       propertyPath: _wheelPos
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: _springStrengthKoef
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: _damperStrengthKoef
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4005545419133638309, guid: 4a72d9c7c30ef9848b9fb347527479bc,
         type: 3}
@@ -559,6 +579,16 @@ PrefabInstance:
       propertyPath: _wheelPos
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: _springStrengthKoef
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: _damperStrengthKoef
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4005545419133638309, guid: 4a72d9c7c30ef9848b9fb347527479bc,
         type: 3}
       propertyPath: wheel.maxSideFriction
@@ -681,6 +711,16 @@ PrefabInstance:
         type: 3}
       propertyPath: _wheelPos
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: _springStrengthKoef
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: _damperStrengthKoef
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4005545419133638309, guid: 4a72d9c7c30ef9848b9fb347527479bc,
         type: 3}

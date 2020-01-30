@@ -8,6 +8,6 @@ using UnityEngine;
 public struct SuspensionComponent : IComponentData
 {
     public float suspensionLength;
-    public float springStrength;
-    public float damperStrength;
+    [HideInInspector] public float springStrength;
+    [HideInInspector] public float damperStrength;
 }
