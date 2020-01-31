@@ -42,7 +42,7 @@ public class @VehicleInputActions : IInputActionCollection, IDisposable
                 {
                     ""name"": ""negative"",
                     ""id"": ""dc431499-2dd1-4cfd-a6fc-6627a84b1c52"",
-                    ""path"": ""*/{Back}"",
+                    ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -53,7 +53,7 @@ public class @VehicleInputActions : IInputActionCollection, IDisposable
                 {
                     ""name"": ""positive"",
                     ""id"": ""c5e0ba7d-cf3a-4e16-a0d8-1e96f3c286e1"",
-                    ""path"": ""*/{Forward}"",
+                    ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
