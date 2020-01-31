@@ -230,7 +230,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxAngle: 35
-  steeringSpeed: 1
+  steeringSpeed: 10
   currentRotation:
     value:
       x: 0

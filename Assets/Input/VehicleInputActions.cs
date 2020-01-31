@@ -25,6 +25,14 @@ public class @VehicleInputActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Steering"",
+                    ""type"": ""Button"",
+                    ""id"": ""4a3951f4-9cd7-4458-8db7-45467001566d"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -60,6 +68,39 @@ public class @VehicleInputActions : IInputActionCollection, IDisposable
                     ""action"": ""Acceleration"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Steering"",
+                    ""id"": ""1af2787c-bf93-40ae-8e2c-719864c982de"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Steering"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""36cf0d60-9e2b-47e4-aa73-6074d6ba16b8"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Steering"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""75cd9adb-f41e-410b-893a-fdd13fd38115"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Steering"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -81,6 +122,7 @@ public class @VehicleInputActions : IInputActionCollection, IDisposable
         // Default
         m_Default = asset.FindActionMap("Default", throwIfNotFound: true);
         m_Default_Acceleration = m_Default.FindAction("Acceleration", throwIfNotFound: true);
+        m_Default_Steering = m_Default.FindAction("Steering", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -131,11 +173,13 @@ public class @VehicleInputActions : IInputActionCollection, IDisposable
     private readonly InputActionMap m_Default;
     private IDefaultActions m_DefaultActionsCallbackInterface;
     private readonly InputAction m_Default_Acceleration;
+    private readonly InputAction m_Default_Steering;
     public struct DefaultActions
     {
         private @VehicleInputActions m_Wrapper;
         public DefaultActions(@VehicleInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Acceleration => m_Wrapper.m_Default_Acceleration;
+        public InputAction @Steering => m_Wrapper.m_Default_Steering;
         public InputActionMap Get() { return m_Wrapper.m_Default; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -148,6 +192,9 @@ public class @VehicleInputActions : IInputActionCollection, IDisposable
                 @Acceleration.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnAcceleration;
                 @Acceleration.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnAcceleration;
                 @Acceleration.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnAcceleration;
+                @Steering.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnSteering;
+                @Steering.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnSteering;
+                @Steering.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnSteering;
             }
             m_Wrapper.m_DefaultActionsCallbackInterface = instance;
             if (instance != null)
@@ -155,6 +202,9 @@ public class @VehicleInputActions : IInputActionCollection, IDisposable
                 @Acceleration.started += instance.OnAcceleration;
                 @Acceleration.performed += instance.OnAcceleration;
                 @Acceleration.canceled += instance.OnAcceleration;
+                @Steering.started += instance.OnSteering;
+                @Steering.performed += instance.OnSteering;
+                @Steering.canceled += instance.OnSteering;
             }
         }
     }
@@ -171,5 +221,6 @@ public class @VehicleInputActions : IInputActionCollection, IDisposable
     public interface IDefaultActions
     {
         void OnAcceleration(InputAction.CallbackContext context);
+        void OnSteering(InputAction.CallbackContext context);
     }
 }
