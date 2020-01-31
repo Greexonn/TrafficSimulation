@@ -80,6 +80,7 @@ public class VehicleSuspensionSystem : ComponentSystem
                 {
                     float3 _wheelPos;
                     var _velocityAtWheel = _physicsWorld.GetLinearVelocity(_vehicleRBIndex, _hit.Position);
+                    var _velocityForward = math.dot(_velocityAtWheel, _wheelForward);
 
                     //debug
                     //Debug.DrawLine(_raycastInput.Start, _raycastInput.End, Color.green);
@@ -150,8 +151,6 @@ public class VehicleSuspensionSystem : ComponentSystem
                         //if current wheel is brake wheel
                         if (_brakeIdsArray.Contains(i))
                         {
-                            var _velocityForward = math.dot(_velocityAtWheel, _wheelForward);
-
                             //debug
                             //Debug.DrawRay(_wheelPos, _wheelForward * _velocityForward, Color.white);
 
@@ -194,6 +193,27 @@ public class VehicleSuspensionSystem : ComponentSystem
                             //debug
                             //Debug.DrawRay(_wheelPos, _impulse, Color.red);
                         }
+                    }
+                    #endregion
+
+                    #region wheel rotation
+                    {
+                        float _rotationAngle = 0;
+                        //if wheel is driven right now
+                        if (_driveIdsArray.Contains(i) && engine.acceleration > 0)
+                        {
+                            _rotationAngle = (engine.maxSpeed * engine.acceleration) / _wheelComponent.radius;
+                        }
+                        else
+                        {
+                            _rotationAngle = _velocityForward / _wheelComponent.radius;
+                        }
+
+                        //set rotation
+                        _rotationAngle = math.radians(_rotationAngle);
+                        quaternion _rotation = _manager.GetComponentData<Rotation>(_wheelComponent.wheelModel).Value;
+                        _rotation = math.mul(_rotation, quaternion.RotateZ(-_rotationAngle));
+                        _manager.SetComponentData<Rotation>(_wheelComponent.wheelModel, new Rotation { Value = _rotation });
                     }
                     #endregion
 
