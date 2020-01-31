@@ -33,6 +33,14 @@ public class @VehicleInputActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Brakes"",
+                    ""type"": ""Button"",
+                    ""id"": ""a40982e1-f295-4661-961b-54287ed01d0f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -101,6 +109,17 @@ public class @VehicleInputActions : IInputActionCollection, IDisposable
                     ""action"": ""Steering"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b887c932-2c72-4fb0-ab92-6b28a13d1c52"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Brakes"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -123,6 +142,7 @@ public class @VehicleInputActions : IInputActionCollection, IDisposable
         m_Default = asset.FindActionMap("Default", throwIfNotFound: true);
         m_Default_Acceleration = m_Default.FindAction("Acceleration", throwIfNotFound: true);
         m_Default_Steering = m_Default.FindAction("Steering", throwIfNotFound: true);
+        m_Default_Brakes = m_Default.FindAction("Brakes", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -174,12 +194,14 @@ public class @VehicleInputActions : IInputActionCollection, IDisposable
     private IDefaultActions m_DefaultActionsCallbackInterface;
     private readonly InputAction m_Default_Acceleration;
     private readonly InputAction m_Default_Steering;
+    private readonly InputAction m_Default_Brakes;
     public struct DefaultActions
     {
         private @VehicleInputActions m_Wrapper;
         public DefaultActions(@VehicleInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Acceleration => m_Wrapper.m_Default_Acceleration;
         public InputAction @Steering => m_Wrapper.m_Default_Steering;
+        public InputAction @Brakes => m_Wrapper.m_Default_Brakes;
         public InputActionMap Get() { return m_Wrapper.m_Default; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -195,6 +217,9 @@ public class @VehicleInputActions : IInputActionCollection, IDisposable
                 @Steering.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnSteering;
                 @Steering.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnSteering;
                 @Steering.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnSteering;
+                @Brakes.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnBrakes;
+                @Brakes.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnBrakes;
+                @Brakes.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnBrakes;
             }
             m_Wrapper.m_DefaultActionsCallbackInterface = instance;
             if (instance != null)
@@ -205,6 +230,9 @@ public class @VehicleInputActions : IInputActionCollection, IDisposable
                 @Steering.started += instance.OnSteering;
                 @Steering.performed += instance.OnSteering;
                 @Steering.canceled += instance.OnSteering;
+                @Brakes.started += instance.OnBrakes;
+                @Brakes.performed += instance.OnBrakes;
+                @Brakes.canceled += instance.OnBrakes;
             }
         }
     }
@@ -222,5 +250,6 @@ public class @VehicleInputActions : IInputActionCollection, IDisposable
     {
         void OnAcceleration(InputAction.CallbackContext context);
         void OnSteering(InputAction.CallbackContext context);
+        void OnBrakes(InputAction.CallbackContext context);
     }
 }

@@ -15,6 +15,7 @@ public class VehicleInputSystem : ComponentSystem
     //input values
     private int _driveDirection = 0;
     private int _steeringDirection = 0;
+    private int _brakesValue = 1;
 
     protected override void OnCreate()
     {
@@ -27,6 +28,9 @@ public class VehicleInputSystem : ComponentSystem
         //steering
         _inputActions.Default.Steering.performed += UpdateSteering;
         _inputActions.Default.Steering.canceled += StopSteering;
+        //brakes
+        _inputActions.Default.Brakes.started += StartBrakes;
+        _inputActions.Default.Brakes.canceled += StopBrakes;
     }
 
     protected override void OnDestroy()
@@ -36,13 +40,15 @@ public class VehicleInputSystem : ComponentSystem
 
     protected override void OnUpdate()
     {
-        Entities.WithAll(typeof(VehiclePlayerControlComponent)).ForEach((ref VehicleEngineComponent engine, ref VehicleSteeringComponent steering) =>
+        Entities.WithAll(typeof(VehiclePlayerControlComponent)).ForEach((ref VehicleEngineComponent engine, ref VehicleSteeringComponent steering, ref VehicleBrakesComponent brakes) =>
         {
             //acceleration
             engine.acceleration = 100;
             engine.direction = _driveDirection;
             //steering
             steering.direction = _steeringDirection;
+            //brakes
+            brakes.brakesUsage = _brakesValue;
         });
     }
 
@@ -69,6 +75,20 @@ public class VehicleInputSystem : ComponentSystem
     private void StopSteering(InputAction.CallbackContext context)
     {
         _steeringDirection = 0;
+    }
+
+    #endregion
+
+    #region brakes
+
+    private void StartBrakes(InputAction.CallbackContext context)
+    {
+        _brakesValue = 100;
+    }
+
+    private void StopBrakes(InputAction.CallbackContext context)
+    {
+        _brakesValue = 1;
     }
 
     #endregion
