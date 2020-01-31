@@ -31,12 +31,16 @@ public class VehicleInputSystem : ComponentSystem
 
     protected override void OnUpdate()
     {
-        return;
+        Entities.WithAll(typeof(VehiclePlayerControlComponent)).ForEach((ref VehicleEngineComponent engine) =>
+        {
+            engine.acceleration = 100;
+            engine.direction = _acceleration;
+        });
     }
 
     private void UpdateAcceleration(InputAction.CallbackContext context)
     {
-        _acceleration = context.ReadValue<int>();
+        _acceleration = (int)context.ReadValue<float>();
     }
 
     private void StopAcceleration(InputAction.CallbackContext context)
