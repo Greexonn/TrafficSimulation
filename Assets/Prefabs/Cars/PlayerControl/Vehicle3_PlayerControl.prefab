@@ -82,7 +82,7 @@ PrefabInstance:
     - target: {fileID: 6377361187116278777, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
         type: 3}
       propertyPath: m_Name
-      value: Vehicle3
+      value: Vehicle3_PlayerControl
       objectReference: {fileID: 0}
     - target: {fileID: 6377361187116278779, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
         type: 3}
@@ -163,6 +163,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SphereRadius
       value: 2.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7781180884654285603, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
+        type: 3}
+      propertyPath: maxSpeed
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 8004724338484280100, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
         type: 3}

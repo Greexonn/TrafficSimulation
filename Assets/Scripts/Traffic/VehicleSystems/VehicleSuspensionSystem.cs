@@ -202,7 +202,7 @@ public class VehicleSuspensionSystem : ComponentSystem
                         //if wheel is driven right now
                         if (_driveIdsArray.Contains(i) && engine.direction != 0)
                         {
-                            _rotationAngle = (engine.maxSpeed * engine.acceleration * engine.direction) / _wheelComponent.radius;
+                            _rotationAngle = (engine.maxSpeed * engine.acceleration * -engine.direction) / _wheelComponent.radius;
                         }
                         else
                         {
