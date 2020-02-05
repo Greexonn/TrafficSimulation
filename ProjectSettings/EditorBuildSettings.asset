@@ -8,4 +8,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GraphTest.unity
     guid: 8cae0b6f1098b7048926922a84aa8708
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: cb1035a77d727ad4ba04e8c1e6626eb4,
+      type: 2}

@@ -15,7 +15,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &7875416217969588592
 Transform:
@@ -43,7 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d396319d78318ae4096f8824482c5ce6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nextNode: {fileID: 7875416219142573752}
 --- !u!1 &7875416219020714997
 GameObject:
   m_ObjectHideFlags: 0
@@ -59,7 +58,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &7875416219020714996
 Transform:
@@ -87,7 +86,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d396319d78318ae4096f8824482c5ce6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nextNode: {fileID: 0}
 --- !u!1 &7875416219142573754
 GameObject:
   m_ObjectHideFlags: 0
@@ -103,7 +101,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &7875416219142573753
 Transform:
@@ -131,7 +129,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d396319d78318ae4096f8824482c5ce6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nextNode: {fileID: 0}
 --- !u!1 &7875416219463484789
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,7 +144,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &7875416219463484788
 Transform:
@@ -175,7 +172,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d396319d78318ae4096f8824482c5ce6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nextNode: {fileID: 7875416219020715003}
 --- !u!1 &7875416219665811012
 GameObject:
   m_ObjectHideFlags: 0
@@ -189,12 +185,13 @@ GameObject:
   - component: {fileID: 7875416219665811019}
   - component: {fileID: 7875416219665811016}
   - component: {fileID: 7875416219665811023}
+  - component: {fileID: 5923820106841361933}
   m_Layer: 0
   m_Name: Road_Staight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &7875416219665811017
 Transform:
@@ -300,3 +297,76 @@ MonoBehaviour:
   - A: {fileID: 7875416219463484795}
     B: {fileID: 7875416219020715003}
   _arrow: {fileID: 3613567641014311022, guid: 168f28fc9d2b2f14f9154d1ddfd27d16, type: 3}
+--- !u!114 &5923820106841361933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7875416219665811012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b275e5f92732148048d7b77e264ac30e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShapeType: 4
+  m_PrimitiveCenter:
+    x: 0
+    y: 0
+    z: 0
+  m_PrimitiveSize:
+    x: 1
+    y: 0
+    z: 1.0000002
+  m_PrimitiveOrientation:
+    Value:
+      x: 270
+      y: 0
+      z: 0
+    RotationOrder: 4
+  m_Capsule:
+    Height: 1.0000002
+    Radius: 0.5
+    Axis: 2
+  m_Cylinder:
+    Height: 0
+    Radius: 0.5000001
+    Axis: 1
+  m_CylinderSideCount: 20
+  m_SphereRadius: 0.5000001
+  m_MinimumSkinnedVertexWeight: 0.1
+  m_ConvexHullGenerationParameters:
+    m_SimplificationTolerance: 0.015000003
+    m_BevelRadius: 6.123235e-18
+    m_MinimumAngle: 2.5000002
+  m_CustomMesh: {fileID: 0}
+  m_ForceUnique: 0
+  m_Material:
+    m_SupportsTemplate: 1
+    m_Template: {fileID: 0}
+    m_IsTrigger:
+      m_Override: 0
+      m_Value: 0
+    m_Friction:
+      m_Override: 0
+      m_Value:
+        Value: 0.5
+        CombineMode: 0
+    m_Restitution:
+      m_Override: 0
+      m_Value:
+        Value: 0
+        CombineMode: 2
+    m_BelongsTo:
+      m_Override: 0
+      m_Value: 0100000000000000000000000000000000000000000000000000000000000000
+    m_CollidesWith:
+      m_Override: 0
+      m_Value: 0101010101010101010101010101010101010101010101010101010101010101
+    m_RaisesCollisionEvents:
+      m_Override: 0
+      m_Value: 0
+    m_CustomTags:
+      m_Override: 0
+      m_Value: 0000000000000000
+  m_ConvexRadius_Deprecated: -1
