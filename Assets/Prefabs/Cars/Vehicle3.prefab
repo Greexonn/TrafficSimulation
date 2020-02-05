@@ -213,7 +213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eacf9aed771b3d648b3d9699f3886b89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 2000
+  maxSpeed: 100
   currentSpeed: 0
   direction: 0
   acceleration: 0
@@ -323,10 +323,30 @@ PrefabInstance:
       propertyPath: _damperStrengthKoef
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: _body
+      value: 
+      objectReference: {fileID: 6377361187116278726}
     - target: {fileID: 4005545419133638309, guid: 4a72d9c7c30ef9848b9fb347527479bc,
         type: 3}
       propertyPath: wheel.maxSideFriction
       value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638309, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: wheel.wheelPosition.x
+      value: -1.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638309, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: wheel.wheelPosition.y
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638309, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: wheel.wheelPosition.z
+      value: -0.9499999
       objectReference: {fileID: 0}
     - target: {fileID: 4005545419133638311, guid: 4a72d9c7c30ef9848b9fb347527479bc,
         type: 3}
@@ -456,10 +476,30 @@ PrefabInstance:
       propertyPath: _damperStrengthKoef
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: _body
+      value: 
+      objectReference: {fileID: 6377361187116278726}
     - target: {fileID: 4005545419133638309, guid: 4a72d9c7c30ef9848b9fb347527479bc,
         type: 3}
       propertyPath: wheel.maxSideFriction
       value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638309, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: wheel.wheelPosition.x
+      value: 1.88
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638309, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: wheel.wheelPosition.y
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638309, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: wheel.wheelPosition.z
+      value: 0.95
       objectReference: {fileID: 0}
     - target: {fileID: 4005545419133638311, guid: 4a72d9c7c30ef9848b9fb347527479bc,
         type: 3}
@@ -589,10 +629,30 @@ PrefabInstance:
       propertyPath: _damperStrengthKoef
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: _body
+      value: 
+      objectReference: {fileID: 6377361187116278726}
     - target: {fileID: 4005545419133638309, guid: 4a72d9c7c30ef9848b9fb347527479bc,
         type: 3}
       propertyPath: wheel.maxSideFriction
       value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638309, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: wheel.wheelPosition.x
+      value: -1.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638309, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: wheel.wheelPosition.y
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638309, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: wheel.wheelPosition.z
+      value: 0.95
       objectReference: {fileID: 0}
     - target: {fileID: 4005545419133638311, guid: 4a72d9c7c30ef9848b9fb347527479bc,
         type: 3}
@@ -722,10 +782,30 @@ PrefabInstance:
       propertyPath: _damperStrengthKoef
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: _body
+      value: 
+      objectReference: {fileID: 6377361187116278726}
     - target: {fileID: 4005545419133638309, guid: 4a72d9c7c30ef9848b9fb347527479bc,
         type: 3}
       propertyPath: wheel.maxSideFriction
       value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638309, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: wheel.wheelPosition.x
+      value: 1.88
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638309, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: wheel.wheelPosition.y
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638309, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: wheel.wheelPosition.z
+      value: -0.9499999
       objectReference: {fileID: 0}
     - target: {fileID: 4005545419133638311, guid: 4a72d9c7c30ef9848b9fb347527479bc,
         type: 3}
