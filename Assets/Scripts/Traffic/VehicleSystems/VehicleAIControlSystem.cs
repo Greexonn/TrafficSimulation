@@ -27,7 +27,7 @@ public class VehicleAIControlSystem : ComponentSystem
 
         Entities.WithAll(typeof(VehicleComponent)).WithNone(typeof(PathfindingRequestComponent)).
             ForEach((Entity vehicleEntity, ref VehicleAIComponent aiComponent, ref VehicleCurrentNodeComponent currentNode, ref VehiclePathNodeIndexComponent pathNodeIndex,
-            ref VehicleSteeringComponent steering, ref VehicleEngineComponent engine) =>
+            ref VehicleSteeringComponent steering, ref VehicleEngineComponent engine, ref VehicleBrakesComponent brakes) =>
         {
             var _aiTransforms = _manager.GetComponentData<LocalToWorld>(aiComponent.vehicleAITransform);
             var _aiPosition = _aiTransforms.Position;
@@ -61,7 +61,7 @@ public class VehicleAIControlSystem : ComponentSystem
             //get next node if reached
             if (_distanceToNextNode < (_deltaTime * 20))
             {
-                pathNodeIndex.value = math.clamp((pathNodeIndex.value + 1), 0, (_pathBuffer.Length - 1));
+                pathNodeIndex.value = _nextNodeId;
                 if (_manager.GetComponentData<RoadNodeComponent>(_pathBuffer[pathNodeIndex.value]).isOpen)
                     currentNode.node = _pathBuffer[pathNodeIndex.value];
                 else
@@ -80,7 +80,6 @@ public class VehicleAIControlSystem : ComponentSystem
                 DrawRay(_aiPosition, _worldDirection, UnityEngine.Color.green);
 
                 var _rotation = quaternion.LookRotation(_worldDirection, _aiUp);
-                _rotation = math.mul(_rotation, quaternion.RotateY(-90));
 
                 //debug
                 DrawRay(_aiPosition, _aiUp, UnityEngine.Color.green);
@@ -94,6 +93,22 @@ public class VehicleAIControlSystem : ComponentSystem
                 float _forwardValue = math.dot(_worldDirection, _aiForwrd);
                 int _acceleration = (int)(_forwardValue / _directionLength * 100);
                 engine.acceleration = _acceleration;
+
+                //set brakes
+                if (!_manager.GetComponentData<RoadNodeComponent>(_pathBuffer[_nextNodeId]).isOpen)
+                {
+                    float _distanceBetweenNodes = math.length(_nextNodePos - _currentNodePos);
+                    float _usage = 1.0f - (_distanceToNextNode / _distanceBetweenNodes);
+                    if (_usage > 0.5f)
+                    {
+                        brakes.brakesUsage = (int)(_usage * 100);
+                        engine.acceleration = 0;
+                    }
+                }
+                else
+                {
+                    brakes.brakesUsage = 1;
+                }
             }
             #endregion
         });

@@ -7,26 +7,25 @@ using Unity.Transforms;
 
 public class VehicleSpawnSystem : ComponentSystem
 {
-    private float _secondsTillSpawn = 1;
+    private float _secondsTillSpawn = 20;
 
     private float _lastSpawnTime = 0;
 
     private EntityManager _manager;
 
-    //debug
-    private bool _spawned = false;
-
 
     protected override void OnCreate()
     {
         _manager = World.DefaultGameObjectInjectionWorld.EntityManager;
+
+        _lastSpawnTime = -_secondsTillSpawn + 1;
     }
 
     protected override void OnUpdate()
     {
         float _currentTime = (float)Time.ElapsedTime;
 
-        if ((_currentTime - _lastSpawnTime) < _secondsTillSpawn || _spawned)
+        if ((_currentTime - _lastSpawnTime) < _secondsTillSpawn)
             return;
 
         Entities.ForEach((Entity spawnerEntity, ref CarSpawnerComponent spawner, ref LocalToWorld transform) => 
@@ -48,6 +47,5 @@ public class VehicleSpawnSystem : ComponentSystem
         });
 
         _lastSpawnTime = _currentTime;
-        _spawned = true;
     }
 }
