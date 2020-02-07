@@ -9,6 +9,5 @@ public struct VehicleEngineComponent : IComponentData
     public int maxSpeed;
 
     [UnityEngine.HideInInspector] public float currentSpeed;
-    [UnityEngine.HideInInspector] public int direction;
     [UnityEngine.HideInInspector] public int acceleration;
 }

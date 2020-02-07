@@ -18,7 +18,7 @@ public class VehicleTestTransitionSystem : ComponentSystem
     {
         float _deltaTime = Time.DeltaTime;
 
-        Entities.WithAll(typeof(VehicleComponent)).WithNone(typeof(PathfindingRequestComponent)).ForEach((Entity vehicleEntity, ref Translation translation, ref VehicleCurrentNodeComponent currentNode, ref VehiclePathNodeIndexComponent pathNodeIndex) => 
+        Entities.WithAll(typeof(VehicleComponent)).WithNone(typeof(PathfindingRequestComponent), typeof(VehicleAIComponent)).ForEach((Entity vehicleEntity, ref Translation translation, ref VehicleCurrentNodeComponent currentNode, ref VehiclePathNodeIndexComponent pathNodeIndex) => 
         {
             var _pathBuffer = _manager.GetBuffer<NodeBufferElement>(vehicleEntity);
 

@@ -54,7 +54,7 @@ public class SuspensionAuthoring : MonoBehaviour, IConvertGameObjectToEntity
         if (_wheel != null)
         {
             float _radius = _wheel.wheel.radius;
-            UnityEditor.Handles.DrawWireDisc(_wheelCenter, transform.forward, _radius);
+            UnityEditor.Handles.DrawWireDisc(_wheelCenter, transform.right, _radius);
         }
         else
             _wheel = GetComponent<WheelAuthoring>();

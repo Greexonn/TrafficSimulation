@@ -45,8 +45,8 @@ public class VehicleSuspensionSystem : ComponentSystem
 
             var _vehicleTransforms = _manager.GetComponentData<LocalToWorld>(vehicleEntity);
             var _dirUp = _vehicleTransforms.Up;
-            var _dirForward = _vehicleTransforms.Right;
-            var _dirRight = _vehicleTransforms.Forward;
+            var _dirForward = _vehicleTransforms.Forward;
+            var _dirRight = _vehicleTransforms.Right;
 
             ////debug linear velocity
             //if (math.length(_physicsWorld.GetLinearVelocity(_vehicleRBIndex)) < 0.1f)
@@ -63,8 +63,8 @@ public class VehicleSuspensionSystem : ComponentSystem
 
                 var _wheelRoot = _manager.GetComponentData<LocalToWorld>(_wheel);
                 var _suspensionTop = _wheelRoot.Position;
-                var _wheelRight = _wheelRoot.Forward;
-                var _wheelForward = _wheelRoot.Right;
+                var _wheelForward = _wheelRoot.Forward;
+                var _wheelRight = _wheelRoot.Right;
 
                 //cast ray
                 CollisionFilter _filter = _physicsWorld.GetCollisionFilter(_vehicleRBIndex);
@@ -182,7 +182,7 @@ public class VehicleSuspensionSystem : ComponentSystem
                             var _impulse = _wheelForward * _direction;
                             float _impulseKoef = 1.0f - (engine.currentSpeed / engine.maxSpeed);
                             float _effectiveMass = _physicsWorld.GetEffectiveMass(_vehicleRBIndex, _impulse, _wheelPos);
-                            float _impulseValue = _effectiveMass * _wheelComponent.forwardFriction * _impulseKoef * engine.direction * engine.acceleration / 100;
+                            float _impulseValue = _effectiveMass * _wheelComponent.forwardFriction * _impulseKoef * engine.acceleration / 100;
                             _impulseValue = math.clamp(_impulseValue, -_wheelComponent.maxForwardFriction, _wheelComponent.maxForwardFriction);
 
                             _impulse *= _impulseValue;
@@ -200,9 +200,9 @@ public class VehicleSuspensionSystem : ComponentSystem
                     {
                         float _rotationAngle = 0;
                         //if wheel is driven right now
-                        if (_driveIdsArray.Contains(i) && engine.direction != 0)
+                        if (_driveIdsArray.Contains(i) && engine.acceleration != 0)
                         {
-                            _rotationAngle = (engine.maxSpeed * engine.acceleration * -engine.direction) / _wheelComponent.radius;
+                            _rotationAngle = (engine.maxSpeed * -engine.acceleration) / _wheelComponent.radius;
                         }
                         else
                         {
@@ -244,10 +244,14 @@ public class VehicleSuspensionSystem : ComponentSystem
                     //if current wheel is control wheel
                     if (_controlIdsArray.Contains(i))
                     {
-                        _manager.SetComponentData<Rotation>(_wheel, new Rotation { Value = steering.currentRotation });
+                        var _rotation = math.mul(math.inverse(_vehicleTransforms.Rotation), steering.currentRotation);
+                        _manager.SetComponentData<Rotation>(_wheel, new Rotation { Value = _rotation });
 
                         //debug
                         //Debug.Log(steering.currentTransition);
+                        Debug.DrawRay(_wheelComponent.wheelPosition, math.forward(_rotation), Color.blue);
+                        Debug.DrawRay(_wheelComponent.wheelPosition, _wheelRight, Color.red);
+                        Debug.DrawRay(_wheelComponent.wheelPosition, _wheelRoot.Up, Color.green);
                     }
                 }
                 #endregion

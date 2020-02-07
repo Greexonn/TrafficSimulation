@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _carPrefabs:
-  - {fileID: 6377361187116278777, guid: a3fdc7dd6a5b1a84ea0495aaf798043e, type: 3}
+  - {fileID: 1194420785246886450, guid: 0b7cfb1690c4b8245a6cf97a6564c196, type: 3}
 --- !u!4 &65689723
 Transform:
   m_ObjectHideFlags: 0
