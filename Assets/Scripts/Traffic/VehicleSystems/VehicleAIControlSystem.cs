@@ -59,7 +59,7 @@ public class VehicleAIControlSystem : ComponentSystem
 
             float _distanceToNextNode = math.distance(_aiMapPos, _nodeMapPos);
             //get next node if reached
-            if (_distanceToNextNode < (_deltaTime * 20))
+            if (_distanceToNextNode < 0.5f)
             {
                 pathNodeIndex.value = _nextNodeId;
                 if (_manager.GetComponentData<RoadNodeComponent>(_pathBuffer[pathNodeIndex.value]).isOpen)
