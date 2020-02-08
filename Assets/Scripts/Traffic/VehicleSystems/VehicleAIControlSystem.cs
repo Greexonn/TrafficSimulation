@@ -77,14 +77,15 @@ public class VehicleAIControlSystem : ComponentSystem
                 var _mapDirection = (_nodeMapPos - _aiMapPos);
                 var _worldDirection = new float3(_mapDirection.x, 0, _mapDirection.y);
                 //debug
-                DrawRay(_aiPosition, _worldDirection, UnityEngine.Color.green);
+                DrawRay(_aiPosition, _worldDirection, UnityEngine.Color.blue);
 
+                _worldDirection = math.normalize(_worldDirection);
                 var _rotation = quaternion.LookRotation(_worldDirection, _aiUp);
 
                 //debug
-                DrawRay(_aiPosition, _aiUp, UnityEngine.Color.green);
-                DrawRay(_aiPosition, math.forward(_rotation), UnityEngine.Color.blue);
-                DrawRay(_aiPosition, math.cross(_aiUp, math.forward(_rotation)), UnityEngine.Color.red);
+                //DrawRay(_aiPosition, _aiUp, UnityEngine.Color.green);
+                //DrawRay(_aiPosition, math.forward(_rotation), UnityEngine.Color.blue);
+                //DrawRay(_aiPosition, math.cross(_aiUp, math.forward(_rotation)), UnityEngine.Color.red);
 
                 steering.currentRotation = _rotation;
 

@@ -249,9 +249,9 @@ public class VehicleSuspensionSystem : ComponentSystem
 
                         //debug
                         //Debug.Log(steering.currentTransition);
-                        Debug.DrawRay(_wheelComponent.wheelPosition, math.forward(_rotation), Color.blue);
-                        Debug.DrawRay(_wheelComponent.wheelPosition, _wheelRight, Color.red);
-                        Debug.DrawRay(_wheelComponent.wheelPosition, _wheelRoot.Up, Color.green);
+                        //Debug.DrawRay(_wheelComponent.wheelPosition, math.forward(_rotation), Color.blue);
+                        //Debug.DrawRay(_wheelComponent.wheelPosition, _wheelRight, Color.red);
+                        //Debug.DrawRay(_wheelComponent.wheelPosition, _wheelRoot.Up, Color.green);
                     }
                 }
                 #endregion
