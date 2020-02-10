@@ -49,17 +49,32 @@ public class VehicleAIControlSystem : ComponentSystem
                 return;
             }
 
-            //check if we've reached current node
+            //check if we've reached current target node
+            //vehicle pos on the map
             float _mapX = math.dot(_aiPosition, _mapRight);
             float _mapY = math.dot(_aiPosition, _mapForward);
             var _aiMapPos = new float2(_mapX, _mapY);
+            //next node pos on the map
             _mapX = math.dot(_nextNodePos, _mapRight);
             _mapY = math.dot(_nextNodePos, _mapForward);
-            var _nodeMapPos = new float2(_mapX, _mapY);
+            var _nextNodeMapPos = new float2(_mapX, _mapY);
+            //current node pos on the map
+            _mapX = math.dot(_currentNodePos, _mapRight);
+            _mapY = math.dot(_currentNodePos, _mapForward);
+            var _currentNodeMapPos = new float2(_mapX, _mapY);
+            //vector from current to next node on the map
+            var _currentToNext = _nextNodeMapPos - _currentNodeMapPos;
+            //direction from current to next node on the map
+            var _currentToNextDirection = math.normalize(_currentToNext);
+            //vector from vehicle to next node on the map
+            var _vehicleToNext = _aiMapPos - _currentNodeMapPos;
+            //current path part projection
+            float _pathPartProjection = math.dot(_currentToNext, _currentToNextDirection);
+            //current from node to vehicle vector projection
+            float _nodeToVehicleProjection = math.dot(_vehicleToNext, _currentToNextDirection);
 
-            float _distanceToNextNode = math.distance(_aiMapPos, _nodeMapPos);
             //get next node if reached
-            if (_distanceToNextNode < 0.5f)
+            if (_nodeToVehicleProjection >= _pathPartProjection)
             {
                 pathNodeIndex.value = _nextNodeId;
                 if (_manager.GetComponentData<RoadNodeComponent>(_pathBuffer[pathNodeIndex.value]).isOpen)
@@ -74,8 +89,8 @@ public class VehicleAIControlSystem : ComponentSystem
             #region movement
             {
                 //set steering
-                var _mapDirection = (_nodeMapPos - _aiMapPos);
-                var _worldDirection = new float3(_mapDirection.x, 0, _mapDirection.y);
+                var _direction = _nextNodeMapPos - _aiMapPos;
+                var _worldDirection = new float3(_direction.x, 0, _direction.y);
                 //debug
                 DrawRay(_aiPosition, _worldDirection, UnityEngine.Color.blue);
 
@@ -98,8 +113,7 @@ public class VehicleAIControlSystem : ComponentSystem
                 //set brakes
                 if (!_manager.GetComponentData<RoadNodeComponent>(_pathBuffer[_nextNodeId]).isOpen)
                 {
-                    float _distanceBetweenNodes = math.length(_nextNodePos - _currentNodePos);
-                    float _usage = 1.0f - (_distanceToNextNode / _distanceBetweenNodes);
+                    float _usage = 1.0f - (_nodeToVehicleProjection / _pathPartProjection);
                     if (_usage > 0.5f)
                     {
                         brakes.brakesUsage = (int)(_usage * 100);
