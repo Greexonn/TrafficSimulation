@@ -82,9 +82,16 @@ public class VehicleAIControlSystem : ComponentSystem
             {
                 pathNodeIndex.value = _nextNodeId;
                 if (_manager.GetComponentData<RoadNodeComponent>(_pathBuffer[pathNodeIndex.value]).isOpen)
+                {
                     currentNode.node = _pathBuffer[pathNodeIndex.value];
+                }
                 else
+                {
                     pathNodeIndex.value--;
+
+                    engine.acceleration = 0;
+                    brakes.brakesUsage = 100;
+                }
 
                 return;
             }
