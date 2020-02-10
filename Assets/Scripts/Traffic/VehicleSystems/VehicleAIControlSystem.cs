@@ -39,8 +39,10 @@ public class VehicleAIControlSystem : ComponentSystem
             //get nodes data
             pathNodeIndex.value = math.clamp(pathNodeIndex.value, 0, (_pathBuffer.Length - 1));
             int _nextNodeId = math.clamp((pathNodeIndex.value + 1), 0, (_pathBuffer.Length - 1));
+            int _thirdNodeId = math.clamp((pathNodeIndex.value + 2), 0, (_pathBuffer.Length - 1));
             var _currentNodePos = _manager.GetComponentData<LocalToWorld>(currentNode.node).Position;
             var _nextNodePos = _manager.GetComponentData<LocalToWorld>(_pathBuffer[_nextNodeId]).Position;
+            var _thirdNodePos = _manager.GetComponentData<LocalToWorld>(_pathBuffer[_thirdNodeId]).Position;
 
             //check if we've reached our target
             if (currentNode.node.Equals(_pathBuffer[_pathBuffer.Length - 1]))
@@ -48,6 +50,8 @@ public class VehicleAIControlSystem : ComponentSystem
                 _manager.AddComponent(vehicleEntity, typeof(PathfindingRequestComponent));
                 return;
             }
+
+            #region next node reaching
 
             //check if we've reached current target node
             //vehicle pos on the map
@@ -85,6 +89,34 @@ public class VehicleAIControlSystem : ComponentSystem
                 return;
             }
 
+            #endregion
+
+            #region calculate next turn angle
+
+            //third node map pos
+            _mapX = math.dot(_thirdNodePos, _mapRight);
+            _mapY = math.dot(_thirdNodePos, _mapForward);
+            var _thirdNodeMapPos = new float2(_mapX, _mapY);
+
+            //angle parts
+            var _firstPart = _nextNodeMapPos - _currentNodeMapPos;
+            var _secontPart = _thirdNodeMapPos - _nextNodeMapPos;
+            //find lengths
+            var _firstLength = math.length(_firstPart);
+            _firstLength = math.dot(_secontPart, _firstPart) / _firstLength;
+            var _secondLength = math.length(_secontPart);
+            //find cos
+            float _angleCos = _firstLength / _secondLength;
+            //find angle
+            float _angle = math.acos(_angleCos);
+
+            //calculate turn angle koef
+            float _turnAngleKoef = 1.0f - (_angle / math.PI);
+            if (float.IsNaN(_turnAngleKoef))
+                _turnAngleKoef = 0.5f;
+
+            #endregion
+
             //set movement
             #region movement
             {
@@ -93,6 +125,7 @@ public class VehicleAIControlSystem : ComponentSystem
                 var _worldDirection = new float3(_direction.x, 0, _direction.y);
                 //debug
                 DrawRay(_aiPosition, _worldDirection, UnityEngine.Color.blue);
+                DrawLine((_aiPosition + _worldDirection), new float3(_thirdNodeMapPos.x, 0, _thirdNodeMapPos.y), UnityEngine.Color.red);
 
                 _worldDirection = math.normalize(_worldDirection);
                 var _rotation = quaternion.LookRotation(_worldDirection, _aiUp);
@@ -107,7 +140,7 @@ public class VehicleAIControlSystem : ComponentSystem
                 //set acceleration
                 float _directionLength = math.length(_worldDirection);
                 float _forwardValue = math.dot(_worldDirection, _aiForwrd);
-                int _acceleration = (int)(_forwardValue / _directionLength * 100);
+                int _acceleration = (int)(_forwardValue / _directionLength * _turnAngleKoef * 100);
                 engine.acceleration = _acceleration;
 
                 //set brakes
@@ -122,7 +155,8 @@ public class VehicleAIControlSystem : ComponentSystem
                 }
                 else
                 {
-                    brakes.brakesUsage = 1;
+                    brakes.brakesUsage = (int)(100 * (1.0f - _turnAngleKoef));
+                    brakes.brakesUsage = math.clamp(brakes.brakesUsage, 1, 3);
                 }
             }
             #endregion
