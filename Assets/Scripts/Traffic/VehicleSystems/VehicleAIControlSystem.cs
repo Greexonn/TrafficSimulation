@@ -132,7 +132,7 @@ public class VehicleAIControlSystem : ComponentSystem
                 var _worldDirection = new float3(_direction.x, 0, _direction.y);
                 //debug
                 DrawRay(_aiPosition, _worldDirection, UnityEngine.Color.blue);
-                DrawLine((_aiPosition + _worldDirection), new float3(_thirdNodeMapPos.x, 0, _thirdNodeMapPos.y), UnityEngine.Color.red);
+                DrawLine((_aiPosition + _worldDirection), new float3(_thirdNodeMapPos.x, _aiPosition.y, _thirdNodeMapPos.y), UnityEngine.Color.red);
 
                 _worldDirection = math.normalize(_worldDirection);
                 var _rotation = quaternion.LookRotation(_worldDirection, _aiUp);
@@ -151,16 +151,16 @@ public class VehicleAIControlSystem : ComponentSystem
                 engine.acceleration = _acceleration;
 
                 //set brakes
-                if (!_manager.GetComponentData<RoadNodeComponent>(_pathBuffer[_nextNodeId]).isOpen)
+                if (!_manager.GetComponentData<RoadNodeComponent>(_pathBuffer[_nextNodeId]).isOpen)//if in front of closed node
                 {
                     float _usage = 1.0f - (_nodeToVehicleProjection / _pathPartProjection);
                     if (_usage > 0.5f)
                     {
-                        brakes.brakesUsage = (int)(_usage * 100);
-                        engine.acceleration = 0;
+                        brakes.brakesUsage = (int)(_usage * 50);
+                        engine.acceleration = (int)(100 - (_usage * 100));
                     }
                 }
-                else
+                else//set brakes in based on next turn
                 {
                     brakes.brakesUsage = (int)(100 * (1.0f - _turnAngleKoef));
                     brakes.brakesUsage = math.clamp(brakes.brakesUsage, 1, 3);
