@@ -12,12 +12,13 @@ public class SuspensionAuthoring : MonoBehaviour, IConvertGameObjectToEntity
     [SerializeField] private float _damperStrengthKoef;
     [SerializeField] public Transform wheelModel;
     [SerializeField] [Range(0, 1)] private float _wheelPos;
+    [SerializeField] Unity.Physics.Authoring.PhysicsBodyAuthoring _body;
 
     private WheelAuthoring _wheel;
 
     public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
     {
-        var _vehicleMass = GetComponentInParent<Unity.Physics.Authoring.PhysicsBodyAuthoring>().Mass;
+        var _vehicleMass = _body.Mass;
 
         _suspension.springStrength = _vehicleMass / 10 * _springStrengthKoef;
         _suspension.damperStrength = _vehicleMass / 10 * _damperStrengthKoef;
@@ -53,7 +54,7 @@ public class SuspensionAuthoring : MonoBehaviour, IConvertGameObjectToEntity
         if (_wheel != null)
         {
             float _radius = _wheel.wheel.radius;
-            UnityEditor.Handles.DrawWireDisc(_wheelCenter, transform.forward, _radius);
+            UnityEditor.Handles.DrawWireDisc(_wheelCenter, transform.right, _radius);
         }
         else
             _wheel = GetComponent<WheelAuthoring>();

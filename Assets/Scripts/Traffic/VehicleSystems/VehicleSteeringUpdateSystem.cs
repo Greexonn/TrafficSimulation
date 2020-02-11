@@ -12,7 +12,7 @@ public class VehicleSteeringUpdateSystem : JobComponentSystem
     {
         float _deltaTime = Time.DeltaTime;
 
-        return Entities.ForEach((ref VehicleSteeringComponent steering) =>
+        return Entities.WithNone<VehicleAIComponent>().ForEach((ref VehicleSteeringComponent steering) =>
         {
             steering.currentTransition += steering.direction * steering.steeringSpeed * _deltaTime;
             if (steering.direction == 0)

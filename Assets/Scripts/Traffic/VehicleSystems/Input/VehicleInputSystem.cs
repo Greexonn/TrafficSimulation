@@ -43,8 +43,7 @@ public class VehicleInputSystem : ComponentSystem
         Entities.WithAll(typeof(VehiclePlayerControlComponent)).ForEach((ref VehicleEngineComponent engine, ref VehicleSteeringComponent steering, ref VehicleBrakesComponent brakes) =>
         {
             //acceleration
-            engine.acceleration = 100;
-            engine.direction = _driveDirection;
+            engine.acceleration = 100 * _driveDirection;
             //steering
             steering.direction = _steeringDirection;
             //brakes

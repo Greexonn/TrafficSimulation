@@ -10,6 +10,7 @@ public struct VehicleSteeringComponent : IComponentData
     public float steeringSpeed;
 
     [UnityEngine.HideInInspector] public quaternion currentRotation;
+    [UnityEngine.HideInInspector] public float targetRotationAngle;
     public float currentTransition;
     [UnityEngine.HideInInspector] public int direction;
 }
