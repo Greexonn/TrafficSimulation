@@ -48,11 +48,15 @@ public class VehicleSuspensionSystem : ComponentSystem
             var _dirForward = _vehicleTransforms.Forward;
             var _dirRight = _vehicleTransforms.Right;
 
-            ////debug linear velocity
-            //if (math.length(_physicsWorld.GetLinearVelocity(_vehicleRBIndex)) < 0.1f)
-            //{
-            //    _physicsWorld.SetLinearVelocity(_vehicleRBIndex, float3.zero);
-            //}
+            var _vehicleLinearVelocity = _physicsWorld.GetLinearVelocity(_vehicleRBIndex);
+            engine.currentSpeed = math.dot(_vehicleLinearVelocity, _dirForward);
+
+            //debug linear velocity
+            if ((engine.currentSpeed <= 0.03f) && (brakes.brakesUsage >= 10))
+            {
+                _physicsWorld.SetLinearVelocity(_vehicleRBIndex, float3.zero);
+            }
+
 
             for (int i = 0; i < _wheelArray.Length; i++)
             {
@@ -202,7 +206,7 @@ public class VehicleSuspensionSystem : ComponentSystem
                         //if wheel is driven right now
                         if (_driveIdsArray.Contains(i) && engine.acceleration != 0)
                         {
-                            _rotationAngle = (engine.maxSpeed * -engine.acceleration) / _wheelComponent.radius;
+                            _rotationAngle = (engine.maxSpeed * engine.acceleration) / _wheelComponent.radius;
                         }
                         else
                         {
