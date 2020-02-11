@@ -52,7 +52,7 @@ public class VehicleSuspensionSystem : ComponentSystem
             engine.currentSpeed = math.dot(_vehicleLinearVelocity, _dirForward);
 
             //debug linear velocity
-            if ((engine.currentSpeed <= 0.1f) && (brakes.brakesUsage >= 10))
+            if ((engine.currentSpeed <= 0.03f) && (brakes.brakesUsage >= 10))
             {
                 _physicsWorld.SetLinearVelocity(_vehicleRBIndex, float3.zero);
             }
