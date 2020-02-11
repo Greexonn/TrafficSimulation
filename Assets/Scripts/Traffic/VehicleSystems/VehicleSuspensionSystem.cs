@@ -48,6 +48,9 @@ public class VehicleSuspensionSystem : ComponentSystem
             var _dirForward = _vehicleTransforms.Forward;
             var _dirRight = _vehicleTransforms.Right;
 
+            var _vehicleLinearVelocity = _physicsWorld.GetLinearVelocity(_vehicleRBIndex);
+            engine.currentSpeed = math.dot(_vehicleLinearVelocity, _dirForward);
+
             ////debug linear velocity
             //if (math.length(_physicsWorld.GetLinearVelocity(_vehicleRBIndex)) < 0.1f)
             //{

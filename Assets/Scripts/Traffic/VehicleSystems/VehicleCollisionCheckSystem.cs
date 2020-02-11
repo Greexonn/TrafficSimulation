@@ -31,22 +31,16 @@ public class VehicleCollisionCheckSystem : ComponentSystem
         Entities.WithAll<VehicleComponent>().ForEach((Entity vehicleEntity, ref VehicleAICollisionDetectionComponent collisionDetection, ref LocalToWorld transforms, 
             ref VehicleSteeringComponent steering, ref VehicleEngineComponent engine, ref VehicleBrakesComponent brakes) =>
         {
-            int _vehicleRBIndex = _physicsWorld.GetRigidBodyIndex(vehicleEntity);
-            if (_vehicleRBIndex == -1 || _vehicleRBIndex >= _physicsWorld.NumDynamicBodies)
-                return;
-
             var _rayDirection = math.forward(steering.currentRotation);
             if (math.dot(_rayDirection, transforms.Forward) < 0)
                 return;
 
-            var _vehicleVelocity = _physicsWorld.GetLinearVelocity(_vehicleRBIndex);
-            var _velocityInDirection = math.dot(_vehicleVelocity, _rayDirection);
-            _velocityInDirection = math.clamp(_velocityInDirection, 1, _velocityInDirection);
-
             var _leftPos = _manager.GetComponentData<LocalToWorld>(collisionDetection.leftRayPoint).Position;
             var _rightPos = _manager.GetComponentData<LocalToWorld>(collisionDetection.rightRayPoint).Position;
 
-            var _ray = _rayDirection * _velocityInDirection;
+            float _distance = math.clamp(engine.currentSpeed, 2, engine.currentSpeed);
+
+            var _ray = _rayDirection * _distance;
 
             //cast rays
             RaycastInput _raycastInputLeft = new RaycastInput
