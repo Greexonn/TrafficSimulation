@@ -168,7 +168,9 @@ public class VehicleAIControlSystem : ComponentSystem
                 }
                 else//set brakes in based on next turn
                 {
-                    brakes.brakesUsage = (int)(100 * (1.0f - _turnAngleKoef));
+                    float _recomendedSpeed = engine.maxSpeed * _turnAngleKoef;
+                    float _koef = (_recomendedSpeed / engine.currentSpeed);
+                    brakes.brakesUsage = (int)(100 * (1.0f - _koef));
                     brakes.brakesUsage = math.clamp(brakes.brakesUsage, 1, 3);
                 }
             }
