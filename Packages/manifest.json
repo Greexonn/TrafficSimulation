@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.unity.burst": "1.2.1",
+    "com.unity.burst": "1.2.2",
     "com.unity.collections": "0.5.1-preview.11",
     "com.unity.dots.editor": "0.3.0-preview",
     "com.unity.entities": "0.5.1-preview.11",
