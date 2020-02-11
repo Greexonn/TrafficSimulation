@@ -51,11 +51,12 @@ public class VehicleSuspensionSystem : ComponentSystem
             var _vehicleLinearVelocity = _physicsWorld.GetLinearVelocity(_vehicleRBIndex);
             engine.currentSpeed = math.dot(_vehicleLinearVelocity, _dirForward);
 
-            ////debug linear velocity
-            //if (math.length(_physicsWorld.GetLinearVelocity(_vehicleRBIndex)) < 0.1f)
-            //{
-            //    _physicsWorld.SetLinearVelocity(_vehicleRBIndex, float3.zero);
-            //}
+            //debug linear velocity
+            if ((engine.currentSpeed <= 0.1f) && (brakes.brakesUsage >= 10))
+            {
+                _physicsWorld.SetLinearVelocity(_vehicleRBIndex, float3.zero);
+            }
+
 
             for (int i = 0; i < _wheelArray.Length; i++)
             {
