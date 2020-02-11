@@ -153,11 +153,17 @@ public class VehicleAIControlSystem : ComponentSystem
                 //set brakes
                 if (!_manager.GetComponentData<RoadNodeComponent>(_pathBuffer[_nextNodeId]).isOpen)//if in front of closed node
                 {
-                    float _usage = 1.0f - (_nodeToVehicleProjection / _pathPartProjection);
-                    if (_usage > 0.5f)
+                    float _depth = 1.0f - (_nodeToVehicleProjection / _pathPartProjection);
+                    if (_depth > 0.9f)
                     {
-                        brakes.brakesUsage = (int)(_usage * 50);
-                        engine.acceleration = (int)(100 - (_usage * 100));
+                        brakes.brakesUsage = (int)(_depth * 100);
+                        engine.acceleration = 0;
+                    }
+                    else
+                    {
+                        float _koef = (2.0f / engine.currentSpeed);
+                        brakes.brakesUsage = (int)((1.0f - _koef) * 100);
+                        engine.acceleration = (int)(_koef * 100);
                     }
                 }
                 else//set brakes in based on next turn
