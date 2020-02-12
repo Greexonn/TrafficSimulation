@@ -124,15 +124,73 @@ public class VehicleAIControlSystem : ComponentSystem
 
             #endregion
 
+            #region smooth path
+
+            ////four points
+            //var _p0 = _currentNodeMapPos;
+            //var _p1 = _aiMapPos;
+            //var _p2 = _nextNodeMapPos;
+            //var _p3 = _thirdNodeMapPos;
+
+            ////four T's
+            //float _t0 = 0.0f;
+            //float _t1 = GetT(_t0, _p0, _p1);
+            //float _t2 = GetT(_t1, _p1, _p2);
+            //float _t3 = GetT(_t2, _p2, _p3);
+
+            ////draw
+            //float2 _lastPoint = _p0;
+            //for (float i = _t1; i < _t3; i += _deltaTime)
+            //{
+            //    float2 _C = CalmullRom(_t0, _t1, _t2, _t3, _p0, _p1, _p2, _p3, i);
+
+            //    float3 _startPoint = new float3(_lastPoint.x, _aiPosition.y, _lastPoint.y);
+            //    float3 _endPoint = new float3(_C.x, _aiPosition.y, _C.y);
+            //    _lastPoint = _C;
+            //    UnityEngine.Color _color = UnityEngine.Color.blue;
+            //    if (i > _t2)
+            //        _color = UnityEngine.Color.red;
+
+            //    DrawLine(_startPoint, _endPoint, _color);
+            //}
+
+            #endregion
+
             //set movement
             #region movement
             {
                 //set steering
-                var _direction = _nextNodeMapPos - _aiMapPos;
+                var _direction = float2.zero;
+                if (_turnAngleKoef < 0.9f)//smooth path
+                {
+                    //four points
+                    var _p0 = _currentNodeMapPos;
+                    var _p1 = _aiMapPos;
+                    var _p2 = _nextNodeMapPos;
+                    var _p3 = _thirdNodeMapPos;
+
+                    //four T's
+                    float _t0 = 0.0f;
+                    float _t1 = GetT(_t0, _p0, _p1);
+                    float _t2 = GetT(_t1, _p1, _p2);
+                    float _t3 = GetT(_t2, _p2, _p3);
+
+                    float _t = math.lerp(_t1, _t2, 0.1f);
+                    var _targetPoint = CalmullRom(_t0, _t1, _t2, _t3, _p0, _p1, _p2, _p3, _t);
+                    _direction = _targetPoint - _aiMapPos;
+
+                    if (float.IsNaN(_direction.x) || float.IsNaN(_direction.y))
+                        _direction = _nextNodeMapPos - _aiMapPos;
+                }
+                else
+                {
+                    _direction = _nextNodeMapPos - _aiMapPos;
+                }
+
                 var _worldDirection = new float3(_direction.x, 0, _direction.y);
                 //debug
-                DrawRay(_aiPosition, _worldDirection, UnityEngine.Color.blue);
-                DrawLine((_aiPosition + _worldDirection), new float3(_thirdNodeMapPos.x, _aiPosition.y, _thirdNodeMapPos.y), UnityEngine.Color.red);
+                //DrawRay(_aiPosition, _worldDirection, UnityEngine.Color.blue);
+                //DrawLine((_aiPosition + _worldDirection), new float3(_thirdNodeMapPos.x, _aiPosition.y, _thirdNodeMapPos.y), UnityEngine.Color.red);
 
                 _worldDirection = math.normalize(_worldDirection);
                 var _rotation = quaternion.LookRotation(_worldDirection, _aiUp);
@@ -176,5 +234,28 @@ public class VehicleAIControlSystem : ComponentSystem
             }
             #endregion
         });
+    }
+
+    private float2 CalmullRom(float t0, float t1, float t2, float t3, float2 p0, float2 p1, float2 p2, float2 p3, float t)
+    {
+        float2 _A1 = (t1 - t) / (t1 - t0) * p0 + (t - t0) / (t1 - t0) * p1;
+        float2 _A2 = (t2 - t) / (t2 - t1) * p1 + (t - t1) / (t2 - t1) * p2;
+        float2 _A3 = (t3 - t) / (t3 - t2) * p2 + (t - t2) / (t3 - t2) * p3;
+
+        float2 _B1 = (t2 - t) / (t2 - t0) * _A1 + (t - t0) / (t2 - t0) * _A2;
+        float2 _B2 = (t3 - t) / (t3 - t1) * _A2 + (t - t1) / (t3 - t1) * _A3;
+
+        float2 _C = (t2 - t) / (t2 - t1) * _B1 + (t - t1) / (t2 - t1) * _B2;
+
+        return _C;
+    }
+
+    private float GetT(float t, float2 p0, float2 p1)
+    {
+        float _a = math.pow((p1.x - p0.x), 2) + math.pow((p1.y - p0.y), 2);
+        float _b = math.pow(_a, 0.5f);
+        float _c = math.pow(_b, 0.5f);
+
+        return (_c + t);
     }
 }
