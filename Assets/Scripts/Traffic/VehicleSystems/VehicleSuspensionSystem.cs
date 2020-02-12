@@ -48,16 +48,6 @@ public class VehicleSuspensionSystem : ComponentSystem
             var _dirForward = _vehicleTransforms.Forward;
             var _dirRight = _vehicleTransforms.Right;
 
-            var _vehicleLinearVelocity = _physicsWorld.GetLinearVelocity(_vehicleRBIndex);
-            engine.currentSpeed = math.dot(_vehicleLinearVelocity, _dirForward);
-
-            //debug linear velocity
-            if ((engine.currentSpeed <= 0.03f) && (brakes.brakesUsage >= 10))
-            {
-                _physicsWorld.SetLinearVelocity(_vehicleRBIndex, float3.zero);
-            }
-
-
             for (int i = 0; i < _wheelArray.Length; i++)
             {
                 var _wheel = _wheelArray[i];
@@ -262,7 +252,14 @@ public class VehicleSuspensionSystem : ComponentSystem
 
             }
 
-            //dispose temporal containers
+            var _vehicleLinearVelocity = _physicsWorld.GetLinearVelocity(_vehicleRBIndex);
+            engine.currentSpeed = math.dot(_vehicleLinearVelocity, _dirForward);
+
+            //debug linear velocity
+            if ((engine.currentSpeed <= 0.03f) && (brakes.brakesUsage >= 10))
+            {
+                _physicsWorld.SetLinearVelocity(_vehicleRBIndex, float3.zero);
+            }
         });
     }
 }
