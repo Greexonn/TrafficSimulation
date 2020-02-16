@@ -36,7 +36,7 @@ public class VehiclePathfindingSystem : ComponentSystem
         {
             var _pathBuffer = _manager.GetBuffer<NodeBufferElement>(vehicleEntity);
             _pathBuffer.Clear();
-            _pathBuffer.Add(new NodeBufferElement{node = vehicleCurrentNode.node});
+            //_pathBuffer.Add(new NodeBufferElement { node = vehicleCurrentNode.node });
             vehiclePathNodeIndex.value = 0;
 
             //select target
