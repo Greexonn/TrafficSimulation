@@ -1,18 +1,20 @@
-﻿using Unity.Burst;
+﻿using Traffic.VehicleComponents.DriveVehicle;
+using Traffic.VehicleSystems;
+using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Transforms;
 
-[UpdateBefore(typeof(VehicleSuspensionSystem))]
+[UpdateBefore(typeof(SpeedCheckSystem))]
 public class VehicleSteeringUpdateSystem : JobComponentSystem
 {
     protected override JobHandle OnUpdate(JobHandle inputDependencies)
     {
         float _deltaTime = Time.DeltaTime;
 
-        return Entities.WithNone<VehicleAIComponent>().ForEach((ref VehicleSteeringComponent steering) =>
+        return Entities.WithNone<VehicleAIComponent>().ForEach((ref VehicleSteeringData steering) =>
         {
             steering.currentTransition += steering.direction * steering.steeringSpeed * _deltaTime;
             if (steering.direction == 0)

@@ -124,6 +124,171 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6620564921556878770, guid: 0af0bc29593363549afef2908ce3da09,
+        type: 3}
+      propertyPath: _wheel.radius
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6620564921556878770, guid: 0af0bc29593363549afef2908ce3da09,
+        type: 3}
+      propertyPath: _wheel.sideFriction
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6620564921556878770, guid: 0af0bc29593363549afef2908ce3da09,
+        type: 3}
+      propertyPath: _wheel.forwardFriction
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6620564921556878770, guid: 0af0bc29593363549afef2908ce3da09,
+        type: 3}
+      propertyPath: _wheel.maxSideFriction
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 6620564921556878770, guid: 0af0bc29593363549afef2908ce3da09,
+        type: 3}
+      propertyPath: _wheel.wheelPosition.x
+      value: -1.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 6620564921556878770, guid: 0af0bc29593363549afef2908ce3da09,
+        type: 3}
+      propertyPath: _wheel.wheelPosition.y
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6620564921556878770, guid: 0af0bc29593363549afef2908ce3da09,
+        type: 3}
+      propertyPath: _wheel.wheelPosition.z
+      value: -0.9499999
+      objectReference: {fileID: 0}
+    - target: {fileID: 6620564921556878770, guid: 0af0bc29593363549afef2908ce3da09,
+        type: 3}
+      propertyPath: _wheel.maxForwardFriction
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6620564922057778831, guid: 0af0bc29593363549afef2908ce3da09,
+        type: 3}
+      propertyPath: _wheel.radius
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6620564922057778831, guid: 0af0bc29593363549afef2908ce3da09,
+        type: 3}
+      propertyPath: _wheel.sideFriction
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6620564922057778831, guid: 0af0bc29593363549afef2908ce3da09,
+        type: 3}
+      propertyPath: _wheel.forwardFriction
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6620564922057778831, guid: 0af0bc29593363549afef2908ce3da09,
+        type: 3}
+      propertyPath: _wheel.maxSideFriction
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 6620564922057778831, guid: 0af0bc29593363549afef2908ce3da09,
+        type: 3}
+      propertyPath: _wheel.wheelPosition.x
+      value: -1.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 6620564922057778831, guid: 0af0bc29593363549afef2908ce3da09,
+        type: 3}
+      propertyPath: _wheel.wheelPosition.y
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6620564922057778831, guid: 0af0bc29593363549afef2908ce3da09,
+        type: 3}
+      propertyPath: _wheel.wheelPosition.z
+      value: -0.9499999
+      objectReference: {fileID: 0}
+    - target: {fileID: 6620564922057778831, guid: 0af0bc29593363549afef2908ce3da09,
+        type: 3}
+      propertyPath: _wheel.maxForwardFriction
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6620564922419933629, guid: 0af0bc29593363549afef2908ce3da09,
+        type: 3}
+      propertyPath: _wheel.radius
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6620564922419933629, guid: 0af0bc29593363549afef2908ce3da09,
+        type: 3}
+      propertyPath: _wheel.sideFriction
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6620564922419933629, guid: 0af0bc29593363549afef2908ce3da09,
+        type: 3}
+      propertyPath: _wheel.forwardFriction
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6620564922419933629, guid: 0af0bc29593363549afef2908ce3da09,
+        type: 3}
+      propertyPath: _wheel.maxSideFriction
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 6620564922419933629, guid: 0af0bc29593363549afef2908ce3da09,
+        type: 3}
+      propertyPath: _wheel.wheelPosition.x
+      value: -1.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 6620564922419933629, guid: 0af0bc29593363549afef2908ce3da09,
+        type: 3}
+      propertyPath: _wheel.wheelPosition.y
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6620564922419933629, guid: 0af0bc29593363549afef2908ce3da09,
+        type: 3}
+      propertyPath: _wheel.wheelPosition.z
+      value: -0.9499999
+      objectReference: {fileID: 0}
+    - target: {fileID: 6620564922419933629, guid: 0af0bc29593363549afef2908ce3da09,
+        type: 3}
+      propertyPath: _wheel.maxForwardFriction
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6620564922515354719, guid: 0af0bc29593363549afef2908ce3da09,
+        type: 3}
+      propertyPath: _wheel.radius
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6620564922515354719, guid: 0af0bc29593363549afef2908ce3da09,
+        type: 3}
+      propertyPath: _wheel.sideFriction
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6620564922515354719, guid: 0af0bc29593363549afef2908ce3da09,
+        type: 3}
+      propertyPath: _wheel.forwardFriction
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6620564922515354719, guid: 0af0bc29593363549afef2908ce3da09,
+        type: 3}
+      propertyPath: _wheel.maxSideFriction
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 6620564922515354719, guid: 0af0bc29593363549afef2908ce3da09,
+        type: 3}
+      propertyPath: _wheel.wheelPosition.x
+      value: -1.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 6620564922515354719, guid: 0af0bc29593363549afef2908ce3da09,
+        type: 3}
+      propertyPath: _wheel.wheelPosition.y
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6620564922515354719, guid: 0af0bc29593363549afef2908ce3da09,
+        type: 3}
+      propertyPath: _wheel.wheelPosition.z
+      value: -0.9499999
+      objectReference: {fileID: 0}
+    - target: {fileID: 6620564922515354719, guid: 0af0bc29593363549afef2908ce3da09,
+        type: 3}
+      propertyPath: _wheel.maxForwardFriction
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7815564968551579216, guid: 0af0bc29593363549afef2908ce3da09,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7815564968551579216, guid: 0af0bc29593363549afef2908ce3da09,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -141,6 +306,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7815564968551579216, guid: 0af0bc29593363549afef2908ce3da09,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7815564968551579216, guid: 0af0bc29593363549afef2908ce3da09,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -152,16 +322,6 @@ PrefabInstance:
     - target: {fileID: 7815564968551579216, guid: 0af0bc29593363549afef2908ce3da09,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7815564968551579216, guid: 0af0bc29593363549afef2908ce3da09,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 7815564968551579216, guid: 0af0bc29593363549afef2908ce3da09,
-        type: 3}
-      propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7815564968551579216, guid: 0af0bc29593363549afef2908ce3da09,

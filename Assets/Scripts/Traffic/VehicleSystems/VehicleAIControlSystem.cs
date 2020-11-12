@@ -1,4 +1,6 @@
-﻿using Unity.Burst;
+﻿using Traffic.VehicleComponents;
+using Traffic.VehicleComponents.DriveVehicle;
+using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
@@ -25,9 +27,9 @@ public class VehicleAIControlSystem : ComponentSystem
     {
         float _deltaTime = Time.DeltaTime;
 
-        Entities.WithAll(typeof(VehicleComponent)).WithNone(typeof(PathfindingRequestComponent)).
+        Entities.WithAll(typeof(VehicleTag)).WithNone(typeof(PathfindingRequestComponent)).
             ForEach((Entity vehicleEntity, ref VehicleAIComponent aiComponent, ref VehicleCurrentNodeComponent currentNode, ref VehiclePathNodeIndexComponent pathNodeIndex,
-            ref VehicleSteeringComponent steering, ref VehicleEngineComponent engine, ref VehicleBrakesComponent brakes) =>
+            ref VehicleSteeringData steering, ref VehicleEngineData engine, ref VehicleBrakesData brakes) =>
         {
             var _aiTransforms = _manager.GetComponentData<LocalToWorld>(aiComponent.vehicleAITransform);
             var _aiPosition = _aiTransforms.Position;

@@ -1,4 +1,6 @@
-﻿using Unity.Burst;
+﻿using Traffic.VehicleComponents.DriveVehicle;
+using Traffic.VehicleSystems;
+using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
@@ -7,7 +9,7 @@ using Unity.Transforms;
 using UnityEngine.InputSystem;
 using static UnityEngine.Debug;
 
-[UpdateBefore(typeof(VehicleSuspensionSystem))]
+[UpdateBefore(typeof(SpeedCheckSystem))]
 public class VehicleInputSystem : ComponentSystem
 {
     private VehicleInputActions _inputActions;
@@ -40,7 +42,7 @@ public class VehicleInputSystem : ComponentSystem
 
     protected override void OnUpdate()
     {
-        Entities.WithAll(typeof(VehiclePlayerControlComponent)).ForEach((ref VehicleEngineComponent engine, ref VehicleSteeringComponent steering, ref VehicleBrakesComponent brakes) =>
+        Entities.WithAll(typeof(VehiclePlayerControlComponent)).ForEach((ref VehicleEngineData engine, ref VehicleSteeringData steering, ref VehicleBrakesData brakes) =>
         {
             //acceleration
             engine.acceleration = 100 * _driveDirection;

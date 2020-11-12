@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:feature" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="75283252-eb04-4257-853c-57a344575703" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/ControlWheelElement.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/DriveWheelElement.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/WheelData.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/WheelElement.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/SpeedCheckSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/ConstructionLight_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/ConstructionLight_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/DryWallPainted_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/DryWallPainted_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/DryWall_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/DryWall_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Ground_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Ground_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Hammer_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Hammer_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/HardHat_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/HardHat_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Jigsaw_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Jigsaw_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/LightBulb_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/LightBulb_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Liquid_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Liquid_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Metal_Blue_Simple_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Metal_Blue_Simple_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Metal_Simple_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Metal_Simple_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/OBS_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/OBS_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/PaintBrush_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/PaintBrush_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/PaintLabel_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/PaintLabel_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Plastic_Black_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Plastic_Black_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Plastic_Gray_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Plastic_Gray_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Plastic_Ridges_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Plastic_Ridges_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Plastic_Rough_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Plastic_Rough_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Plastic_Transparent.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Plastic_Transparent.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Plastic_White_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Plastic_White_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Plastic_Yellow_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Plastic_Yellow_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Strap_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Strap_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Stud_Mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ExampleAssets/Materials/Stud_Mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Cars/Car1/Material.001.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Cars/Car1/Material.001.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Cars/Car1/Material.002.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Cars/Car1/Material.002.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Cars/Car1/Material.003.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Cars/Car1/Material.003.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Cars/Car1/Material.004.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Cars/Car1/Material.004.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Cars/Car2/Material.Arch.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Cars/Car2/Material.Arch.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Cars/Car2/Material.Body.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Cars/Car2/Material.Body.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Cars/Car2/Material.Down.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Cars/Car2/Material.Down.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Cars/Car2/Material.Glass.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Cars/Car2/Material.Glass.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Cars/Car2/Material.InnerArch.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Cars/Car2/Material.InnerArch.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Cars/Car2/Material.Spoiler.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Cars/Car2/Material.Spoiler.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Cars/Car3/Material.Body.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Cars/Car3/Material.Body.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Cars/Car3/Material.Down.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Cars/Car3/Material.Down.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Cars/Car3/Material.Glass.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Cars/Car3/Material.Glass.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Cars/Car3/Material.Hood.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Cars/Car3/Material.Hood.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Cars/Car3/Material.InnerArch.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Cars/Car3/Material.InnerArch.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Cars/Car3/Material.Up.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Cars/Car3/Material.Up.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Cars/Wheel/Material.001.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Cars/Wheel/Material.001.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Cars/Wheel/Material.002.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Cars/Wheel/Material.002.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Road/Border_mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Road/Border_mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Road/Road_mat.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Road/Road_mat.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Cars/AI/Vehicle1_AI.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Cars/AI/Vehicle1_AI.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Cars/AI/Vehicle2_AI.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Cars/AI/Vehicle2_AI.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Cars/Vehicle3.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Cars/Vehicle3.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GraphTest.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/GraphTest.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GraphTest/LightingData.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GraphTest/LightingData.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GraphTest/Lightmap-0_comp_dir.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GraphTest/Lightmap-0_comp_dir.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GraphTest/Lightmap-0_comp_light.exr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GraphTest/Lightmap-0_comp_light.exr.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GraphTest/Lightmap-1_comp_dir.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GraphTest/Lightmap-1_comp_dir.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GraphTest/Lightmap-1_comp_light.exr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GraphTest/Lightmap-1_comp_light.exr.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GraphTest/Lightmap-2_comp_dir.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GraphTest/Lightmap-2_comp_dir.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GraphTest/Lightmap-2_comp_light.exr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GraphTest/Lightmap-2_comp_light.exr.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GraphTest/Lightmap-3_comp_dir.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GraphTest/Lightmap-3_comp_dir.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GraphTest/Lightmap-3_comp_light.exr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GraphTest/Lightmap-3_comp_light.exr.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GraphTest/Lightmap-4_comp_dir.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GraphTest/Lightmap-4_comp_dir.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GraphTest/Lightmap-4_comp_light.exr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GraphTest/Lightmap-4_comp_light.exr.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GraphTest/Lightmap-5_comp_dir.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GraphTest/Lightmap-5_comp_dir.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GraphTest/Lightmap-5_comp_light.exr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GraphTest/Lightmap-5_comp_light.exr.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GraphTest/Lightmap-6_comp_dir.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GraphTest/Lightmap-6_comp_dir.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GraphTest/Lightmap-6_comp_light.exr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GraphTest/Lightmap-6_comp_light.exr.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GraphTest/Lightmap-7_comp_dir.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GraphTest/Lightmap-7_comp_dir.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GraphTest/Lightmap-7_comp_light.exr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GraphTest/Lightmap-7_comp_light.exr.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GraphTest/ReflectionProbe-0.exr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GraphTest/ReflectionProbe-0.exr.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadSystems/VehicleSpawnSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadSystems/VehicleSpawnSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/DriveVehicle/VehicleBrakesComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/DriveVehicle/VehicleBrakesData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/DriveVehicle/VehicleBrakesComponent.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/DriveVehicle/VehicleBrakesData.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/DriveVehicle/VehicleEngineComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/DriveVehicle/VehicleEngineData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/DriveVehicle/VehicleEngineComponent.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/DriveVehicle/VehicleEngineData.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/DriveVehicle/VehicleSteeringComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/DriveVehicle/VehicleSteeringData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/DriveVehicle/VehicleSteeringComponent.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/DriveVehicle/VehicleSteeringData.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/VehicleAuthoring.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/VehicleAuthoring.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/VehicleComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/VehicleTag.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/VehicleComponent.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/VehicleTag.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/IBrakeWheelBufferComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/BrakeWheelElement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/IBrakeWheelBufferComponent.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/BrakeWheelElement.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/IControlWheelBufferComponent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/IControlWheelBufferComponent.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/ControlWheelElement.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/IDriveWheelBufferComponent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/IDriveWheelBufferComponent.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/DriveWheelElement.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/IWheelBufferComponent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/IWheelBufferComponent.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/WheelElement.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/SuspensionAuthoring.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/SuspensionAuthoring.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/SuspensionComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/SuspensionData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/SuspensionComponent.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/SuspensionData.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/WheelAuthoring.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/WheelAuthoring.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/WheelComponent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/WheelComponent.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/WheelData.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/Input/VehicleInputSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/Input/VehicleInputSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/VehicleAIControlSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/VehicleAIControlSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/VehicleCollisionCheckSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/VehicleCollisionCheckSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/VehiclePathfindingSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/VehiclePathfindingSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/VehicleSteeringUpdateSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/VehicleSteeringUpdateSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/VehicleSuspensionSystem.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/VehicleSuspensionSystem.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/SpeedCheckSystem.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/ForwardRenderer.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/ForwardRenderer.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/BrakeWheelTag.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/SystemGroups.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/WheelsRaycastSystem.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Core/Systems/SystemGroups.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/DriveWheelTag.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Core/Systems/RemoveAtFrameEndSystem.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/ProcessDriveWheelsSystem.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/JustSpawnedTag.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/VehicleAfterSpawnConfigureSystem.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/UpdateWheelRotationSystem.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/ProcessBrakesSystem.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/UpdateWheelPositionSystem.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Core/Systems/SystemWithPublicDependencyBase.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/WheelRaycastData.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/ProcessSuspensionSystem.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/ProcessSidewaysFrictionSystem.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.entities@0.16.0-preview.21/Unity.Entities/CodeGeneratedJobForEach/UniversalDelegates.gen.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/VehicleRefData.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/ProcessSteeringSystem.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/ControlWheelTag.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Core/Components/IRemoveAtFrameEndComponent.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/VehiclesEndProcessSystem.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/SuspensionAuthoring.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/IDriveWheelBufferComponent.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/IControlWheelBufferComponent.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/ControlWheelBufferComponent.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/IWheelBufferComponent.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/WheelBufferComponent.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/DriveWheelBufferComponent.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/ControlWheelElement.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/IBrakeWheelBufferComponent.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/BrakeWheelElement.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/DriveWheelElement.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/WheelElement.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/VehicleAuthoring.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Core/Components/IRemoveAtFrameEndComponent.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/JustSpawnedTag.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/WheelComponent.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/VehicleTag.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Core/Systems/RemoveAtFrameEndSystem.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadSystems/VehicleSpawnSystem.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Core/Systems/SystemGroups.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/WheelData.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/SuspensionComponent.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/SuspensionData.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/WheelRaycastData.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/WheelAuthoring.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/WheelsRaycastSystem.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/VehicleRefData.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/BrakeWheelTag.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/DriveVehicle/VehicleBrakesComponent.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/DriveVehicle/VehicleBrakesData.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/DriveWheelTag.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/DriveVehicle/VehicleEngineComponent.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/DriveVehicle/VehicleEngineData.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/SteeringWheelTag.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/ControlWheelTag.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/DriveVehicle/VehicleSteeringComponent.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/DriveVehicle/VehicleSteeringData.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/ProcessSteeringSystem.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/VehicleAfterSpawnConfigureSystem.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/ProcessSuspensionSystem.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Core/Systems/SystemWithPublicDependencyBase.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/ProcessBrakesSystem.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/ProcessSidewaysFrictionSystem.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/UpdateWheelPositionSystem.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/UpdateWheelRotationSystem.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/VehicleSuspensionSystem.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/SystemGroups.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/ProcessDriveWheelsSystem.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/SpeedCheckSystem.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/VehiclesEndProcessSystem.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/VehicleCollisionCheckSystem.cs" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1gYyI6bpIeULWVxKhjNsrKFqNKm" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="Discover.Launch.Via.Unity" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
+    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="listenPortForConnections" value="false" />
+      <option name="pid" />
+      <option name="selectedOptions">
+        <set />
+      </option>
+      <method v="2" />
+    </configuration>
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="listenPortForConnections" value="false" />
+      <option name="pid" />
+      <option name="selectedOptions">
+        <set />
+      </option>
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="75283252-eb04-4257-853c-57a344575703" name="Default Changelist" comment="" />
+      <created>1598305737609</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1598305737609</updated>
+      <workItem from="1598305740515" duration="66000" />
+      <workItem from="1605189454785" duration="475000" />
+      <workItem from="1605190356606" duration="2030000" />
+      <workItem from="1605192411368" duration="21181000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="2384" y="290" width="736" height="522" key="find.popup" timestamp="1605217685464">
+      <screen x="1792" y="23" width="1920" height="1057" />
+    </state>
+    <state x="2384" y="290" width="736" height="522" key="find.popup/1792.23.1920.1057/0.23.1792.1016@1792.23.1920.1057" timestamp="1605199269084" />
+    <state x="2384" y="290" width="736" height="522" key="find.popup/1792.23.1920.1057/0.23.1792.1017@1792.23.1920.1057" timestamp="1605217685464" />
+  </component>
+</project>

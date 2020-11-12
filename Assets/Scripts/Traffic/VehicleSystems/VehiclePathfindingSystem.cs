@@ -1,4 +1,5 @@
-﻿using Unity.Burst;
+﻿using Traffic.VehicleComponents;
+using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
@@ -32,7 +33,7 @@ public class VehiclePathfindingSystem : ComponentSystem
         else if (_targetPoints.Length < 1)
             return;
 
-        Entities.WithAll(typeof(VehicleComponent), typeof(PathfindingRequestComponent)).ForEach((Entity vehicleEntity, ref VehicleCurrentNodeComponent vehicleCurrentNode, ref VehiclePathNodeIndexComponent vehiclePathNodeIndex) => 
+        Entities.WithAll(typeof(VehicleTag), typeof(PathfindingRequestComponent)).ForEach((Entity vehicleEntity, ref VehicleCurrentNodeComponent vehicleCurrentNode, ref VehiclePathNodeIndexComponent vehiclePathNodeIndex) => 
         {
             var _pathBuffer = _manager.GetBuffer<NodeBufferElement>(vehicleEntity);
             _pathBuffer.Clear();

@@ -1,47 +1,59 @@
-﻿using Unity.Entities;
-using Unity.Mathematics;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Traffic.VehicleComponents.Wheel;
+using Unity.Entities;
 using UnityEngine;
-using System.Collections.Generic;
 
-[DisallowMultipleComponent]
-[RequiresEntityConversion]
-public class VehicleAuthoring : MonoBehaviour, IConvertGameObjectToEntity
+namespace Traffic.VehicleComponents
 {
-    [SerializeField] private List<WheelAuthoring> _wheels;
-    [SerializeField] private List<WheelAuthoring> _driveWheels;
-    [SerializeField] private List<WheelAuthoring> _controlWheels;
-    [SerializeField] private List<WheelAuthoring> _breakWheels;
-
-    public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
+    [DisallowMultipleComponent]
+    public class VehicleAuthoring : MonoBehaviour, IConvertGameObjectToEntity
     {
-        dstManager.AddComponent(entity, typeof(VehicleComponent));
+        [SerializeField] private List<WheelAuthoring> _wheels;
+        [SerializeField] private List<WheelAuthoring> _driveWheels;
+        [SerializeField] private List<WheelAuthoring> _controlWheels;
+        [SerializeField] private List<WheelAuthoring> _breakWheels;
 
-        //add wheel buffers
-        dstManager.AddBuffer<IWheelBufferComponent>(entity);
-        dstManager.AddBuffer<IDriveWheelBufferComponent>(entity);
-        dstManager.AddBuffer<IControlWheelBufferComponent>(entity);
-        dstManager.AddBuffer<IBrakeWheelBufferComponent>(entity);
-        //get buffers
-        var _wheelBuffer = dstManager.GetBuffer<IWheelBufferComponent>(entity);
-        var _driveWheelBuffer = dstManager.GetBuffer<IDriveWheelBufferComponent>(entity);
-        var _controlWheelBuffer = dstManager.GetBuffer<IControlWheelBufferComponent>(entity);
-        var _breakWheelBuffer = dstManager.GetBuffer<IBrakeWheelBufferComponent>(entity);
-        //fill buffers
-        foreach (var wheel in _wheels)
+        public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
         {
-            _wheelBuffer.Add(new IWheelBufferComponent { wheel = conversionSystem.GetPrimaryEntity(wheel) });
-        }
-        foreach (var wheel in _driveWheels)
-        {
-            _driveWheelBuffer.Add(new IDriveWheelBufferComponent { wheelID = _wheels.IndexOf(wheel) });
-        }
-        foreach (var wheel in _controlWheels)
-        {
-            _controlWheelBuffer.Add(new IControlWheelBufferComponent { wheelID = _wheels.IndexOf(wheel) });
-        }
-        foreach (var wheel in _breakWheels)
-        {
-            _breakWheelBuffer.Add(new IBrakeWheelBufferComponent { wheelID = _wheels.IndexOf(wheel) });
+            dstManager.AddComponent(entity, typeof(VehicleTag));
+
+            //add wheel buffers
+            dstManager.AddBuffer<WheelElement>(entity);
+            dstManager.AddBuffer<DriveWheelElement>(entity);
+            dstManager.AddBuffer<ControlWheelElement>(entity);
+            dstManager.AddBuffer<BrakeWheelElement>(entity);
+            
+            
+            var wheelBuffer = dstManager.GetBuffer<WheelElement>(entity);
+            
+            //fill buffers
+            foreach (var wheelEntity in _wheels.Select(conversionSystem.GetPrimaryEntity))
+            {
+                wheelBuffer.Add(new WheelElement { wheel = wheelEntity });
+            }
+            
+            var driveWheelBuffer = dstManager.GetBuffer<DriveWheelElement>(entity);
+            foreach (var wheel in _driveWheels)
+            {
+                driveWheelBuffer.Add(new DriveWheelElement { wheelID = _wheels.IndexOf(wheel) });
+            }
+            
+            var controlWheelBuffer = dstManager.GetBuffer<ControlWheelElement>(entity);
+            foreach (var wheel in _controlWheels)
+            {
+                controlWheelBuffer.Add(new ControlWheelElement { wheelID = _wheels.IndexOf(wheel) });
+            }
+            
+            var breakWheelBuffer = dstManager.GetBuffer<BrakeWheelElement>(entity);
+            foreach (var wheel in _breakWheels)
+            {
+                breakWheelBuffer.Add(new BrakeWheelElement { wheelID = _wheels.IndexOf(wheel) });
+            }
+
+#if UNITY_EDITOR
+            dstManager.SetName(entity, $"{gameObject.name}");
+#endif
         }
     }
 }

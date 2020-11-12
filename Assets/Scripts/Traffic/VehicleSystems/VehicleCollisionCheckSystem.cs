@@ -1,102 +1,103 @@
-﻿using Unity.Burst;
-using Unity.Collections;
+﻿using Traffic.VehicleComponents;
+using Traffic.VehicleComponents.DriveVehicle;
 using Unity.Entities;
-using Unity.Jobs;
 using Unity.Mathematics;
-using Unity.Transforms;
 using Unity.Physics;
 using Unity.Physics.Systems;
-using Unity.Physics.Extensions;
-using RaycastHit = Unity.Physics.RaycastHit;
-using static UnityEngine.Debug;
+using Unity.Transforms;
 
-[UpdateBefore(typeof(VehicleSuspensionSystem)), UpdateAfter(typeof(BuildPhysicsWorld))]
-public class VehicleCollisionCheckSystem : ComponentSystem
+namespace Traffic.VehicleSystems
 {
-    private EntityManager _manager;
-    private BuildPhysicsWorld _buildPhysicsWorldSystem;
-
-    protected override void OnCreate()
+    [UpdateInGroup(typeof(PreprocessVehiclesSystemGroup))]
+    [UpdateAfter(typeof(WheelsRaycastSystem))]
+    [AlwaysSynchronizeSystem]
+    public class VehicleCollisionCheckSystem : SystemBase
     {
-        _manager = World.DefaultGameObjectInjectionWorld.EntityManager;
-        _buildPhysicsWorldSystem = World.GetOrCreateSystem<BuildPhysicsWorld>();
-    }
+        private BuildPhysicsWorld _buildPhysicsWorldSystem;
 
-    protected override void OnUpdate()
-    {
-        _buildPhysicsWorldSystem.FinalJobHandle.Complete();
-
-        PhysicsWorld _physicsWorld = _buildPhysicsWorldSystem.PhysicsWorld;
-
-        Entities.WithAll<VehicleComponent>().ForEach((Entity vehicleEntity, ref VehicleAICollisionDetectionComponent collisionDetection, ref LocalToWorld transforms, 
-            ref VehicleSteeringComponent steering, ref VehicleEngineComponent engine, ref VehicleBrakesComponent brakes) =>
+        protected override void OnCreate()
         {
-            var _rayDirection = math.forward(steering.currentRotation);
-            if (math.dot(_rayDirection, transforms.Forward) < 0)
-                return;
+            _buildPhysicsWorldSystem = World.GetOrCreateSystem<BuildPhysicsWorld>();
+        }
 
-            var _leftPos = _manager.GetComponentData<LocalToWorld>(collisionDetection.leftRayPoint).Position;
-            var _rightPos = _manager.GetComponentData<LocalToWorld>(collisionDetection.rightRayPoint).Position;
+        protected override void OnUpdate()
+        {
+            var physicsWorld = _buildPhysicsWorldSystem.PhysicsWorld;
 
-            float _distance = math.clamp(engine.currentSpeed, 2, engine.currentSpeed);
+            var localToWorldComponents = GetComponentDataFromEntity<LocalToWorld>(true);
 
-            var _ray = _rayDirection * _distance;
-
-            //cast rays
-            RaycastInput _raycastInputLeft = new RaycastInput
+            Entities
+                .WithReadOnly(physicsWorld)
+                .WithReadOnly(localToWorldComponents)
+                .WithAll<VehicleTag>()
+                .ForEach((Entity vehicleEntity, ref VehicleBrakesData brakes, ref VehicleEngineData engine, 
+                    in VehicleAICollisionDetectionComponent collisionDetection, in LocalToWorld transforms, in VehicleSteeringData steering) =>
             {
-                Start = _leftPos,
-                End = (_leftPos + _ray),
-                Filter = CollisionFilter.Default
-            };
-            RaycastHit _hitLeft;
-            RaycastInput _raycastInputRigt = new RaycastInput
-            {
-                Start = _rightPos,
-                End = (_rightPos + _ray),
-                Filter = CollisionFilter.Default
-            };
-            RaycastHit _hitRight;
+                var rayDirection = math.forward(steering.currentRotation);
+                if (math.dot(rayDirection, transforms.Forward) < 0)
+                    return;
 
-            bool _isLeftHit = _physicsWorld.CastRay(_raycastInputLeft, out _hitLeft);
-            bool _isRightHit = _physicsWorld.CastRay(_raycastInputRigt, out _hitRight);
+                var leftPos = localToWorldComponents[collisionDetection.leftRayPoint].Position;
+                var rightPos = localToWorldComponents[collisionDetection.rightRayPoint].Position;
 
-            float _fraction = 1;
+                var distance = math.clamp(engine.currentSpeed, 2, engine.currentSpeed);
 
-            if (_isLeftHit && _isRightHit)
-            {
-                _fraction = _hitLeft.Fraction;
-                if (_hitRight.Fraction < _fraction)
-                    _fraction = _hitRight.Fraction;
+                var ray = rayDirection * distance;
 
-                //debug
-                DrawLine(_raycastInputLeft.Start, _hitLeft.Position, UnityEngine.Color.red);
-                DrawLine(_raycastInputRigt.Start, _hitRight.Position, UnityEngine.Color.red);
-            }
-            else if (_isLeftHit)
-            {
-                _fraction = _hitLeft.Fraction;
+                //cast rays
+                var raycastInputLeft = new RaycastInput
+                {
+                    Start = leftPos,
+                    End = leftPos + ray,
+                    Filter = CollisionFilter.Default
+                };
+                var raycastInputRight = new RaycastInput
+                {
+                    Start = rightPos,
+                    End = rightPos + ray,
+                    Filter = CollisionFilter.Default
+                };
 
-                //debug
-                DrawLine(_raycastInputLeft.Start, _hitLeft.Position, UnityEngine.Color.red);
-            }
-            else if (_isRightHit)
-            {
-                _fraction = _hitRight.Fraction;
+                var isLeftHit = physicsWorld.CastRay(raycastInputLeft, out var hitLeft);
+                var isRightHit = physicsWorld.CastRay(raycastInputRight, out var hitRight);
 
-                //debug
-                DrawLine(_raycastInputRigt.Start, _hitRight.Position, UnityEngine.Color.red);
-            }
-            else
-            {
-                return;
-            }
+                float fraction;
 
-            //set brakes
-            float _closeValue = 1.0f - _fraction;
-            int _usage = (int)(_closeValue * 100);
-            brakes.brakesUsage = _usage;
-            engine.acceleration = 0;
-        });
+                if (isLeftHit && isRightHit)
+                {
+                    fraction = hitLeft.Fraction;
+                    if (hitRight.Fraction < fraction)
+                        fraction = hitRight.Fraction;
+
+                    //debug
+                    // DrawLine(raycastInputLeft.Start, hitLeft.Position, UnityEngine.Color.red);
+                    // DrawLine(raycastInputRight.Start, hitRight.Position, UnityEngine.Color.red);
+                }
+                else if (isLeftHit)
+                {
+                    fraction = hitLeft.Fraction;
+
+                    //debug
+                    // DrawLine(raycastInputLeft.Start, hitLeft.Position, UnityEngine.Color.red);
+                }
+                else if (isRightHit)
+                {
+                    fraction = hitRight.Fraction;
+
+                    //debug
+                    // DrawLine(raycastInputRight.Start, hitRight.Position, UnityEngine.Color.red);
+                }
+                else
+                {
+                    return;
+                }
+
+                //set brakes
+                var closeValue = 1.0f - fraction;
+                var usage = (int)(closeValue * 100);
+                brakes.brakesUsage = usage;
+                engine.acceleration = 0;
+            }).ScheduleParallel(Dependency).Complete();
+        }
     }
 }

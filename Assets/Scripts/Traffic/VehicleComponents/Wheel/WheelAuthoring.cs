@@ -1,19 +1,27 @@
 ﻿using Unity.Entities;
-using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-[DisallowMultipleComponent]
-[RequiresEntityConversion]
-public class WheelAuthoring : MonoBehaviour, IConvertGameObjectToEntity
+namespace Traffic.VehicleComponents.Wheel
 {
-    [SerializeField] public WheelComponent wheel;
-
-    public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
+    [DisallowMultipleComponent]
+    public class WheelAuthoring : MonoBehaviour, IConvertGameObjectToEntity
     {
-        var _wheelModel = GetComponent<SuspensionAuthoring>().wheelModel;
-        wheel.wheelModel = conversionSystem.GetPrimaryEntity(_wheelModel);
-        wheel.wheelPosition = _wheelModel.position;
+        [FormerlySerializedAs("wheel")] 
+        [SerializeField] public WheelData _wheel;
 
-        dstManager.AddComponentData<WheelComponent>(entity, wheel);
+        public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
+        {
+            var wheelModel = GetComponent<SuspensionAuthoring>().wheelModel;
+            _wheel.wheelModel = conversionSystem.GetPrimaryEntity(wheelModel);
+            _wheel.wheelPosition = wheelModel.position;
+
+            dstManager.AddComponentData(entity, _wheel);
+            dstManager.AddComponent<WheelRaycastData>(entity);
+
+#if UNITY_EDITOR
+            dstManager.SetName(entity, "Wheel");
+#endif
+        }
     }
 }
