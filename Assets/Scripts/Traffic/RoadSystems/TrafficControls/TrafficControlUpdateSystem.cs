@@ -1,59 +1,64 @@
-﻿using Unity.Burst;
-using Unity.Collections;
+﻿using Traffic.RoadComponents;
+using Traffic.RoadComponents.TrafficControl;
 using Unity.Entities;
-using Unity.Jobs;
-using Unity.Mathematics;
-using Unity.Transforms;
-using static Unity.Mathematics.math;
 
-public class TrafficControlUpdateSystem : ComponentSystem
+namespace Traffic.RoadSystems.TrafficControls
 {
-    private EntityManager _manager;
-
-    protected override void OnCreate()
+    public class TrafficControlUpdateSystem : SystemBase
     {
-        _manager = World.DefaultGameObjectInjectionWorld.EntityManager;
-    }
+        private EndSimulationEntityCommandBufferSystem _commandBufferSystem;
 
-    protected override void OnUpdate()
-    {
-        float _deltaTime = Time.DeltaTime;
-
-        Entities.WithNone(typeof(TrafficControlBlockInitComponent)).ForEach((Entity blockEntity, ref TrafficControlBlockComponent controlBlock, ref TrafficControlStateComponent controlState) =>
+        protected override void OnCreate()
         {
-            var _groupsBuffer = _manager.GetBuffer<NodeBufferElement>(blockEntity);
-            var _groupStartIdsBuffer = _manager.GetBuffer<StartIDsBufferElement>(blockEntity);
-            var _statesBuffer = _manager.GetBuffer<TCStateBufferElement>(blockEntity);
-            var _stateTimesBuffer = _manager.GetBuffer<StateTimeBufferElement>(blockEntity);
+            _commandBufferSystem = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
+        }
 
-            //decrease state time
-            controlState.stateRemainingTime -= _deltaTime;
-            //check time
-            if (controlState.stateRemainingTime <= 0)
+        protected override void OnUpdate()
+        {
+            var deltaTime = Time.DeltaTime;
+
+            var commandBuffer = _commandBufferSystem.CreateCommandBuffer();
+            var parallelCommandBuffer = commandBuffer.AsParallelWriter();
+
+            Entities
+                .WithNone<TrafficControlBlockInitTag>()
+                .ForEach((int nativeThreadIndex, Entity blockEntity, ref TrafficControlBlockComponent controlBlock, 
+                    ref TrafficControlStateComponent controlState,
+                    in DynamicBuffer<NodeBufferElement> groupsBuffer,
+                    in DynamicBuffer<StartIDsBufferElement> groupStartIdsBuffer,
+                    in DynamicBuffer<TCStateBufferElement> statesBuffer,
+                    in DynamicBuffer<StateTimeBufferElement> stateTimesBuffer) =>
             {
+                //decrease state time
+                controlState.stateRemainingTime -= deltaTime;
+                //check time
+                if (!(controlState.stateRemainingTime <= 0)) 
+                    return;
+                
                 //change state
                 controlState.stateId++;
-                if (controlState.stateId >= (_statesBuffer.Length / controlBlock.groupsCount))
+                if (controlState.stateId >= statesBuffer.Length / controlBlock.groupsCount)
                     controlState.stateId = 0;
 
-                controlState.stateRemainingTime = _stateTimesBuffer[controlState.stateId].value;
+                controlState.stateRemainingTime = stateTimesBuffer[controlState.stateId].value;
 
-                //update groupes
-                int _stateId = controlState.stateId;
-                int _stateOffset = _stateId * controlBlock.groupsCount;
+                //update groups
+                var stateId = controlState.stateId;
+                var stateOffset = stateId * controlBlock.groupsCount;
 
-                for (int i = 0; i < controlBlock.groupsCount; i++)
+                for (var i = 0; i < controlBlock.groupsCount; i++)
                 {
-                    bool _groupState = _statesBuffer[_stateOffset + i].value;
+                    var groupState = statesBuffer[stateOffset + i].value;
                     //apply state to group
-                    int _groupStartId = _groupStartIdsBuffer[i].value;
-                    int _groupEndId = _groupStartIdsBuffer[i + 1].value;
-                    for (int g = _groupStartId; g < _groupEndId; g++)
+                    var groupStartId = groupStartIdsBuffer[i].value;
+                    var groupEndId = groupStartIdsBuffer[i + 1].value;
+                    for (var g = groupStartId; g < groupEndId; g++)
                     {
-                        _manager.SetComponentData<RoadNodeComponent>(_groupsBuffer[g].node, new RoadNodeComponent { isOpen = _groupState });
+                        parallelCommandBuffer.SetComponent(nativeThreadIndex, groupsBuffer[g].node,
+                            new RoadNodeData {isOpen = groupState});
                     }
                 }
-            }
-        });
+            }).ScheduleParallel(Dependency).Complete();
+        }
     }
 }

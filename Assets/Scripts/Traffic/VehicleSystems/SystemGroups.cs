@@ -39,4 +39,19 @@ namespace Traffic.VehicleSystems
     [UpdateAfter(typeof(VehiclesProcessUpdateSystemGroup))]
     public class VehicleAfterProcessUpdateSystemGroup : ComponentSystemGroup
     {}
+    
+    // AI
+    
+    [UpdateAfter(typeof(VehiclesUpdateSystemGroup))]
+    public class VehiclesAISystemGroup : ComponentSystemGroup
+    {}
+    
+    [UpdateInGroup(typeof(VehiclesAISystemGroup))]
+    public class PreprocessAISystemGroup : ComponentSystemGroup
+    {}
+    
+    [UpdateInGroup(typeof(VehiclesAISystemGroup))]
+    [UpdateAfter(typeof(PreprocessAISystemGroup))]
+    public class ProcessAISystemGroup : ComponentSystemGroup
+    {}
 }

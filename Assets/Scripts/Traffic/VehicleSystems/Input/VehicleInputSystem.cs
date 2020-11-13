@@ -1,96 +1,98 @@
 ﻿using Traffic.VehicleComponents.DriveVehicle;
-using Traffic.VehicleSystems;
-using Unity.Burst;
-using Unity.Collections;
 using Unity.Entities;
-using Unity.Jobs;
-using Unity.Mathematics;
-using Unity.Transforms;
 using UnityEngine.InputSystem;
-using static UnityEngine.Debug;
 
-[UpdateBefore(typeof(SpeedCheckSystem))]
-public class VehicleInputSystem : ComponentSystem
+namespace Traffic.VehicleSystems.Input
 {
-    private VehicleInputActions _inputActions;
-
-    //input values
-    private int _driveDirection = 0;
-    private int _steeringDirection = 0;
-    private int _brakesValue = 1;
-
-    protected override void OnCreate()
+    [UpdateBefore(typeof(SpeedCheckSystem))]
+    public class VehicleInputSystem : SystemBase
     {
-        _inputActions = new VehicleInputActions();
-        _inputActions.Enable();
-        //subscribe
-        //acceleration
-        _inputActions.Default.Acceleration.performed += UpdateAcceleration;
-        _inputActions.Default.Acceleration.canceled += StopAcceleration;
-        //steering
-        _inputActions.Default.Steering.performed += UpdateSteering;
-        _inputActions.Default.Steering.canceled += StopSteering;
-        //brakes
-        _inputActions.Default.Brakes.started += StartBrakes;
-        _inputActions.Default.Brakes.canceled += StopBrakes;
-    }
+        private VehicleInputActions _inputActions;
 
-    protected override void OnDestroy()
-    {
-        _inputActions.Dispose();
-    }
+        //input values
+        private int _driveDirection;
+        private int _steeringDirection;
+        private int _brakesValue = 1;
 
-    protected override void OnUpdate()
-    {
-        Entities.WithAll(typeof(VehiclePlayerControlComponent)).ForEach((ref VehicleEngineData engine, ref VehicleSteeringData steering, ref VehicleBrakesData brakes) =>
+        protected override void OnCreate()
         {
+            _inputActions = new VehicleInputActions();
+            _inputActions.Enable();
+            //subscribe
             //acceleration
-            engine.acceleration = 100 * _driveDirection;
+            _inputActions.Default.Acceleration.performed += UpdateAcceleration;
+            _inputActions.Default.Acceleration.canceled += StopAcceleration;
             //steering
-            steering.direction = _steeringDirection;
+            _inputActions.Default.Steering.performed += UpdateSteering;
+            _inputActions.Default.Steering.canceled += StopSteering;
             //brakes
-            brakes.brakesUsage = _brakesValue;
-        });
+            _inputActions.Default.Brakes.started += StartBrakes;
+            _inputActions.Default.Brakes.canceled += StopBrakes;
+        }
+
+        protected override void OnDestroy()
+        {
+            _inputActions.Dispose();
+        }
+
+        protected override void OnUpdate()
+        {
+            var driveDirection = _driveDirection;
+            var steeringDirection = _steeringDirection;
+            var brakesValue = _brakesValue;
+            
+            Entities
+                .WithAll<VehiclePlayerControlComponent>()
+                .ForEach((ref VehicleEngineData engine, ref VehicleSteeringData steering, ref VehicleBrakesData brakes) =>
+            {
+                //acceleration
+                engine.acceleration = 100 * driveDirection;
+                //steering
+                steering.direction = steeringDirection;
+                //brakes
+                brakes.brakesUsage = brakesValue;
+            }).Run();
+        }
+
+        #region acceleration
+        private void UpdateAcceleration(InputAction.CallbackContext context)
+        {
+            _driveDirection = (int)context.ReadValue<float>();
+        }
+
+        private void StopAcceleration(InputAction.CallbackContext context)
+        {
+            _driveDirection = 0;
+        }
+
+        #endregion
+
+        #region steering
+
+        private void UpdateSteering(InputAction.CallbackContext context)
+        {
+            _steeringDirection = (int)context.ReadValue<float>();
+        }
+
+        private void StopSteering(InputAction.CallbackContext context)
+        {
+            _steeringDirection = 0;
+        }
+
+        #endregion
+
+        #region brakes
+
+        private void StartBrakes(InputAction.CallbackContext context)
+        {
+            _brakesValue = 100;
+        }
+
+        private void StopBrakes(InputAction.CallbackContext context)
+        {
+            _brakesValue = 1;
+        }
+
+        #endregion
     }
-
-    #region acceleration
-    private void UpdateAcceleration(InputAction.CallbackContext context)
-    {
-        _driveDirection = (int)context.ReadValue<float>();
-    }
-
-    private void StopAcceleration(InputAction.CallbackContext context)
-    {
-        _driveDirection = 0;
-    }
-
-    #endregion
-
-    #region steering
-
-    private void UpdateSteering(InputAction.CallbackContext context)
-    {
-        _steeringDirection = (int)context.ReadValue<float>();
-    }
-
-    private void StopSteering(InputAction.CallbackContext context)
-    {
-        _steeringDirection = 0;
-    }
-
-    #endregion
-
-    #region brakes
-
-    private void StartBrakes(InputAction.CallbackContext context)
-    {
-        _brakesValue = 100;
-    }
-
-    private void StopBrakes(InputAction.CallbackContext context)
-    {
-        _brakesValue = 1;
-    }
-
-    #endregion
 }

@@ -1,88 +1,87 @@
-﻿using Unity.Entities;
-using Unity.Mathematics;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Unity.Entities;
 using UnityEngine;
-using System.Collections.Generic;
 
-[DisallowMultipleComponent]
-[RequiresEntityConversion]
-public class TrafficControlBlockAuthoring : MonoBehaviour, IConvertGameObjectToEntity
+namespace Traffic.RoadComponents.TrafficControl
 {
-    [Header("Node Groups")]
-    [SerializeField] private List<ControlGroup> _groups;
-
-    [Header("State Masks")]
-    [SerializeField] private List<ControlState> _stateMasks;
-
-    [Header("Start Setup")]
-    [SerializeField] private int _startStateId;
-
-    public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
+    [DisallowMultipleComponent]
+    public class TrafficControlBlockAuthoring : MonoBehaviour, IConvertGameObjectToEntity
     {
-        //start check
-        foreach (var state in _stateMasks)
+        [Header("Node Groups")]
+        [SerializeField] private List<ControlGroup> _groups;
+
+        [Header("State Masks")]
+        [SerializeField] private List<ControlState> _stateMasks;
+
+        [Header("Start Setup")]
+        [SerializeField] private int _startStateId;
+
+        public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
         {
-            if (state.mask.Count != _groups.Count)
-                throw new System.Exception("Traffic Control Mask value count is not equal to groups count");
-
-            if (_startStateId >= _stateMasks.Count)
-                throw new System.Exception("Start state ID is out of bounds");
-        }
-
-        //convert
-        var _manager = World.DefaultGameObjectInjectionWorld.EntityManager;
-        //add components
-        _manager.AddComponent(entity, typeof(TrafficControlBlockInitComponent));
-        _manager.AddComponentData<TrafficControlBlockComponent>(entity, new TrafficControlBlockComponent { groupsCount = _groups.Count, statesCount = _stateMasks.Count });
-        _manager.AddComponentData<TrafficControlStateComponent>(entity, new TrafficControlStateComponent { stateId = _startStateId, stateRemainingTime = _stateMasks[_startStateId].stateLifetime });
-
-
-        //add groups
-        var _groupsBuffer = _manager.AddBuffer<NodeBufferElement>(entity);
-        for (int i = 0; i < _groups.Count; i++)
-        {
-            for (int j = 0; j < _groups[i].groupNodes.Count; j++)
+            //start check
+            foreach (var state in _stateMasks)
             {
-                _groupsBuffer.Add(new NodeBufferElement { node = conversionSystem.GetPrimaryEntity(_groups[i].groupNodes[j].gameObject) });
+                if (state.mask.Count != _groups.Count)
+                    throw new System.Exception("Traffic Control Mask value count is not equal to groups count");
+
+                if (_startStateId >= _stateMasks.Count)
+                    throw new System.Exception("Start state ID is out of bounds");
+            }
+
+            //convert
+            var manager = World.DefaultGameObjectInjectionWorld.EntityManager;
+            //add components
+            manager.AddComponent(entity, typeof(TrafficControlBlockInitTag));
+            manager.AddComponentData(entity, new TrafficControlBlockComponent { groupsCount = _groups.Count, statesCount = _stateMasks.Count });
+            manager.AddComponentData(entity, new TrafficControlStateComponent { stateId = _startStateId, stateRemainingTime = _stateMasks[_startStateId].stateLifetime });
+
+
+            //add groups
+            var groupsBuffer = manager.AddBuffer<NodeBufferElement>(entity);
+            for (var i = 0; i < _groups.Count; i++)
+            {
+                foreach (var node in _groups[i].groupNodes)
+                {
+                    groupsBuffer.Add(new NodeBufferElement { node = conversionSystem.GetPrimaryEntity(node.gameObject) });
+                }
+            }
+            //add start IDs
+            var groupStartIdsBuffer = manager.AddBuffer<StartIDsBufferElement>(entity);
+            var startCounter = 0;
+            groupStartIdsBuffer.Add(new StartIDsBufferElement { value = startCounter });
+            for (var i = 0; i < _groups.Count; i++)
+            {
+                startCounter += _groups[i].groupNodes.Count;
+                groupStartIdsBuffer.Add(new StartIDsBufferElement { value = startCounter });
+
+            }
+            //add states
+            var statesBuffer = manager.AddBuffer<TCStateBufferElement>(entity);
+            foreach (var t1 in _stateMasks.SelectMany(stateMask => stateMask.mask))
+            {
+                statesBuffer.Add(new TCStateBufferElement { value = t1 });
+            }
+            //add state timings
+            var stateTimesBuffer = manager.AddBuffer<StateTimeBufferElement>(entity);
+            foreach (var stateMask in _stateMasks)
+            {
+                stateTimesBuffer.Add(new StateTimeBufferElement { value = stateMask.stateLifetime });
             }
         }
-        //add start IDs
-        var _groupStartIdsBuffer = _manager.AddBuffer<StartIDsBufferElement>(entity);
-        int _startCounter = 0;
-        _groupStartIdsBuffer.Add(new StartIDsBufferElement { value = _startCounter });
-        for (int i = 0; i < _groups.Count; i++)
-        {
-            _startCounter += _groups[i].groupNodes.Count;
-            _groupStartIdsBuffer.Add(new StartIDsBufferElement { value = _startCounter });
 
-        }
-        //add states
-        var _statesBuffer = _manager.AddBuffer<TCStateBufferElement>(entity);
-        for (int i = 0; i < _stateMasks.Count; i++)
+        [System.Serializable]
+        private struct ControlGroup
         {
-            for (int j = 0; j < _stateMasks[i].mask.Count; j++)
-            {
-                _statesBuffer.Add(new TCStateBufferElement { value = _stateMasks[i].mask[j] });
-            }
+            public string groupName;
+            public List<RoadNodeAuthoring> groupNodes;
         }
-        //add state timings
-        var _stateTimesBuffer = _manager.AddBuffer<StateTimeBufferElement>(entity);
-        for (int i = 0; i < _stateMasks.Count; i++)
+
+        [System.Serializable]
+        private class ControlState
         {
-            _stateTimesBuffer.Add(new StateTimeBufferElement { value = _stateMasks[i].stateLifetime });
+            public List<bool> mask;
+            public int stateLifetime;
         }
-    }
-
-    [System.Serializable]
-    private struct ControlGroup
-    {
-        public string groupName;
-        public List<RoadNodeAuthoring> groupNodes;
-    }
-
-    [System.Serializable]
-    private class ControlState
-    {
-        public List<bool> mask;
-        public int stateLifetime;
     }
 }

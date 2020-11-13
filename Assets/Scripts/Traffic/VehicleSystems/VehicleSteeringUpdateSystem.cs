@@ -1,4 +1,5 @@
-﻿using Traffic.VehicleComponents.DriveVehicle;
+﻿using Traffic.VehicleComponents;
+using Traffic.VehicleComponents.DriveVehicle;
 using Traffic.VehicleSystems;
 using Unity.Burst;
 using Unity.Collections;
@@ -14,7 +15,7 @@ public class VehicleSteeringUpdateSystem : JobComponentSystem
     {
         float _deltaTime = Time.DeltaTime;
 
-        return Entities.WithNone<VehicleAIComponent>().ForEach((ref VehicleSteeringData steering) =>
+        return Entities.WithNone<VehicleAIData>().ForEach((ref VehicleSteeringData steering) =>
         {
             steering.currentTransition += steering.direction * steering.steeringSpeed * _deltaTime;
             if (steering.direction == 0)

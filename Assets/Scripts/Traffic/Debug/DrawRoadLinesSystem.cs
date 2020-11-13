@@ -1,52 +1,42 @@
-﻿using Unity.Burst;
+﻿using Traffic.RoadComponents;
 using Unity.Collections;
 using Unity.Entities;
-using Unity.Jobs;
-using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
 
-public class DrawRoadLinesSystem : ComponentSystem
+namespace Traffic.Debug
 {
-    private EntityManager _manager;
-
-    protected override void OnCreate()
+    public class DrawRoadLinesSystem : SystemBase
     {
-        _manager = World.DefaultGameObjectInjectionWorld.EntityManager;
-    }
-
-    protected override void OnUpdate()
-    {
-        if (TrafficSystem.instance != null)
+        protected override void OnUpdate()
         {
-            var _graphs = TrafficSystem.instance.graphs;
-            for (int i = 0; i < _graphs.Count; i++)
+            if (TrafficSystem.instance == null) 
+                return;
+            
+            var graphs = TrafficSystem.instance.graphs;
+            for (var i = 0; i < graphs.Count; i++)
             {
-                var _keys = _graphs[i].GetKeyArray(Allocator.Temp);
+                var keys = graphs[i].GetKeyArray(Allocator.Temp);
 
-                for (int k = 0; k < _keys.Length; k++)
+                foreach (var key in keys)
                 {
-                    var _values = _graphs[i].GetValuesForKey(_keys[k]);
+                    var values = graphs[i].GetValuesForKey(key);
 
-                    var _keyLocalToWorld = _manager.GetComponentData<LocalToWorld>(_keys[k]);
+                    var keyLocalToWorld = EntityManager.GetComponentData<LocalToWorld>(key);
 
-                    Color _lineColor;
-                    bool _keyOpen = _manager.GetComponentData<RoadNodeComponent>(_keys[k]).isOpen;
-                    if (!_keyOpen)
-                        _lineColor = Color.red;
-                    else
-                        _lineColor = Color.green;
+                    var keyOpen = EntityManager.GetComponentData<RoadNodeData>(key).isOpen;
+                    var lineColor = !keyOpen ? Color.red : Color.green;
 
-                    foreach (var node in _values)
+                    foreach (var node in values)
                     {
-                        var _valueLocalToWorld = _manager.GetComponentData<LocalToWorld>(node);
+                        var valueLocalToWorld = EntityManager.GetComponentData<LocalToWorld>(node);
 
-                        Debug.DrawLine(_keyLocalToWorld.Position, _valueLocalToWorld.Position, _lineColor);
+                        UnityEngine.Debug.DrawLine(keyLocalToWorld.Position, valueLocalToWorld.Position, lineColor);
                     }
                 }
 
-                //dispose temporals
-                _keys.Dispose();
+                //dispose temporal
+                keys.Dispose();
             }
         }
     }

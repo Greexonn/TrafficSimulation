@@ -1,46 +1,47 @@
-﻿using Unity.Burst;
+﻿using Traffic.RoadComponents;
+using Traffic.RoadComponents.TrafficControl;
 using Unity.Collections;
 using Unity.Entities;
-using Unity.Jobs;
-using Unity.Mathematics;
-using Unity.Transforms;
 
-public class TrafficControlInitSystem : ComponentSystem
+namespace Traffic.RoadSystems.TrafficControls
 {
-    private EntityManager _manager;
-
-    protected override void OnCreate()
+    public class TrafficControlInitSystem : SystemBase
     {
-        _manager = World.DefaultGameObjectInjectionWorld.EntityManager;
-    }
-
-    protected override void OnUpdate()
-    {
-        float _deltaTime = Time.DeltaTime;
-
-        Entities.WithAll(typeof(TrafficControlBlockInitComponent)).ForEach((Entity blockEntity, ref TrafficControlBlockComponent controlBlock, ref TrafficControlStateComponent controlState) =>
+        protected override void OnUpdate()
         {
-            var _groupsBuffer = _manager.GetBuffer<NodeBufferElement>(blockEntity);
-            var _groupStartIdsBuffer = _manager.GetBuffer<StartIDsBufferElement>(blockEntity);
-            var _statesBuffer = _manager.GetBuffer<TCStateBufferElement>(blockEntity);
-
-            int _stateId = controlState.stateId;
-            int _stateOffset = _stateId * controlBlock.groupsCount;
-
-            for (int i = 0; i < controlBlock.groupsCount; i++)
+            var commandBuffer = new EntityCommandBuffer(Allocator.TempJob);
+            var parallelCommandBuffer = commandBuffer.AsParallelWriter();
+            
+            Entities
+                .WithAll<TrafficControlBlockInitTag>()
+                .ForEach((int nativeThreadIndex, Entity blockEntity, ref TrafficControlBlockComponent controlBlock, 
+                    ref TrafficControlStateComponent controlState,
+                    in DynamicBuffer<NodeBufferElement> groupsBuffer, 
+                    in DynamicBuffer<StartIDsBufferElement> groupStartIdsBuffer,
+                    in DynamicBuffer<TCStateBufferElement> statesBuffer) =>
             {
-                bool _groupState = _statesBuffer[_stateOffset + i].value;
-                //apply state to group
-                int _groupStartId = _groupStartIdsBuffer[i].value;
-                int _groupEndId = _groupStartIdsBuffer[i + 1].value;
-                for (int g = _groupStartId; g < _groupEndId; g++)
-                {
-                    _manager.SetComponentData<RoadNodeComponent>(_groupsBuffer[g].node, new RoadNodeComponent { isOpen = _groupState });
-                }
-            }
+                var stateId = controlState.stateId;
+                var stateOffset = stateId * controlBlock.groupsCount;
 
-            //remove init component
-            _manager.RemoveComponent(blockEntity, typeof(TrafficControlBlockInitComponent));
-        });
+                for (var i = 0; i < controlBlock.groupsCount; i++)
+                {
+                    var groupState = statesBuffer[stateOffset + i].value;
+                    //apply state to group
+                    var groupStartId = groupStartIdsBuffer[i].value;
+                    var groupEndId = groupStartIdsBuffer[i + 1].value;
+                    for (var g = groupStartId; g < groupEndId; g++)
+                    {
+                        parallelCommandBuffer.SetComponent(nativeThreadIndex, groupsBuffer[g].node,
+                            new RoadNodeData {isOpen = groupState});
+                    }
+                }
+
+                //remove init component
+                parallelCommandBuffer.RemoveComponent<TrafficControlBlockInitTag>(nativeThreadIndex, blockEntity);
+            }).ScheduleParallel(Dependency).Complete();
+            
+            commandBuffer.Playback(EntityManager);
+            commandBuffer.Dispose();
+        }
     }
 }

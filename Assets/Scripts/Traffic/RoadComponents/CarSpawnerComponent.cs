@@ -1,8 +1,7 @@
-﻿using System;
-using Unity.Collections;
-using Unity.Entities;
-using Unity.Mathematics;
+﻿using Unity.Entities;
 
-public struct CarSpawnerComponent : IComponentData
+namespace Traffic.RoadComponents
 {
+    public struct CarSpawnerComponent : IComponentData
+    {}
 }

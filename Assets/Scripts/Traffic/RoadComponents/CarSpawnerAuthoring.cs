@@ -1,15 +1,16 @@
 ﻿using Unity.Entities;
-using Unity.Mathematics;
 using UnityEngine;
 
-[DisallowMultipleComponent]
-[RequiresEntityConversion]
-public class CarSpawnerAuthoring : MonoBehaviour, IConvertGameObjectToEntity
+namespace Traffic.RoadComponents
 {
-    [SerializeField] private RoadNodeAuthoring _spawnNode;
-
-    public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
+    [DisallowMultipleComponent]
+    public class CarSpawnerAuthoring : MonoBehaviour, IConvertGameObjectToEntity
     {
-        dstManager.AddComponent(conversionSystem.GetPrimaryEntity(_spawnNode.gameObject), typeof(CarSpawnerComponent));
+        [SerializeField] private RoadNodeAuthoring _spawnNode;
+
+        public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
+        {
+            dstManager.AddComponent(conversionSystem.GetPrimaryEntity(_spawnNode.gameObject), typeof(CarSpawnerComponent));
+        }
     }
 }

@@ -33,8 +33,8 @@
               <e p="RoadBlockAuthoring.cs" t="Include" />
               <e p="RoadChunkAuthoring.cs" t="Include" />
               <e p="RoadNodeAuthoring.cs" t="Include" />
-              <e p="RoadNodeComponent.cs" t="Include" />
-              <e p="RoadTargetComponent.cs" t="Include" />
+              <e p="RoadNodeData.cs" t="Include" />
+              <e p="RoadTargetData.cs" t="Include" />
               <e p="TrafficControl" t="Include">
                 <e p="IntBufferElement.cs" t="Include" />
                 <e p="StartIDsBufferElement.cs" t="Include" />
@@ -42,7 +42,7 @@
                 <e p="TCStateBufferElement.cs" t="Include" />
                 <e p="TrafficControlBlockAuthoring.cs" t="Include" />
                 <e p="TrafficControlBlockComponent.cs" t="Include" />
-                <e p="TrafficControlBlockInitComponent.cs" t="Include" />
+                <e p="TrafficControlBlockInitTag.cs" t="Include" />
                 <e p="TrafficControlStateComponent.cs" t="Include" />
               </e>
             </e>
@@ -63,12 +63,12 @@
               </e>
               <e p="JustSpawnedTag.cs" t="Include" />
               <e p="NodeBufferElement.cs" t="Include" />
-              <e p="PathfindingRequestComponent.cs" t="Include" />
+              <e p="PathfindingRequest.cs" t="Include" />
               <e p="VehicleAICollisionDetectionComponent.cs" t="Include" />
-              <e p="VehicleAIComponent.cs" t="Include" />
+              <e p="VehicleAIData.cs" t="Include" />
               <e p="VehicleAuthoring.cs" t="Include" />
-              <e p="VehicleCurrentNodeComponent.cs" t="Include" />
-              <e p="VehiclePathNodeIndexComponent.cs" t="Include" />
+              <e p="VehicleCurrentNodeData.cs" t="Include" />
+              <e p="VehiclePathNodeIndexData.cs" t="Include" />
               <e p="VehicleTag.cs" t="Include" />
               <e p="Wheel" t="Include">
                 <e p="BrakeWheelElement.cs" t="Include" />

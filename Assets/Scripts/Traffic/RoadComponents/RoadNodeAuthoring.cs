@@ -1,18 +1,19 @@
 ﻿using Unity.Entities;
-using Unity.Mathematics;
 using UnityEngine;
 
-[DisallowMultipleComponent]
-[RequiresEntityConversion]
-public class RoadNodeAuthoring : MonoBehaviour, IConvertGameObjectToEntity
+namespace Traffic.RoadComponents
 {
-    public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
+    [DisallowMultipleComponent]
+    public class RoadNodeAuthoring : MonoBehaviour, IConvertGameObjectToEntity
     {
-        RoadNodeComponent _nodeComponent = new RoadNodeComponent
+        public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
         {
-            isOpen = true
-        };
+            var nodeComponent = new RoadNodeData
+            {
+                isOpen = true
+            };
 
-        dstManager.AddComponentData(entity, _nodeComponent);
+            dstManager.AddComponentData(entity, nodeComponent);
+        }
     }
 }

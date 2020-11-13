@@ -1,10 +1,10 @@
-﻿using System;
-using Unity.Collections;
-using Unity.Entities;
-using Unity.Mathematics;
+﻿using Unity.Entities;
 
-[GenerateAuthoringComponent]
-public struct VehicleAICollisionDetectionComponent : IComponentData
+namespace Traffic.VehicleComponents
 {
-    public Entity leftRayPoint, rightRayPoint;
+    [GenerateAuthoringComponent]
+    public struct VehicleAICollisionDetectionComponent : IComponentData
+    {
+        public Entity leftRayPoint, rightRayPoint;
+    }
 }

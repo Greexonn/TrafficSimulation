@@ -1,40 +1,40 @@
-﻿using Unity.Entities;
-using Unity.Mathematics;
-using Unity.Collections;
+﻿using Unity.Collections;
+using Unity.Entities;
 using UnityEngine;
 
-[DisallowMultipleComponent]
-[RequiresEntityConversion]
-public class RoadChunkAuthoring : MonoBehaviour, IConvertGameObjectToEntity
+namespace Traffic.RoadComponents
 {
-    public NativeMultiHashMap<Entity, Entity> chunkGraph;
-
-    void Awake()
+    [DisallowMultipleComponent]
+    public class RoadChunkAuthoring : MonoBehaviour, IConvertGameObjectToEntity
     {
-        var _roadBlocks = GetComponentsInChildren<RoadBlockAuthoring>();
+        public NativeMultiHashMap<Entity, Entity> chunkGraph;
 
-        foreach (var block in _roadBlocks)
+        private void Awake()
         {
-            block.ConnectNodes();
+            var roadBlocks = GetComponentsInChildren<RoadBlockAuthoring>();
+
+            foreach (var block in roadBlocks)
+            {
+                block.ConnectNodes();
+            }
+
+            var linesCount = 0;
+
+            foreach (var block in roadBlocks)
+            {
+                block._parentChunk = this;
+                linesCount += block.GetLinesCount();
+            }
+
+            if (linesCount > 0)
+            {
+                chunkGraph = new NativeMultiHashMap<Entity, Entity>(linesCount, Allocator.Persistent);
+            }
         }
 
-        int _linesCount = 0;
-
-        for (int i = 0; i < _roadBlocks.Length; i++)
-        {
-            _roadBlocks[i].parentChunk = this;
-
-            _linesCount += _roadBlocks[i].GetLinesCount();
+        public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
+        {       
+            TrafficSystem.instance.graphs.Add(chunkGraph);
         }
-
-        if (_linesCount > 0)
-        {
-            chunkGraph = new NativeMultiHashMap<Entity, Entity>(_linesCount, Allocator.Persistent);
-        }
-    }
-
-    public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
-    {       
-        TrafficSystem.instance.graphs.Add(chunkGraph);
     }
 }
