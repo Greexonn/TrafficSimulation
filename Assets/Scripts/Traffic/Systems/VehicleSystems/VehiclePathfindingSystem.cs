@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
-using Traffic.RoadComponents;
-using Traffic.VehicleComponents;
+using Traffic;
+using TrafficSimulation.Traffic.RoadComponents;
+using TrafficSimulation.Traffic.VehicleComponents;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
@@ -8,7 +9,7 @@ using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Transforms;
 
-namespace Traffic.VehicleSystems
+namespace TrafficSimulation.Traffic.Systems.VehicleSystems
 {
     [UpdateInGroup(typeof(PreprocessAISystemGroup))]
     public partial class VehiclePathfindingSystem : SystemBase
@@ -51,18 +52,18 @@ namespace Traffic.VehicleSystems
                 .WithAll<VehicleTag, PathfindingRequest>()
                 .ForEach((Entity vehicleEntity, ref VehicleCurrentNodeData vehicleCurrentNode, ref VehiclePathNodeIndexData vehiclePathNodeIndex) => 
             {
-                vehiclePathNodeIndex.value = 0;
+                vehiclePathNodeIndex.Value = 0;
 
                 //select target
                 var targetId = UnityEngine.Random.Range(0, _targetPoints.Length);
                 var targetPoint = _targetPoints[targetId].Node;
-                if (targetPoint.Equals(vehicleCurrentNode.node))
+                if (targetPoint.Equals(vehicleCurrentNode.Node))
                     return;
                 
                 var pathfindingJob = new PathfindingJob
                 {
                     TargetVehicle = vehicleEntity,
-                    FoundNode = vehicleCurrentNode.node,
+                    FoundNode = vehicleCurrentNode.Node,
                     TargetPoint = targetPoint,
                     LocalToWorldComponents = localToWorldComponents,
                     Graph = TrafficSystem.Instance.Graphs[0],
@@ -212,8 +213,8 @@ namespace Traffic.VehicleSystems
                 }
                 
                 //get correct reverse path
-                ReversePathList.Add(new NodeBufferElement{node = TargetPoint});
-                ReversePathList.Add(new NodeBufferElement{node = CloseList[^1].nodeEntity});
+                ReversePathList.Add(new NodeBufferElement{Node = TargetPoint});
+                ReversePathList.Add(new NodeBufferElement{Node = CloseList[^1].nodeEntity});
                 var parentEntity = CloseList[^1].parentNode;
                 for (var i = CloseList.Length - 2; i >= 0; i--)
                 {
@@ -222,7 +223,7 @@ namespace Traffic.VehicleSystems
                         continue;
                     
                     parentEntity = node.parentNode;
-                    ReversePathList.Add(new NodeBufferElement{node = node.nodeEntity});
+                    ReversePathList.Add(new NodeBufferElement{Node = node.nodeEntity});
                 }
             }
         }

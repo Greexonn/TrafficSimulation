@@ -1,12 +1,12 @@
-﻿using Traffic.VehicleComponents;
-using Traffic.VehicleComponents.DriveVehicle;
+﻿using TrafficSimulation.Traffic.VehicleComponents;
+using TrafficSimulation.Traffic.VehicleComponents.DriveVehicle;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Physics.Systems;
 using Unity.Transforms;
 
-namespace Traffic.VehicleSystems
+namespace TrafficSimulation.Traffic.Systems.VehicleSystems
 {
     [UpdateInGroup(typeof(PreprocessVehiclesSystemGroup))]
     [UpdateAfter(typeof(WheelsRaycastSystem))]

@@ -1,6 +1,6 @@
 ﻿using Unity.Entities;
 
-namespace Traffic.RoadComponents
+namespace TrafficSimulation.Traffic.RoadComponents
 {
     public struct RoadTargetData : IComponentData
     {

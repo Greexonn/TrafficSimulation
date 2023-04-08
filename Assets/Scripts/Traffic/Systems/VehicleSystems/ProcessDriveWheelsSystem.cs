@@ -1,6 +1,6 @@
-using Core.Systems;
-using Traffic.VehicleComponents.DriveVehicle;
-using Traffic.VehicleComponents.Wheel;
+using TrafficSimulation.Core.Systems;
+using TrafficSimulation.Traffic.VehicleComponents.DriveVehicle;
+using TrafficSimulation.Traffic.VehicleComponents.Wheel;
 using Unity.Entities;
 using Unity.Jobs;
 using Unity.Mathematics;
@@ -8,7 +8,7 @@ using Unity.Physics.Extensions;
 using Unity.Physics.Systems;
 using Unity.Transforms;
 
-namespace Traffic.VehicleSystems
+namespace TrafficSimulation.Traffic.Systems.VehicleSystems
 {
     [UpdateInGroup(typeof(ProcessVehiclesSystemGroup))]
     [UpdateAfter(typeof(ProcessBrakesSystem))]

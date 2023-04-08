@@ -1,8 +1,9 @@
-﻿using Traffic.RoadComponents;
-using Traffic.RoadComponents.TrafficControl;
+﻿using TrafficSimulation.Traffic.RoadComponents;
+using TrafficSimulation.Traffic.RoadComponents.TrafficControl;
+using TrafficSimulation.Traffic.VehicleComponents;
 using Unity.Entities;
 
-namespace Traffic.RoadSystems.TrafficControls
+namespace TrafficSimulation.Traffic.Systems.RoadSystems.TrafficControls
 {
     public partial class TrafficControlUpdateSystem : SystemBase
     {
@@ -38,7 +39,7 @@ namespace Traffic.RoadSystems.TrafficControls
                     if (controlState.stateId >= statesBuffer.Length / controlBlock.groupsCount)
                         controlState.stateId = 0;
 
-                    controlState.stateRemainingTime = stateTimesBuffer[controlState.stateId].value;
+                    controlState.stateRemainingTime = stateTimesBuffer[controlState.stateId].Value;
 
                     //update groups
                     var stateId = controlState.stateId;
@@ -46,13 +47,13 @@ namespace Traffic.RoadSystems.TrafficControls
 
                     for (var i = 0; i < controlBlock.groupsCount; i++)
                     {
-                        var groupState = statesBuffer[stateOffset + i].value;
+                        var groupState = statesBuffer[stateOffset + i].Value;
                         //apply state to group
-                        var groupStartId = groupStartIdsBuffer[i].value;
-                        var groupEndId = groupStartIdsBuffer[i + 1].value;
+                        var groupStartId = groupStartIdsBuffer[i].Value;
+                        var groupEndId = groupStartIdsBuffer[i + 1].Value;
                         for (var g = groupStartId; g < groupEndId; g++)
                         {
-                            parallelCommandBuffer.SetComponent(nativeThreadIndex, groupsBuffer[g].node, new RoadNodeData { isOpen = groupState });
+                            parallelCommandBuffer.SetComponent(nativeThreadIndex, groupsBuffer[g].Node, new RoadNodeData { IsOpen = groupState });
                         }
                     }
                 }).ScheduleParallel(Dependency).Complete();

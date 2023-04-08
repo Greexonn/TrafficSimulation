@@ -1,7 +1,7 @@
 ﻿using Unity.Entities;
 using UnityEngine;
 
-namespace Traffic.RoadComponents
+namespace TrafficSimulation.Traffic.RoadComponents
 {
     [DisallowMultipleComponent]
     public class RoadNodeAuthoring : MonoBehaviour
@@ -10,7 +10,7 @@ namespace Traffic.RoadComponents
         {
             var nodeComponent = new RoadNodeData
             {
-                isOpen = true
+                IsOpen = true
             };
 
             dstManager.AddComponentData(entity, nodeComponent);

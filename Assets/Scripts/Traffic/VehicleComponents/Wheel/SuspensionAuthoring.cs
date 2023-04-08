@@ -1,7 +1,7 @@
 ﻿using Unity.Entities;
 using UnityEngine;
 
-namespace Traffic.VehicleComponents.Wheel
+namespace TrafficSimulation.Traffic.VehicleComponents.Wheel
 {
     [DisallowMultipleComponent]
     [RequireComponent(typeof(WheelAuthoring))]

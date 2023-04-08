@@ -1,7 +1,7 @@
 ﻿using Unity.Entities;
 using UnityEngine;
 
-namespace Traffic.RoadComponents
+namespace TrafficSimulation.Traffic.RoadComponents
 {
     [DisallowMultipleComponent]
     public class CarSpawnerAuthoring : MonoBehaviour

@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using TrafficSimulation.Traffic.VehicleComponents;
 using Unity.Entities;
 using UnityEngine;
 
-namespace Traffic.RoadComponents.TrafficControl
+namespace TrafficSimulation.Traffic.RoadComponents.TrafficControl
 {
     [DisallowMultipleComponent]
     public class TrafficControlBlockAuthoring : MonoBehaviour
@@ -49,24 +50,24 @@ namespace Traffic.RoadComponents.TrafficControl
             //add start IDs
             var groupStartIdsBuffer = manager.AddBuffer<StartIDsBufferElement>(entity);
             var startCounter = 0;
-            groupStartIdsBuffer.Add(new StartIDsBufferElement { value = startCounter });
+            groupStartIdsBuffer.Add(new StartIDsBufferElement { Value = startCounter });
             for (var i = 0; i < _groups.Count; i++)
             {
                 startCounter += _groups[i].groupNodes.Count;
-                groupStartIdsBuffer.Add(new StartIDsBufferElement { value = startCounter });
+                groupStartIdsBuffer.Add(new StartIDsBufferElement { Value = startCounter });
 
             }
             //add states
             var statesBuffer = manager.AddBuffer<TCStateBufferElement>(entity);
             foreach (var t1 in _stateMasks.SelectMany(stateMask => stateMask.mask))
             {
-                statesBuffer.Add(new TCStateBufferElement { value = t1 });
+                statesBuffer.Add(new TCStateBufferElement { Value = t1 });
             }
             //add state timings
             var stateTimesBuffer = manager.AddBuffer<StateTimeBufferElement>(entity);
             foreach (var stateMask in _stateMasks)
             {
-                stateTimesBuffer.Add(new StateTimeBufferElement { value = stateMask.stateLifetime });
+                stateTimesBuffer.Add(new StateTimeBufferElement { Value = stateMask.stateLifetime });
             }
         }
 

@@ -1,8 +1,8 @@
-using Core.Components;
+using TrafficSimulation.Core.Components;
 using Unity.Collections;
 using Unity.Entities;
 
-namespace Core.Systems
+namespace TrafficSimulation.Core.Systems
 {
     [UpdateInGroup(typeof(FinishingSystemGroup))]
     public partial class RemoveAtFrameEndSystem : SystemBase

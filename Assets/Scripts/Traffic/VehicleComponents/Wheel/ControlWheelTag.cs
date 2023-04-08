@@ -1,7 +1,7 @@
 using System;
 using Unity.Entities;
 
-namespace Traffic.VehicleComponents.Wheel
+namespace TrafficSimulation.Traffic.VehicleComponents.Wheel
 {
     [Serializable]
     public struct ControlWheelTag : IComponentData

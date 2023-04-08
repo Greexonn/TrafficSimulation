@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using Traffic.VehicleComponents.Wheel;
+using TrafficSimulation.Traffic.VehicleComponents.Wheel;
 using Unity.Entities;
 using UnityEngine;
 
-namespace Traffic.VehicleComponents
+namespace TrafficSimulation.Traffic.VehicleComponents
 {
     [DisallowMultipleComponent]
     public class VehicleAuthoring : MonoBehaviour
@@ -36,19 +35,19 @@ namespace Traffic.VehicleComponents
             var driveWheelBuffer = dstManager.GetBuffer<DriveWheelElement>(entity);
             foreach (var wheel in _driveWheels)
             {
-                driveWheelBuffer.Add(new DriveWheelElement { wheelID = _wheels.IndexOf(wheel) });
+                driveWheelBuffer.Add(new DriveWheelElement { WheelID = _wheels.IndexOf(wheel) });
             }
             
             var controlWheelBuffer = dstManager.GetBuffer<ControlWheelElement>(entity);
             foreach (var wheel in _controlWheels)
             {
-                controlWheelBuffer.Add(new ControlWheelElement { wheelID = _wheels.IndexOf(wheel) });
+                controlWheelBuffer.Add(new ControlWheelElement { WheelID = _wheels.IndexOf(wheel) });
             }
             
             var breakWheelBuffer = dstManager.GetBuffer<BrakeWheelElement>(entity);
             foreach (var wheel in _breakWheels)
             {
-                breakWheelBuffer.Add(new BrakeWheelElement { wheelID = _wheels.IndexOf(wheel) });
+                breakWheelBuffer.Add(new BrakeWheelElement { WheelID = _wheels.IndexOf(wheel) });
             }
 
 #if UNITY_EDITOR

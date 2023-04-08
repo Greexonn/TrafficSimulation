@@ -1,6 +1,6 @@
 using Unity.Entities;
 
-namespace Core.Systems
+namespace TrafficSimulation.Core.Systems
 {
     public partial class FrameStartSimulationSystemGroup : ComponentSystemGroup
     {}

@@ -1,11 +1,11 @@
-using Core.Systems;
-using Traffic.RoadSystems;
-using Traffic.VehicleComponents;
-using Traffic.VehicleComponents.Wheel;
+using TrafficSimulation.Core.Systems;
+using TrafficSimulation.Traffic.VehicleComponents;
+using TrafficSimulation.Traffic.VehicleComponents.Wheel;
 using Unity.Collections;
 using Unity.Entities;
+using VehicleSpawnSystem = TrafficSimulation.Traffic.Systems.RoadSystems.VehicleSpawnSystem;
 
-namespace Traffic.VehicleSystems
+namespace TrafficSimulation.Traffic.Systems.VehicleSystems
 {
     [UpdateInGroup(typeof(FrameStartSimulationSystemGroup))]
     [UpdateAfter(typeof(VehicleSpawnSystem))]

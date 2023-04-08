@@ -2,7 +2,7 @@
 using Unity.Mathematics;
 using UnityEngine;
 
-namespace Traffic.VehicleComponents.DriveVehicle
+namespace TrafficSimulation.Traffic.VehicleComponents.DriveVehicle
 {
     public struct VehicleSteeringData : IComponentData
     {

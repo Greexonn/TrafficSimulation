@@ -1,11 +1,11 @@
-﻿using Traffic.RoadComponents;
-using Traffic.VehicleComponents;
-using Traffic.VehicleComponents.DriveVehicle;
+﻿using TrafficSimulation.Traffic.RoadComponents;
+using TrafficSimulation.Traffic.VehicleComponents;
+using TrafficSimulation.Traffic.VehicleComponents.DriveVehicle;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 
-namespace Traffic.VehicleSystems
+namespace TrafficSimulation.Traffic.Systems.VehicleSystems
 {
     [UpdateInGroup(typeof(ProcessAISystemGroup))]
     public partial class VehicleAIControlSystem : SystemBase
@@ -53,15 +53,15 @@ namespace Traffic.VehicleSystems
                     var pathBuffer = nodeBuffers[vehicleEntity].Reinterpret<Entity>();
 
                     //get nodes data
-                    pathNodeIndex.value = math.clamp(pathNodeIndex.value, 0, pathBuffer.Length - 1);
-                    var nextNodeId = math.clamp(pathNodeIndex.value + 1, 0, pathBuffer.Length - 1);
-                    var thirdNodeId = math.clamp(pathNodeIndex.value + 2, 0, pathBuffer.Length - 1);
-                    var currentNodePos = localToWorldComponents[currentNode.node].Position;
+                    pathNodeIndex.Value = math.clamp(pathNodeIndex.Value, 0, pathBuffer.Length - 1);
+                    var nextNodeId = math.clamp(pathNodeIndex.Value + 1, 0, pathBuffer.Length - 1);
+                    var thirdNodeId = math.clamp(pathNodeIndex.Value + 2, 0, pathBuffer.Length - 1);
+                    var currentNodePos = localToWorldComponents[currentNode.Node].Position;
                     var nextNodePos = localToWorldComponents[pathBuffer[nextNodeId]].Position;
                     var thirdNodePos = localToWorldComponents[pathBuffer[thirdNodeId]].Position;
 
                     //check if we've reached our target
-                    if (currentNode.node.Equals(pathBuffer[^1]))
+                    if (currentNode.Node.Equals(pathBuffer[^1]))
                     {
                         commandBuffer.AddComponent<PathfindingRequest>(nativeThreadIndex, vehicleEntity);
                         return;
@@ -96,15 +96,15 @@ namespace Traffic.VehicleSystems
                     //get next node if reached
                     if (nodeToVehicleProjection >= pathPartProjection)
                     {
-                        pathNodeIndex.value = nextNodeId;
-                        var pathNodeData = roadNodeComponents[pathBuffer[pathNodeIndex.value]];
-                        if (pathNodeData.isOpen)
+                        pathNodeIndex.Value = nextNodeId;
+                        var pathNodeData = roadNodeComponents[pathBuffer[pathNodeIndex.Value]];
+                        if (pathNodeData.IsOpen)
                         {
-                            currentNode.node = pathBuffer[pathNodeIndex.value];
+                            currentNode.Node = pathBuffer[pathNodeIndex.Value];
                         }
                         else
                         {
-                            pathNodeIndex.value--;
+                            pathNodeIndex.Value--;
 
                             engine.Acceleration = 0;
                             brakes.BrakesUsage = 100;
@@ -195,7 +195,7 @@ namespace Traffic.VehicleSystems
 
                         //set brakes
                         var nextNodeData = roadNodeComponents[pathBuffer[nextNodeId]];
-                        if (!nextNodeData.isOpen) //if in front of closed node
+                        if (!nextNodeData.IsOpen) //if in front of closed node
                         {
                             var depth = 1.0f - nodeToVehicleProjection / pathPartProjection;
                             if (depth > 0.9f)

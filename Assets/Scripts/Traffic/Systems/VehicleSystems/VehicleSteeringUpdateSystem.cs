@@ -1,9 +1,9 @@
-﻿using Traffic.VehicleComponents;
-using Traffic.VehicleComponents.DriveVehicle;
+﻿using TrafficSimulation.Traffic.VehicleComponents;
+using TrafficSimulation.Traffic.VehicleComponents.DriveVehicle;
 using Unity.Entities;
 using Unity.Mathematics;
 
-namespace Traffic.VehicleSystems
+namespace TrafficSimulation.Traffic.Systems.VehicleSystems
 {
     [UpdateBefore(typeof(SpeedCheckSystem))]
     public partial class VehicleSteeringUpdateSystem : SystemBase

@@ -1,8 +1,9 @@
-﻿using Unity.Collections;
+﻿using Traffic;
+using Unity.Collections;
 using Unity.Entities;
 using UnityEngine;
 
-namespace Traffic.RoadComponents
+namespace TrafficSimulation.Traffic.RoadComponents
 {
     [DisallowMultipleComponent]
     public class RoadChunkAuthoring : MonoBehaviour

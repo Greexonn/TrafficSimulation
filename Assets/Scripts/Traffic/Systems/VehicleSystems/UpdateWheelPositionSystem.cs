@@ -1,10 +1,10 @@
-using Traffic.VehicleComponents.Wheel;
+using TrafficSimulation.Traffic.VehicleComponents.Wheel;
 using Unity.Burst;
 using Unity.Entities;
 using Unity.Transforms;
 using static Unity.Entities.SystemAPI;
 
-namespace Traffic.VehicleSystems
+namespace TrafficSimulation.Traffic.Systems.VehicleSystems
 {
     [UpdateInGroup(typeof(VehiclesProcessUpdateSystemGroup))]
     public partial struct UpdateWheelPositionSystem : ISystem

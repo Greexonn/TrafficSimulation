@@ -1,6 +1,6 @@
 ﻿using Unity.Entities;
 
-namespace Traffic.VehicleComponents
+namespace TrafficSimulation.Traffic.VehicleComponents
 {
     public struct VehicleTag : IComponentData
     {}

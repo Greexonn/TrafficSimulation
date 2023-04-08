@@ -1,11 +1,11 @@
-using Traffic.VehicleComponents.Wheel;
+using TrafficSimulation.Traffic.VehicleComponents.Wheel;
 using Unity.Entities;
 using Unity.Physics;
 using Unity.Physics.Extensions;
 using Unity.Physics.Systems;
 using Unity.Transforms;
 
-namespace Traffic.VehicleSystems
+namespace TrafficSimulation.Traffic.Systems.VehicleSystems
 {
     [UpdateInGroup(typeof(PreprocessVehiclesSystemGroup))]
     public partial class WheelsRaycastSystem : SystemBase

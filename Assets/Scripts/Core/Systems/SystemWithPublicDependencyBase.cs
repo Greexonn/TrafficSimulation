@@ -1,7 +1,7 @@
 using Unity.Entities;
 using Unity.Jobs;
 
-namespace Core.Systems
+namespace TrafficSimulation.Core.Systems
 {
     public abstract partial class SystemWithPublicDependencyBase : SystemBase
     {

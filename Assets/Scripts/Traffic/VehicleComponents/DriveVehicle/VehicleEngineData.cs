@@ -1,7 +1,7 @@
 ﻿using Unity.Entities;
 using UnityEngine;
 
-namespace Traffic.VehicleComponents.DriveVehicle
+namespace TrafficSimulation.Traffic.VehicleComponents.DriveVehicle
 {
     public struct VehicleEngineData : IComponentData
     {

@@ -1,8 +1,8 @@
-﻿using Traffic.VehicleComponents.DriveVehicle;
+﻿using TrafficSimulation.Traffic.VehicleComponents.DriveVehicle;
 using Unity.Entities;
 using UnityEngine.InputSystem;
 
-namespace Traffic.VehicleSystems.Input
+namespace TrafficSimulation.Traffic.Systems.VehicleSystems.Input
 {
     [UpdateBefore(typeof(SpeedCheckSystem))]
     public partial class VehicleInputSystem : SystemBase

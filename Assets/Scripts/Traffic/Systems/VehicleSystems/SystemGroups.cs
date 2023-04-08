@@ -1,8 +1,8 @@
-using Core.Systems;
+using TrafficSimulation.Core.Systems;
 using Unity.Entities;
 using Unity.Physics.Systems;
 
-namespace Traffic.VehicleSystems
+namespace TrafficSimulation.Traffic.Systems.VehicleSystems
 {
     // fixed
     

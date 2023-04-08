@@ -1,10 +1,11 @@
-﻿using Traffic.RoadComponents;
+﻿using Traffic;
+using TrafficSimulation.Traffic.RoadComponents;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Transforms;
 using UnityEngine;
 
-namespace Traffic.Debug
+namespace TrafficSimulation.Traffic.Debug
 {
     public partial class DrawRoadLinesSystem : SystemBase
     {
@@ -24,7 +25,7 @@ namespace Traffic.Debug
 
                     var keyLocalToWorld = EntityManager.GetComponentData<LocalToWorld>(key);
 
-                    var keyOpen = EntityManager.GetComponentData<RoadNodeData>(key).isOpen;
+                    var keyOpen = EntityManager.GetComponentData<RoadNodeData>(key).IsOpen;
                     var lineColor = !keyOpen ? Color.red : Color.green;
 
                     foreach (var node in values)

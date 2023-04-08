@@ -1,7 +1,7 @@
-using Core.Systems;
+using TrafficSimulation.Core.Systems;
 using Unity.Entities;
 
-namespace Traffic.VehicleSystems
+namespace TrafficSimulation.Traffic.Systems.VehicleSystems
 {
     [UpdateInGroup(typeof(AfterProcessVehiclesSystemGroup))]
     public partial class VehiclesEndProcessSystem : SystemWithPublicDependencyBase

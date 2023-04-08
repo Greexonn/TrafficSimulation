@@ -1,10 +1,10 @@
-using Traffic.VehicleComponents.DriveVehicle;
-using Traffic.VehicleComponents.Wheel;
+using TrafficSimulation.Traffic.VehicleComponents.DriveVehicle;
+using TrafficSimulation.Traffic.VehicleComponents.Wheel;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 
-namespace Traffic.VehicleSystems
+namespace TrafficSimulation.Traffic.Systems.VehicleSystems
 {
     [UpdateInGroup(typeof(VehiclesProcessUpdateSystemGroup))]
     public partial class ProcessSteeringSystem : SystemBase

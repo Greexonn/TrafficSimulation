@@ -1,7 +1,10 @@
 ﻿using Unity.Entities;
 
-[InternalBufferCapacity(10)]
-public struct StateTimeBufferElement : IBufferElementData
+namespace TrafficSimulation.Traffic.RoadComponents.TrafficControl
 {
-    public int value;
+    [InternalBufferCapacity(10)]
+    public struct StateTimeBufferElement : IBufferElementData
+    {
+        public int Value;
+    }
 }

@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Traffic.VehicleComponents.Wheel
+namespace TrafficSimulation.Traffic.VehicleComponents.Wheel
 {
     [DisallowMultipleComponent]
     public class WheelAuthoring : MonoBehaviour

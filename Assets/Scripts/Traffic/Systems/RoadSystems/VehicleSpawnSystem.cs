@@ -1,11 +1,12 @@
-﻿using Core.Systems;
-using Traffic.RoadComponents;
-using Traffic.VehicleComponents;
+﻿using TrafficSimulation.Core.Systems;
+using TrafficSimulation.Traffic.Behaviours;
+using TrafficSimulation.Traffic.RoadComponents;
+using TrafficSimulation.Traffic.VehicleComponents;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 
-namespace Traffic.RoadSystems
+namespace TrafficSimulation.Traffic.Systems.RoadSystems
 {
     [UpdateInGroup(typeof(FrameStartSimulationSystemGroup))]
     public partial class VehicleSpawnSystem : SystemBase
@@ -33,12 +34,12 @@ namespace Traffic.RoadSystems
             {
                 var position = transform.Position + math.up() * 1.0f;
 
-                var index = UnityEngine.Random.Range(0, CarPrefabsStorage.instance.carPrefabs.Length);
+                var index = UnityEngine.Random.Range(0, CarPrefabsStorage.Instance.CarPrefabs.Length);
 
-                var vehicleEntity = EntityManager.Instantiate(CarPrefabsStorage.instance.carPrefabs[index]);
+                var vehicleEntity = EntityManager.Instantiate(CarPrefabsStorage.Instance.CarPrefabs[index]);
                 EntityManager.SetComponentData(vehicleEntity, new LocalTransform { Position = position, Rotation = quaternion.identity, Scale = 1f });
-                EntityManager.AddComponentData(vehicleEntity, new VehicleCurrentNodeData{node = spawnerEntity});
-                EntityManager.AddComponentData(vehicleEntity, new VehiclePathNodeIndexData{value = 0});
+                EntityManager.AddComponentData(vehicleEntity, new VehicleCurrentNodeData{Node = spawnerEntity});
+                EntityManager.AddComponentData(vehicleEntity, new VehiclePathNodeIndexData{Value = 0});
                 EntityManager.AddBuffer<NodeBufferElement>(vehicleEntity);
                 //
                 EntityManager.AddComponent(vehicleEntity, typeof(PathfindingRequest));

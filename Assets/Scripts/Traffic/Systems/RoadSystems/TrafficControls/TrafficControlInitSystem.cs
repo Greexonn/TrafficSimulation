@@ -1,9 +1,10 @@
-﻿using Traffic.RoadComponents;
-using Traffic.RoadComponents.TrafficControl;
+﻿using TrafficSimulation.Traffic.RoadComponents;
+using TrafficSimulation.Traffic.RoadComponents.TrafficControl;
+using TrafficSimulation.Traffic.VehicleComponents;
 using Unity.Collections;
 using Unity.Entities;
 
-namespace Traffic.RoadSystems.TrafficControls
+namespace TrafficSimulation.Traffic.Systems.RoadSystems.TrafficControls
 {
     public partial class TrafficControlInitSystem : SystemBase
     {
@@ -25,14 +26,14 @@ namespace Traffic.RoadSystems.TrafficControls
 
                     for (var i = 0; i < controlBlock.groupsCount; i++)
                     {
-                        var groupState = statesBuffer[stateOffset + i].value;
+                        var groupState = statesBuffer[stateOffset + i].Value;
                         //apply state to group
-                        var groupStartId = groupStartIdsBuffer[i].value;
-                        var groupEndId = groupStartIdsBuffer[i + 1].value;
+                        var groupStartId = groupStartIdsBuffer[i].Value;
+                        var groupEndId = groupStartIdsBuffer[i + 1].Value;
                         for (var g = groupStartId; g < groupEndId; g++)
                         {
-                            parallelCommandBuffer.SetComponent(nativeThreadIndex, groupsBuffer[g].node,
-                                new RoadNodeData { isOpen = groupState });
+                            parallelCommandBuffer.SetComponent(nativeThreadIndex, groupsBuffer[g].Node,
+                                new RoadNodeData { IsOpen = groupState });
                         }
                     }
 
