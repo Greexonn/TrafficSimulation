@@ -7,14 +7,14 @@ using UnityEngine;
 namespace Traffic.VehicleComponents
 {
     [DisallowMultipleComponent]
-    public class VehicleAuthoring : MonoBehaviour, IConvertGameObjectToEntity
+    public class VehicleAuthoring : MonoBehaviour
     {
         [SerializeField] private List<WheelAuthoring> _wheels;
         [SerializeField] private List<WheelAuthoring> _driveWheels;
         [SerializeField] private List<WheelAuthoring> _controlWheels;
         [SerializeField] private List<WheelAuthoring> _breakWheels;
 
-        public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
+        public void Convert(Entity entity, EntityManager dstManager)
         {
             dstManager.AddComponent(entity, typeof(VehicleTag));
 
@@ -28,10 +28,10 @@ namespace Traffic.VehicleComponents
             var wheelBuffer = dstManager.GetBuffer<WheelElement>(entity);
             
             //fill buffers
-            foreach (var wheelEntity in _wheels.Select(conversionSystem.GetPrimaryEntity))
-            {
-                wheelBuffer.Add(new WheelElement { wheel = wheelEntity });
-            }
+            // foreach (var wheelEntity in _wheels.Select(conversionSystem.GetPrimaryEntity))
+            // {
+            //     wheelBuffer.Add(new WheelElement { wheel = wheelEntity });
+            // }
             
             var driveWheelBuffer = dstManager.GetBuffer<DriveWheelElement>(entity);
             foreach (var wheel in _driveWheels)

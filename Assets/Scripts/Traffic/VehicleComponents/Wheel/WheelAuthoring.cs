@@ -5,15 +5,15 @@ using UnityEngine.Serialization;
 namespace Traffic.VehicleComponents.Wheel
 {
     [DisallowMultipleComponent]
-    public class WheelAuthoring : MonoBehaviour, IConvertGameObjectToEntity
+    public class WheelAuthoring : MonoBehaviour
     {
         [FormerlySerializedAs("wheel")] 
         [SerializeField] public WheelData _wheel;
 
-        public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
+        public void Convert(Entity entity, EntityManager dstManager)
         {
             var wheelModel = GetComponent<SuspensionAuthoring>().wheelModel;
-            _wheel.wheelModel = conversionSystem.GetPrimaryEntity(wheelModel);
+            // _wheel.wheelModel = conversionSystem.GetPrimaryEntity(wheelModel);
             _wheel.wheelPosition = wheelModel.position;
 
             dstManager.AddComponentData(entity, _wheel);

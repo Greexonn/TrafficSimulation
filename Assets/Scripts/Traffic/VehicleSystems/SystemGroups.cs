@@ -8,50 +8,50 @@ namespace Traffic.VehicleSystems
     
     [UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
     [UpdateAfter(typeof(BuildPhysicsWorld))]
-    public class VehiclesFixedStepSystemGroup : ComponentSystemGroup
+    public partial class VehiclesFixedStepSystemGroup : ComponentSystemGroup
     {}
     
     [UpdateInGroup(typeof(VehiclesFixedStepSystemGroup))]
-    public class PreprocessVehiclesSystemGroup : ComponentSystemGroup
+    public partial class PreprocessVehiclesSystemGroup : ComponentSystemGroup
     {}
     
     [UpdateInGroup(typeof(VehiclesFixedStepSystemGroup))]
     [UpdateAfter(typeof(PreprocessVehiclesSystemGroup))]
-    public class ProcessVehiclesSystemGroup : ComponentSystemGroup
+    public partial class ProcessVehiclesSystemGroup : ComponentSystemGroup
     {}
     
     [UpdateInGroup(typeof(VehiclesFixedStepSystemGroup))]
     [UpdateAfter(typeof(ProcessVehiclesSystemGroup))]
-    public class AfterProcessVehiclesSystemGroup : ComponentSystemGroup
+    public partial class AfterProcessVehiclesSystemGroup : ComponentSystemGroup
     {}
     
     // update
     
     [UpdateAfter(typeof(FrameStartSimulationSystemGroup))]
-    public class VehiclesUpdateSystemGroup : ComponentSystemGroup
+    public partial class VehiclesUpdateSystemGroup : ComponentSystemGroup
     {}
     
     [UpdateInGroup(typeof(VehiclesUpdateSystemGroup))]
-    public class VehiclesProcessUpdateSystemGroup : ComponentSystemGroup
+    public partial class VehiclesProcessUpdateSystemGroup : ComponentSystemGroup
     {}
     
     [UpdateInGroup(typeof(VehiclesUpdateSystemGroup))]
     [UpdateAfter(typeof(VehiclesProcessUpdateSystemGroup))]
-    public class VehicleAfterProcessUpdateSystemGroup : ComponentSystemGroup
+    public partial class VehicleAfterProcessUpdateSystemGroup : ComponentSystemGroup
     {}
     
     // AI
     
     [UpdateAfter(typeof(VehiclesUpdateSystemGroup))]
-    public class VehiclesAISystemGroup : ComponentSystemGroup
+    public partial class VehiclesAISystemGroup : ComponentSystemGroup
     {}
     
     [UpdateInGroup(typeof(VehiclesAISystemGroup))]
-    public class PreprocessAISystemGroup : ComponentSystemGroup
+    public partial class PreprocessAISystemGroup : ComponentSystemGroup
     {}
     
     [UpdateInGroup(typeof(VehiclesAISystemGroup))]
     [UpdateAfter(typeof(PreprocessAISystemGroup))]
-    public class ProcessAISystemGroup : ComponentSystemGroup
+    public partial class ProcessAISystemGroup : ComponentSystemGroup
     {}
 }

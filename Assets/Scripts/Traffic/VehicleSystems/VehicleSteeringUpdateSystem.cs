@@ -1,32 +1,31 @@
 ﻿using Traffic.VehicleComponents;
 using Traffic.VehicleComponents.DriveVehicle;
-using Traffic.VehicleSystems;
-using Unity.Burst;
-using Unity.Collections;
 using Unity.Entities;
-using Unity.Jobs;
 using Unity.Mathematics;
-using Unity.Transforms;
 
-[UpdateBefore(typeof(SpeedCheckSystem))]
-public class VehicleSteeringUpdateSystem : JobComponentSystem
+namespace Traffic.VehicleSystems
 {
-    protected override JobHandle OnUpdate(JobHandle inputDependencies)
+    [UpdateBefore(typeof(SpeedCheckSystem))]
+    public partial class VehicleSteeringUpdateSystem : SystemBase
     {
-        float _deltaTime = Time.DeltaTime;
-
-        return Entities.WithNone<VehicleAIData>().ForEach((ref VehicleSteeringData steering) =>
+        protected override void OnUpdate()
         {
-            steering.currentTransition += steering.direction * steering.steeringSpeed * _deltaTime;
-            if (steering.direction == 0)
-                steering.currentTransition = 0.5f;
-            steering.currentTransition = math.clamp(steering.currentTransition, 0, 1);
+            var deltaTime = SystemAPI.Time.DeltaTime;
 
-            var _leftBoundRotation = quaternion.EulerXYZ(0, steering.maxAngle, 0);
-            var _rightBoundRotation = quaternion.EulerXYZ(0, -steering.maxAngle, 0);
+            Dependency = Entities
+                .WithNone<VehicleAIData>()
+                .ForEach((ref VehicleSteeringData steering) =>
+                {
+                    steering.CurrentTransition += steering.Direction * steering.SteeringSpeed * deltaTime;
+                    if (steering.Direction == 0)
+                        steering.CurrentTransition = 0.5f;
+                    steering.CurrentTransition = math.clamp(steering.CurrentTransition, 0, 1);
 
-            steering.currentRotation = math.nlerp(_leftBoundRotation, _rightBoundRotation, steering.currentTransition);
+                    var leftBoundRotation = quaternion.EulerXYZ(0, steering.MaxAngle, 0);
+                    var rightBoundRotation = quaternion.EulerXYZ(0, -steering.MaxAngle, 0);
 
-        }).Schedule(inputDependencies);
+                    steering.CurrentRotation = math.nlerp(leftBoundRotation, rightBoundRotation, steering.CurrentTransition);
+                }).Schedule(Dependency);
+        }
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Traffic.RoadComponents.TrafficControl
 {
     [DisallowMultipleComponent]
-    public class TrafficControlBlockAuthoring : MonoBehaviour, IConvertGameObjectToEntity
+    public class TrafficControlBlockAuthoring : MonoBehaviour
     {
         [Header("Node Groups")]
         [SerializeField] private List<ControlGroup> _groups;
@@ -17,7 +17,7 @@ namespace Traffic.RoadComponents.TrafficControl
         [Header("Start Setup")]
         [SerializeField] private int _startStateId;
 
-        public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
+        public void Convert(Entity entity, EntityManager dstManager)
         {
             //start check
             foreach (var state in _stateMasks)
@@ -43,7 +43,7 @@ namespace Traffic.RoadComponents.TrafficControl
             {
                 foreach (var node in _groups[i].groupNodes)
                 {
-                    groupsBuffer.Add(new NodeBufferElement { node = conversionSystem.GetPrimaryEntity(node.gameObject) });
+                    // groupsBuffer.Add(new NodeBufferElement { node = conversionSystem.GetPrimaryEntity(node.gameObject) });
                 }
             }
             //add start IDs

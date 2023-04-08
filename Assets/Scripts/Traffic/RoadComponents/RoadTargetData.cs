@@ -2,9 +2,8 @@
 
 namespace Traffic.RoadComponents
 {
-    [GenerateAuthoringComponent]
     public struct RoadTargetData : IComponentData
     {
-        public Entity node;
+        public Entity Node;
     }
 }

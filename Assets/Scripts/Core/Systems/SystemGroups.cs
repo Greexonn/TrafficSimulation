@@ -2,10 +2,10 @@ using Unity.Entities;
 
 namespace Core.Systems
 {
-    public class FrameStartSimulationSystemGroup : ComponentSystemGroup
+    public partial class FrameStartSimulationSystemGroup : ComponentSystemGroup
     {}
     
     [UpdateInGroup(typeof(LateSimulationSystemGroup))]
-    public class FinishingSystemGroup : ComponentSystemGroup
+    public partial class FinishingSystemGroup : ComponentSystemGroup
     {}
 }

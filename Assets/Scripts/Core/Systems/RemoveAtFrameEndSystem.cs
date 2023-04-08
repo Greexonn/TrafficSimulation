@@ -5,11 +5,11 @@ using Unity.Entities;
 namespace Core.Systems
 {
     [UpdateInGroup(typeof(FinishingSystemGroup))]
-    public class RemoveAtFrameEndSystem : SystemBase
+    public partial class RemoveAtFrameEndSystem : SystemBase
     {
         private NativeArray<ComponentType> _typesToRemove;
 
-        protected override void OnStartRunning()
+        protected override void OnCreate()
         {
             var typesList = EntityManager.GetAssignableComponentTypes(typeof(IRemoveAtFrameEndComponent));
             _typesToRemove = new NativeArray<ComponentType>(typesList.Count, Allocator.Persistent);

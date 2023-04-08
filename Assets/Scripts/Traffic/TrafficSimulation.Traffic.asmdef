@@ -1,0 +1,18 @@
+{
+    "name": "TrafficSimulation.Traffic",
+    "rootNamespace": "TrafficSimulation",
+    "references": [
+        "GUID:d0123089ad9604fdea48d42bbf5161a3",
+        "GUID:734d92eba21c94caba915361bd5ac177",
+        "GUID:e0cd26848372d4e5c891c569017e11f1"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

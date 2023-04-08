@@ -9,7 +9,7 @@ namespace Traffic.VehicleSystems
 {
     [UpdateInGroup(typeof(FrameStartSimulationSystemGroup))]
     [UpdateAfter(typeof(VehicleSpawnSystem))]
-    public class VehicleAfterSpawnConfigureSystem : SystemBase
+    public partial class VehicleAfterSpawnConfigureSystem : SystemBase
     {
         protected override void OnUpdate()
         {

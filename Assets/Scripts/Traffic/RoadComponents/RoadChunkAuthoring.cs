@@ -5,9 +5,9 @@ using UnityEngine;
 namespace Traffic.RoadComponents
 {
     [DisallowMultipleComponent]
-    public class RoadChunkAuthoring : MonoBehaviour, IConvertGameObjectToEntity
+    public class RoadChunkAuthoring : MonoBehaviour
     {
-        public NativeMultiHashMap<Entity, Entity> chunkGraph;
+        public NativeParallelMultiHashMap<Entity, Entity> ChunkGraph;
 
         private void Awake()
         {
@@ -28,13 +28,13 @@ namespace Traffic.RoadComponents
 
             if (linesCount > 0)
             {
-                chunkGraph = new NativeMultiHashMap<Entity, Entity>(linesCount, Allocator.Persistent);
+                ChunkGraph = new NativeParallelMultiHashMap<Entity, Entity>(linesCount, Allocator.Persistent);
             }
         }
 
-        public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
+        public void Convert(Entity entity, EntityManager dstManager)
         {       
-            TrafficSystem.instance.graphs.Add(chunkGraph);
+            TrafficSystem.Instance.Graphs.Add(ChunkGraph);
         }
     }
 }

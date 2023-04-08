@@ -10,28 +10,21 @@ using Unity.Transforms;
 namespace Traffic.VehicleSystems
 {
     [UpdateInGroup(typeof(ProcessVehiclesSystemGroup))]
-    [AlwaysSynchronizeSystem]
-    public class ProcessSuspensionSystem : SystemWithPublicDependencyBase
+    public partial class ProcessSuspensionSystem : SystemWithPublicDependencyBase
     {
-        private BuildPhysicsWorld _buildPhysicsWorldSystem;
-
         protected override void OnCreate()
         {
-            _buildPhysicsWorldSystem = World.GetOrCreateSystem<BuildPhysicsWorld>();
+            RequireForUpdate<BuildPhysicsWorldData>();
         }
         
         protected override void OnUpdate()
         {
-            var physicsWorld = _buildPhysicsWorldSystem.PhysicsWorld;
-            
-            var localToWorldComponents = GetComponentDataFromEntity<LocalToWorld>(true);
-            
+            var physicsWorld = SystemAPI.GetSingleton<BuildPhysicsWorldData>().PhysicsData.PhysicsWorld;
+
             const float deltaTime = 1.0f / 60.0f;
             
             var handle = Entities
-                .WithReadOnly(localToWorldComponents)
-                .ForEach((ref WheelData wheelData, in WheelRaycastData raycastData, in VehicleRefData vehicleRef, 
-                    in SuspensionData suspensionData, in LocalToWorld wheelRoot) =>
+                .ForEach((ref WheelData wheelData, in WheelRaycastData raycastData, in VehicleRefData vehicleRef, in SuspensionData suspensionData, in LocalToWorld wheelRoot) =>
                 {
                     var vehicleRbIndex = physicsWorld.GetRigidBodyIndex(vehicleRef.Entity);
                     if (vehicleRbIndex == -1 || vehicleRbIndex >= physicsWorld.NumDynamicBodies)
@@ -40,8 +33,8 @@ namespace Traffic.VehicleSystems
 
                     float3 wheelPos;
                     var suspensionTop = wheelRoot.Position;
-                    
-                    var vehicleTransforms = localToWorldComponents[vehicleRef.Entity];
+
+                    var vehicleTransforms = SystemAPI.GetComponent<LocalToWorld>(vehicleRef.Entity);
                     var dirUp = vehicleTransforms.Up;
 
                     if (raycastData.IsHitThisFrame)
@@ -55,11 +48,9 @@ namespace Traffic.VehicleSystems
                         //get spring compression'
                         var suspensionCurrentLength = math.length(wheelPos - suspensionTop);
 
-                        var compression =
-                            1.0f - suspensionCurrentLength / suspensionData.suspensionLength;
+                        var compression = 1.0f - suspensionCurrentLength / suspensionData.suspensionLength;
 
-                        var impulseValue = compression * suspensionData.springStrength -
-                                           suspensionData.damperStrength * speedUp / 10;
+                        var impulseValue = compression * suspensionData.springStrength - suspensionData.damperStrength * speedUp / 10;
 
                         if (impulseValue > 0)
                         {
@@ -72,18 +63,17 @@ namespace Traffic.VehicleSystems
                     else
                     {
                         var wheelDesiredPos = suspensionTop - dirUp * suspensionData.suspensionLength;
-                        var height = math.dot((wheelData.wheelPosition - suspensionTop), dirUp);
+                        var height = math.dot(wheelData.wheelPosition - suspensionTop, dirUp);
                         height = math.abs(height);
                         var fraction = height / suspensionData.suspensionLength;
-                        fraction += suspensionData.damperStrength / suspensionData.springStrength *
-                                    deltaTime * 2;
+                        fraction += suspensionData.damperStrength / suspensionData.springStrength * deltaTime * 2;
                         fraction = math.clamp(fraction, 0, 1);
                         wheelPos = math.lerp(suspensionTop, wheelDesiredPos, fraction);
                     }
                     
                     wheelData.wheelPosition = wheelPos;
 
-                }).ScheduleParallel(_buildPhysicsWorldSystem.GetOutputDependency());
+                }).ScheduleParallel(Dependency);
 
             Dependency = JobHandle.CombineDependencies(Dependency, handle);
         }

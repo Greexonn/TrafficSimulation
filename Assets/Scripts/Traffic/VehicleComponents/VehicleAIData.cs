@@ -2,9 +2,8 @@
 
 namespace Traffic.VehicleComponents
 {
-    [GenerateAuthoringComponent]
     public struct VehicleAIData : IComponentData
     {
-        public Entity vehicleAITransform;
+        public Entity VehicleAITransform;
     }
 }

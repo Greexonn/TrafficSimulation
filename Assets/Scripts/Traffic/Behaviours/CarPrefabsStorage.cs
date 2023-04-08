@@ -29,18 +29,18 @@ public class CarPrefabsStorage : MonoBehaviour
     {
         _assetStore = new BlobAssetStore();
 
-        GameObjectConversionSettings _convSettings = GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, _assetStore);
+        // GameObjectConversionSettings _convSettings = GameObjectConversionSettings.FromWorld(World.DefaultGameObjectInjectionWorld, _assetStore);
         carPrefabs = new NativeArray<Entity>(_carPrefabs.Count, Allocator.Persistent);
 
         for (int i = 0; i < _carPrefabs.Count; i++)
         {
-            carPrefabs[i] = GameObjectConversionUtility.ConvertGameObjectHierarchy(_carPrefabs[i], _convSettings);
+            // carPrefabs[i] = GameObjectConversionUtility.ConvertGameObjectHierarchy(_carPrefabs[i], _convSettings);
         }
     }
 
     void OnDestroy()
     {
-        _assetStore?.Dispose();
+        // _assetStore?.Dispose();
 
         if (carPrefabs.IsCreated)
             carPrefabs.Dispose();

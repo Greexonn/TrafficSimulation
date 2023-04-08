@@ -1,10 +1,10 @@
 ﻿using Unity.Entities;
+using UnityEngine;
 
 namespace Traffic.VehicleComponents.DriveVehicle
 {
-    [GenerateAuthoringComponent]
     public struct VehicleBrakesData : IComponentData
     {
-        [UnityEngine.HideInInspector] public int brakesUsage;
+        [HideInInspector] public int BrakesUsage;
     }
 }

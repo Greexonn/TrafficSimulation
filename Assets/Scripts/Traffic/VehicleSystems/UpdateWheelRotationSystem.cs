@@ -1,62 +1,66 @@
 using Traffic.VehicleComponents.DriveVehicle;
 using Traffic.VehicleComponents.Wheel;
+using Unity.Burst;
+using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
+using static Unity.Entities.SystemAPI;
 
 namespace Traffic.VehicleSystems
 {
     [UpdateInGroup(typeof(VehiclesProcessUpdateSystemGroup))]
-    public class UpdateWheelRotationSystem : SystemBase
+    public partial struct UpdateWheelRotationSystem : ISystem
     {
-        private EndSimulationEntityCommandBufferSystem _commandBufferSystem;
-
-        protected override void OnCreate()
+        [BurstCompile]
+        public void OnUpdate(ref SystemState state)
         {
-            _commandBufferSystem = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
+            var updateDriveWheelsRotationsJob = new UpdateDriveWheelsRotationsJob
+            {
+                VehicleEngineDataLookup = GetComponentLookup<VehicleEngineData>(true),
+                LocalTransformLookup = GetComponentLookup<LocalTransform>()
+            };
+            var handle = updateDriveWheelsRotationsJob.ScheduleParallelByRef(state.Dependency);
+
+            var updateAllWheelsRotationsJob = new UpdateAllWheelsRotationsJob
+            {
+                LocalTransformLookup = GetComponentLookup<LocalTransform>()
+            };
+            handle = updateAllWheelsRotationsJob.ScheduleParallelByRef(handle);
+            handle.Complete();
         }
         
-        protected override void OnUpdate()
+        [BurstCompile]
+        private partial struct UpdateDriveWheelsRotationsJob : IJobEntity
         {
-            var commandBuffer = _commandBufferSystem.CreateCommandBuffer();
-            var parallelCommandBuffer = commandBuffer.AsParallelWriter();
-            
-            // for drive wheels
-            var vehicleEngineComponents = GetComponentDataFromEntity<VehicleEngineData>(true);
-            var rotationComponents = GetComponentDataFromEntity<Rotation>(true);
-            
-            Entities
-                .WithReadOnly(vehicleEngineComponents)
-                .WithReadOnly(rotationComponents)
-                .WithAll<DriveWheelTag>()
-                .ForEach((int nativeThreadIndex, in WheelData wheelData, in VehicleRefData vehicleRef) =>
-                {
-                    var engineData = vehicleEngineComponents[vehicleRef.Entity];
-                    var rotationAngle = engineData.maxSpeed * engineData.acceleration / wheelData.radius;
-                    
-                    rotationAngle = math.radians(rotationAngle);
-                    var rotation = rotationComponents[wheelData.wheelModel].Value;
-                    rotation = math.mul(rotation, quaternion.RotateZ(-rotationAngle));
-                    
-                    parallelCommandBuffer.SetComponent(nativeThreadIndex, wheelData.wheelModel,
-                        new Rotation {Value = rotation});
-                }).ScheduleParallel(Dependency).Complete();
-            
-            // for all wheels
-            Entities
-                .WithReadOnly(rotationComponents)
-                .ForEach((int nativeThreadIndex, in WheelData wheelData, in WheelRaycastData raycastData, in LocalToWorld wheelRoot) =>
-                {
-                    var velocityForward = math.dot(raycastData.VelocityAtWheel, wheelRoot.Forward);
-                    var rotationAngle = velocityForward / wheelData.radius;
-                    
-                    rotationAngle = math.radians(rotationAngle);
-                    var rotation = rotationComponents[wheelData.wheelModel].Value;
-                    rotation = math.mul(rotation, quaternion.RotateZ(-rotationAngle));
+            [ReadOnly] public ComponentLookup<VehicleEngineData> VehicleEngineDataLookup;
+            public ComponentLookup<LocalTransform> LocalTransformLookup;
 
-                    parallelCommandBuffer.SetComponent(nativeThreadIndex, wheelData.wheelModel,
-                        new Rotation {Value = rotation});
-                }).ScheduleParallel(Dependency).Complete();
+            private void Execute(in WheelData wheelData, in VehicleRefData vehicleRef)
+            {
+                var engineData = VehicleEngineDataLookup[vehicleRef.Entity];
+                var rotationAngle = engineData.MaxSpeed * engineData.Acceleration / wheelData.radius;
+                    
+                rotationAngle = math.radians(rotationAngle);
+                var wheelModelTransformRef = LocalTransformLookup.GetRefRW(wheelData.wheelModel, false);
+                wheelModelTransformRef.ValueRW.Rotation = math.mul(wheelModelTransformRef.ValueRO.Rotation, quaternion.RotateZ(-rotationAngle));
+            }
+        }
+        
+        [BurstCompile]
+        private partial struct UpdateAllWheelsRotationsJob : IJobEntity
+        {
+            public ComponentLookup<LocalTransform> LocalTransformLookup;
+            
+            private void Execute(in WheelData wheelData, in WheelRaycastData raycastData, in LocalToWorld wheelRoot)
+            {
+                var velocityForward = math.dot(raycastData.VelocityAtWheel, wheelRoot.Forward);
+                var rotationAngle = velocityForward / wheelData.radius;
+                    
+                rotationAngle = math.radians(rotationAngle);
+                var wheelModelTransformRef = LocalTransformLookup.GetRefRW(wheelData.wheelModel, false);
+                wheelModelTransformRef.ValueRW.Rotation = math.mul(wheelModelTransformRef.ValueRO.Rotation, quaternion.RotateZ(-rotationAngle));
+            }
         }
     }
 }

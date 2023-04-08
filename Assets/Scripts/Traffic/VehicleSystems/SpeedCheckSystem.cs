@@ -12,20 +12,19 @@ namespace Traffic.VehicleSystems
     [UpdateInGroup(typeof(AfterProcessVehiclesSystemGroup))]
     [UpdateAfter(typeof(VehiclesEndProcessSystem))]
     [AlwaysSynchronizeSystem]
-    public class SpeedCheckSystem : SystemBase
+    public partial class SpeedCheckSystem : SystemBase
     {
-        private BuildPhysicsWorld _buildPhysicsWorldSystem;
         private SystemWithPublicDependencyBase _lastSystem;
 
         protected override void OnCreate()
         {
-            _buildPhysicsWorldSystem = World.GetOrCreateSystem<BuildPhysicsWorld>();
-            _lastSystem = World.GetOrCreateSystem<VehiclesEndProcessSystem>();
+            _lastSystem = World.GetOrCreateSystemManaged<VehiclesEndProcessSystem>();
+            RequireForUpdate<BuildPhysicsWorldData>();
         }
 
         protected override void OnUpdate()
         {
-            var physicsWorld = _buildPhysicsWorldSystem.PhysicsWorld;
+            var physicsWorld = SystemAPI.GetSingleton<BuildPhysicsWorldData>().PhysicsData.PhysicsWorld;
             
             Entities
                 .WithReadOnly(physicsWorld)
@@ -39,7 +38,7 @@ namespace Traffic.VehicleSystems
                     var dirForward = vehicleTransforms.Forward;
                     
                     var vehicleLinearVelocity = physicsWorld.GetLinearVelocity(vehicleRbIndex);
-                    engine.currentSpeed = math.dot(vehicleLinearVelocity, dirForward);
+                    engine.CurrentSpeed = math.dot(vehicleLinearVelocity, dirForward);
                 }).ScheduleParallel(_lastSystem.PublicDependency).Complete();
         }
     }

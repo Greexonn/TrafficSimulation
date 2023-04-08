@@ -11,7 +11,7 @@ using Unity.Transforms;
 namespace Traffic.VehicleSystems
 {
     [UpdateInGroup(typeof(PreprocessAISystemGroup))]
-    public class VehiclePathfindingSystem : SystemBase
+    public partial class VehiclePathfindingSystem : SystemBase
     {
         private EntityQuery _targetPointsQuery;
         private NativeArray<RoadTargetData> _targetPoints;
@@ -37,9 +37,9 @@ namespace Traffic.VehicleSystems
                 return;
             }
 
-            var nodeBuffers = GetBufferFromEntity<NodeBufferElement>();
+            var nodeBuffers = GetBufferLookup<NodeBufferElement>();
 
-            var localToWorldComponents = GetComponentDataFromEntity<LocalToWorld>(true);
+            var localToWorldComponents = GetComponentLookup<LocalToWorld>(true);
             
             var commandBuffer = new EntityCommandBuffer(Allocator.Temp);
             var jobHandles = new NativeList<JobHandle>(Allocator.Temp);
@@ -55,7 +55,7 @@ namespace Traffic.VehicleSystems
 
                 //select target
                 var targetId = UnityEngine.Random.Range(0, _targetPoints.Length);
-                var targetPoint = _targetPoints[targetId].node;
+                var targetPoint = _targetPoints[targetId].Node;
                 if (targetPoint.Equals(vehicleCurrentNode.node))
                     return;
                 
@@ -65,7 +65,7 @@ namespace Traffic.VehicleSystems
                     FoundNode = vehicleCurrentNode.node,
                     TargetPoint = targetPoint,
                     LocalToWorldComponents = localToWorldComponents,
-                    Graph = TrafficSystem.instance.graphs[0],
+                    Graph = TrafficSystem.Instance.Graphs[0],
                     CloseList = new NativeList<PathNode>(Allocator.TempJob),
                     OpenList = new NativeList<PathNode>(Allocator.TempJob),
                     ReversePathList = new NativeList<NodeBufferElement>(Allocator.TempJob),
@@ -122,9 +122,9 @@ namespace Traffic.VehicleSystems
             public Entity TargetPoint;
             public Entity FoundNode;
 
-            [ReadOnly] public ComponentDataFromEntity<LocalToWorld> LocalToWorldComponents;
+            [ReadOnly] public ComponentLookup<LocalToWorld> LocalToWorldComponents;
 
-            [ReadOnly] public NativeMultiHashMap<Entity, Entity> Graph;
+            [ReadOnly] public NativeParallelMultiHashMap<Entity, Entity> Graph;
 
             public NativeList<PathNode> CloseList;
             public NativeList<PathNode> OpenList;
@@ -213,8 +213,8 @@ namespace Traffic.VehicleSystems
                 
                 //get correct reverse path
                 ReversePathList.Add(new NodeBufferElement{node = TargetPoint});
-                ReversePathList.Add(new NodeBufferElement{node = CloseList[CloseList.Length - 1].nodeEntity});
-                var parentEntity = CloseList[CloseList.Length - 1].parentNode;
+                ReversePathList.Add(new NodeBufferElement{node = CloseList[^1].nodeEntity});
+                var parentEntity = CloseList[^1].parentNode;
                 for (var i = CloseList.Length - 2; i >= 0; i--)
                 {
                     var node = CloseList[i];

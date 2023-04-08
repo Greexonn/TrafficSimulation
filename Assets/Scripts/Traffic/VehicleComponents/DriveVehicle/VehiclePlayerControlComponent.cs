@@ -1,9 +1,7 @@
-﻿using System;
-using Unity.Collections;
-using Unity.Entities;
-using Unity.Mathematics;
+﻿using Unity.Entities;
 
-[GenerateAuthoringComponent]
-public struct VehiclePlayerControlComponent : IComponentData
+namespace Traffic.VehicleComponents.DriveVehicle
 {
+    public struct VehiclePlayerControlComponent : IComponentData
+    {}
 }

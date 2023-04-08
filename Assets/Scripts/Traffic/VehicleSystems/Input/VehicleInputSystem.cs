@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 namespace Traffic.VehicleSystems.Input
 {
     [UpdateBefore(typeof(SpeedCheckSystem))]
-    public class VehicleInputSystem : SystemBase
+    public partial class VehicleInputSystem : SystemBase
     {
         private VehicleInputActions _inputActions;
 
@@ -46,11 +46,11 @@ namespace Traffic.VehicleSystems.Input
                 .ForEach((ref VehicleEngineData engine, ref VehicleSteeringData steering, ref VehicleBrakesData brakes) =>
             {
                 //acceleration
-                engine.acceleration = 100 * driveDirection;
+                engine.Acceleration = 100 * driveDirection;
                 //steering
-                steering.direction = steeringDirection;
+                steering.Direction = steeringDirection;
                 //brakes
-                brakes.brakesUsage = brakesValue;
+                brakes.BrakesUsage = brakesValue;
             }).Run();
         }
 

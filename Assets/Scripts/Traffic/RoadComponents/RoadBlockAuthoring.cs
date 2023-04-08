@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Traffic.RoadComponents
 {
     [DisallowMultipleComponent]
-    public class RoadBlockAuthoring : MonoBehaviour, IConvertGameObjectToEntity
+    public class RoadBlockAuthoring : MonoBehaviour
     {
         [SerializeField] private List<RoadBlockAuthoring> _connectedBlocks;
 
@@ -21,15 +21,14 @@ namespace Traffic.RoadComponents
         [SerializeField] private Mesh _arrow;
 
 
-        public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
+        public void Convert(Entity entity, EntityManager dstManager)
         {
             if (_parentChunk == null) 
                 return;
             
             for (var i = 0; i < _lines.Count; i++)
             {
-                _parentChunk.chunkGraph.Add(conversionSystem.GetPrimaryEntity(_lines[i].A.gameObject),
-                    conversionSystem.GetPrimaryEntity(_lines[i].B.gameObject));
+                // _parentChunk.ChunkGraph.Add(conversionSystem.GetPrimaryEntity(_lines[i].A.gameObject), conversionSystem.GetPrimaryEntity(_lines[i].B.gameObject));
             }
         }
 

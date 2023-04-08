@@ -6,14 +6,14 @@ using UnityEngine;
 
 namespace Traffic.Debug
 {
-    public class DrawRoadLinesSystem : SystemBase
+    public partial class DrawRoadLinesSystem : SystemBase
     {
         protected override void OnUpdate()
         {
-            if (TrafficSystem.instance == null) 
+            if (TrafficSystem.Instance == null) 
                 return;
             
-            var graphs = TrafficSystem.instance.graphs;
+            var graphs = TrafficSystem.Instance.Graphs;
             for (var i = 0; i < graphs.Count; i++)
             {
                 var keys = graphs[i].GetKeyArray(Allocator.Temp);

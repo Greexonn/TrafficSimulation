@@ -1,31 +1,34 @@
 using Traffic.VehicleComponents.Wheel;
+using Unity.Burst;
 using Unity.Entities;
 using Unity.Transforms;
+using static Unity.Entities.SystemAPI;
 
 namespace Traffic.VehicleSystems
 {
     [UpdateInGroup(typeof(VehiclesProcessUpdateSystemGroup))]
-    public class UpdateWheelPositionSystem : SystemBase
+    public partial struct UpdateWheelPositionSystem : ISystem
     {
-        private EndSimulationEntityCommandBufferSystem _commandBufferSystem;
-
-        protected override void OnCreate()
+        public void OnUpdate(ref SystemState state)
         {
-            _commandBufferSystem = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
+            var job = new UpdateWheelPositionsJob
+            {
+                LocalTransformLookup = GetComponentLookup<LocalTransform>()
+            };
+            job.ScheduleParallelByRef(state.Dependency);
         }
-
-        protected override void OnUpdate()
+        
+        [BurstCompile]
+        private partial struct UpdateWheelPositionsJob : IJobEntity
         {
-            var commandBuffer = _commandBufferSystem.CreateCommandBuffer();
-            var parallelCommandBuffer = commandBuffer.AsParallelWriter();
-            
-            Entities
-                .ForEach((int nativeThreadIndex, in WheelData wheelData, in LocalToWorld wheelRoot) =>
-                {
-                    var wheelLocalPos = wheelData.wheelPosition - wheelRoot.Position;
-                    parallelCommandBuffer.SetComponent(nativeThreadIndex, wheelData.wheelModel,
-                        new Translation {Value = wheelLocalPos});
-                }).ScheduleParallel(Dependency).Complete();
+            public ComponentLookup<LocalTransform> LocalTransformLookup;
+
+            private void Execute(in WheelData wheelData, in LocalToWorld wheelRoot)
+            {
+                var wheelLocalPos = wheelData.wheelPosition - wheelRoot.Position;
+                var wheelModelTransformRef = LocalTransformLookup.GetRefRW(wheelData.wheelModel, false);
+                wheelModelTransformRef.ValueRW.Position = wheelLocalPos;
+            }
         }
     }
 }

@@ -1,13 +1,13 @@
 ﻿using Unity.Entities;
+using UnityEngine;
 
 namespace Traffic.VehicleComponents.DriveVehicle
 {
-    [GenerateAuthoringComponent]
     public struct VehicleEngineData : IComponentData
     {
-        public int maxSpeed;
+        public int MaxSpeed;
 
-        [UnityEngine.HideInInspector] public float currentSpeed;
-        [UnityEngine.HideInInspector] public int acceleration;
+        [HideInInspector] public float CurrentSpeed;
+        [HideInInspector] public int Acceleration;
     }
 }

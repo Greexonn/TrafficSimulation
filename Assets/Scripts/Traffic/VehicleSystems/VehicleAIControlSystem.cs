@@ -8,7 +8,7 @@ using Unity.Transforms;
 namespace Traffic.VehicleSystems
 {
     [UpdateInGroup(typeof(ProcessAISystemGroup))]
-    public class VehicleAIControlSystem : SystemBase
+    public partial class VehicleAIControlSystem : SystemBase
     {
         private float3 _mapForward;
         private float3 _mapRight;
@@ -19,18 +19,16 @@ namespace Traffic.VehicleSystems
         {
             _mapForward = new float3(0, 0, 1);
             _mapRight = new float3(1, 0, 0);
-
-            _commandBufferSystem = World.GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
         }
 
         protected override void OnUpdate()
         {
-            var deltaTime = Time.DeltaTime;
+            // var deltaTime = SystemAPI.Time.DeltaTime;
 
-            var roadNodeComponents = GetComponentDataFromEntity<RoadNodeData>(true);
-            var localToWorldComponents = GetComponentDataFromEntity<LocalToWorld>(true);
+            var roadNodeComponents = GetComponentLookup<RoadNodeData>(true);
+            var localToWorldComponents = GetComponentLookup<LocalToWorld>(true);
 
-            var nodeBuffers = GetBufferFromEntity<NodeBufferElement>(true);
+            var nodeBuffers = GetBufferLookup<NodeBufferElement>(true);
 
             var commandBuffer = _commandBufferSystem.CreateCommandBuffer().AsParallelWriter();
 
@@ -47,7 +45,7 @@ namespace Traffic.VehicleSystems
                     ref VehicleSteeringData steering, ref VehicleEngineData engine, ref VehicleBrakesData brakes, 
                     in VehicleAIData aiData) =>
                 {
-                    var aiTransforms = localToWorldComponents[aiData.vehicleAITransform];
+                    var aiTransforms = localToWorldComponents[aiData.VehicleAITransform];
                     var aiPosition = aiTransforms.Position;
                     var aiUp = aiTransforms.Up;
                     var aiForward = aiTransforms.Forward;
@@ -63,7 +61,7 @@ namespace Traffic.VehicleSystems
                     var thirdNodePos = localToWorldComponents[pathBuffer[thirdNodeId]].Position;
 
                     //check if we've reached our target
-                    if (currentNode.node.Equals(pathBuffer[pathBuffer.Length - 1]))
+                    if (currentNode.node.Equals(pathBuffer[^1]))
                     {
                         commandBuffer.AddComponent<PathfindingRequest>(nativeThreadIndex, vehicleEntity);
                         return;
@@ -108,8 +106,8 @@ namespace Traffic.VehicleSystems
                         {
                             pathNodeIndex.value--;
 
-                            engine.acceleration = 0;
-                            brakes.brakesUsage = 100;
+                            engine.Acceleration = 0;
+                            brakes.BrakesUsage = 100;
                         }
 
                         return;
@@ -187,13 +185,13 @@ namespace Traffic.VehicleSystems
                         //DrawRay(_aiPosition, math.forward(_rotation), UnityEngine.Color.blue);
                         //DrawRay(_aiPosition, math.cross(_aiUp, math.forward(_rotation)), UnityEngine.Color.red);
 
-                        steering.currentRotation = rotation;
+                        steering.CurrentRotation = rotation;
 
                         //set acceleration
                         var directionLength = math.length(worldDirection);
                         var forwardValue = math.dot(worldDirection, aiForward);
                         var acceleration = (int)(forwardValue / directionLength * turnAngleKoef * 100);
-                        engine.acceleration = acceleration;
+                        engine.Acceleration = acceleration;
 
                         //set brakes
                         var nextNodeData = roadNodeComponents[pathBuffer[nextNodeId]];
@@ -202,22 +200,22 @@ namespace Traffic.VehicleSystems
                             var depth = 1.0f - nodeToVehicleProjection / pathPartProjection;
                             if (depth > 0.9f)
                             {
-                                brakes.brakesUsage = (int)(depth * 100);
-                                engine.acceleration = 0;
+                                brakes.BrakesUsage = (int)(depth * 100);
+                                engine.Acceleration = 0;
                             }
                             else
                             {
-                                var koef = 2.0f / engine.currentSpeed;
-                                brakes.brakesUsage = (int)((1.0f - koef) * 100);
-                                engine.acceleration = (int)(koef * 100);
+                                var coeff = 2.0f / engine.CurrentSpeed;
+                                brakes.BrakesUsage = (int)((1.0f - coeff) * 100);
+                                engine.Acceleration = (int)(coeff * 100);
                             }
                         }
                         else //set brakes in based on next turn
                         {
-                            var recommendedSpeed = engine.maxSpeed * turnAngleKoef;
-                            var koef = recommendedSpeed / engine.currentSpeed;
-                            brakes.brakesUsage = (int)(100 * (1.0f - koef));
-                            brakes.brakesUsage = math.clamp(brakes.brakesUsage, 1, 3);
+                            var recommendedSpeed = engine.MaxSpeed * turnAngleKoef;
+                            var coeff = recommendedSpeed / engine.CurrentSpeed;
+                            brakes.BrakesUsage = (int)(100 * (1.0f - coeff));
+                            brakes.BrakesUsage = math.clamp(brakes.BrakesUsage, 1, 3);
                         }
                     }
                     #endregion

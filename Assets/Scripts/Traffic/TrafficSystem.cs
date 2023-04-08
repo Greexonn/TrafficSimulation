@@ -1,35 +1,37 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 using Unity.Collections;
 using Unity.Entities;
+using UnityEngine;
 
-public class TrafficSystem : MonoBehaviour
+namespace Traffic
 {
-    public static TrafficSystem instance;
-
-    //
-    public List<NativeMultiHashMap<Entity, Entity>> graphs;
-
-    void Awake()
+    public class TrafficSystem : MonoBehaviour
     {
-        if (instance != this)
+        public static TrafficSystem Instance;
+
+        //
+        public List<NativeParallelMultiHashMap<Entity, Entity>> Graphs;
+
+        private void Awake()
         {
-            if (instance != null)
-                Destroy(this);
-            else
-                instance = this;
+            if (Instance != this)
+            {
+                if (Instance != null)
+                    Destroy(this);
+                else
+                    Instance = this;
+            }
+
+            Graphs = new List<NativeParallelMultiHashMap<Entity, Entity>>();
         }
 
-        graphs = new List<NativeMultiHashMap<Entity, Entity>>();
-    }
-
-    void OnDestroy()
-    {
-        for (int i = 0; i < graphs.Count; i++)
+        private void OnDestroy()
         {
-            if (graphs[i].IsCreated)
-                graphs[i].Dispose();
+            for (var i = 0; i < Graphs.Count; i++)
+            {
+                if (Graphs[i].IsCreated)
+                    Graphs[i].Dispose();
+            }
         }
     }
 }

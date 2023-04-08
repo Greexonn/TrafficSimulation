@@ -11,21 +11,18 @@ namespace Traffic.VehicleSystems
 {
     [UpdateInGroup(typeof(ProcessVehiclesSystemGroup))]
     [UpdateAfter(typeof(ProcessSuspensionSystem))]
-    public class ProcessSidewaysFrictionSystem : SystemWithPublicDependencyBase
+    public partial class ProcessSidewaysFrictionSystem : SystemWithPublicDependencyBase
     {
-        private BuildPhysicsWorld _buildPhysicsWorldSystem;
-
         private SystemWithPublicDependencyBase _suspensionSystem;
 
         protected override void OnCreate()
         {
-            _buildPhysicsWorldSystem = World.GetOrCreateSystem<BuildPhysicsWorld>();
-            _suspensionSystem = World.GetOrCreateSystem<ProcessSuspensionSystem>();
+            _suspensionSystem = World.GetOrCreateSystemManaged<ProcessSuspensionSystem>();
         }
         
         protected override void OnUpdate()
         {
-            var physicsWorld = _buildPhysicsWorldSystem.PhysicsWorld;
+            var physicsWorld = SystemAPI.GetSingleton<BuildPhysicsWorldData>().PhysicsData.PhysicsWorld;
             
             var handle = Entities
                 .ForEach((in WheelRaycastData raycastData, in VehicleRefData vehicleRef, in LocalToWorld wheelRoot, in WheelData wheelData) =>
@@ -44,8 +41,7 @@ namespace Traffic.VehicleSystems
                     var impulseValue = -currentSpeedRight * wheelData.sideFriction;
                     var impulse = impulseValue * wheelRight;
                     
-                    var effectiveMass =
-                        physicsWorld.GetEffectiveMass(vehicleRbIndex, impulse, raycastData.HitPosition) / vehicleRef.WheelsCount;
+                    var effectiveMass = physicsWorld.GetEffectiveMass(vehicleRbIndex, impulse, raycastData.HitPosition) / vehicleRef.WheelsCount;
                     impulseValue *= effectiveMass;
                     
                     impulseValue = math.clamp(impulseValue, -wheelData.maxSideFriction,
@@ -54,7 +50,6 @@ namespace Traffic.VehicleSystems
                     
                     physicsWorld.ApplyImpulse(vehicleRbIndex, impulse, raycastData.HitPosition);
                     physicsWorld.ApplyImpulse(raycastData.HitRBIndex, -impulse, raycastData.HitPosition);
-                    
                 }).ScheduleParallel(_suspensionSystem.PublicDependency);
             
             Dependency = JobHandle.CombineDependencies(Dependency, handle);

@@ -8,7 +8,7 @@ using Unity.Transforms;
 namespace Traffic.RoadSystems
 {
     [UpdateInGroup(typeof(FrameStartSimulationSystemGroup))]
-    public class VehicleSpawnSystem : SystemBase
+    public partial class VehicleSpawnSystem : SystemBase
     {
         private const float SecondsTillSpawn = 10;
 
@@ -21,7 +21,7 @@ namespace Traffic.RoadSystems
 
         protected override void OnUpdate()
         {
-            var currentTime = (float)Time.ElapsedTime;
+            var currentTime = (float)SystemAPI.Time.ElapsedTime;
 
             if (currentTime - _lastSpawnTime < SecondsTillSpawn)
                 return;
@@ -36,7 +36,7 @@ namespace Traffic.RoadSystems
                 var index = UnityEngine.Random.Range(0, CarPrefabsStorage.instance.carPrefabs.Length);
 
                 var vehicleEntity = EntityManager.Instantiate(CarPrefabsStorage.instance.carPrefabs[index]);
-                EntityManager.SetComponentData(vehicleEntity, new Translation{Value = position});
+                EntityManager.SetComponentData(vehicleEntity, new LocalTransform { Position = position, Rotation = quaternion.identity, Scale = 1f });
                 EntityManager.AddComponentData(vehicleEntity, new VehicleCurrentNodeData{node = spawnerEntity});
                 EntityManager.AddComponentData(vehicleEntity, new VehiclePathNodeIndexData{value = 0});
                 EntityManager.AddBuffer<NodeBufferElement>(vehicleEntity);

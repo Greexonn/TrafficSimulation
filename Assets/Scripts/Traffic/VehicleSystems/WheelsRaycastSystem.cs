@@ -8,24 +8,18 @@ using Unity.Transforms;
 namespace Traffic.VehicleSystems
 {
     [UpdateInGroup(typeof(PreprocessVehiclesSystemGroup))]
-    [AlwaysSynchronizeSystem]
-    public class WheelsRaycastSystem : SystemBase
+    public partial class WheelsRaycastSystem : SystemBase
     {
-        private BuildPhysicsWorld _buildPhysicsWorldSystem;
-
         protected override void OnCreate()
         {
-            _buildPhysicsWorldSystem = World.GetOrCreateSystem<BuildPhysicsWorld>();
+            RequireForUpdate<BuildPhysicsWorldData>();
         }
         
         protected override void OnUpdate()
         {
-            var physicsWorld = _buildPhysicsWorldSystem.PhysicsWorld;
-            
-            var localToWorldComponents = GetComponentDataFromEntity<LocalToWorld>(true);
+            var physicsWorld = SystemAPI.GetSingleton<BuildPhysicsWorldData>().PhysicsData.PhysicsWorld;
 
             Entities
-                .WithReadOnly(localToWorldComponents)
                 .WithReadOnly(physicsWorld)
                 .WithAll<LocalToWorld>()
                 .ForEach((Entity wheelEntity, ref WheelRaycastData raycastData, in WheelData wheelData, in SuspensionData suspensionData, 
@@ -36,8 +30,8 @@ namespace Traffic.VehicleSystems
                         return;
                     
                     var suspensionTop = wheelRoot.Position;
-                    
-                    var vehicleTransforms = localToWorldComponents[vehicleRef.Entity];
+
+                    var vehicleTransforms = SystemAPI.GetComponent<LocalToWorld>(vehicleRef.Entity);
                     var dirUp = vehicleTransforms.Up;
 
                     var filter = physicsWorld.GetCollisionFilter(vehicleRbIndex);
@@ -60,7 +54,7 @@ namespace Traffic.VehicleSystems
                     {
                         raycastData.IsHitThisFrame = false;
                     }
-                }).ScheduleParallel(_buildPhysicsWorldSystem.GetOutputDependency()).Complete();
+                }).ScheduleParallel(Dependency).Complete();
         }
     }
 }

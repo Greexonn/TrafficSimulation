@@ -12,27 +12,21 @@ namespace Traffic.VehicleSystems
 {
     [UpdateInGroup(typeof(ProcessVehiclesSystemGroup))]
     [UpdateAfter(typeof(ProcessBrakesSystem))]
-    public class ProcessDriveWheelsSystem : SystemWithPublicDependencyBase
+    public partial class ProcessDriveWheelsSystem : SystemWithPublicDependencyBase
     {
-        private BuildPhysicsWorld _buildPhysicsWorldSystem;
         private SystemWithPublicDependencyBase _sidewaysFrictionSystem;
 
         protected override void OnCreate()
         {
-            _buildPhysicsWorldSystem = World.GetOrCreateSystem<BuildPhysicsWorld>();
-            _sidewaysFrictionSystem = World.GetOrCreateSystem<ProcessBrakesSystem>();
+            _sidewaysFrictionSystem = World.GetOrCreateSystemManaged<ProcessBrakesSystem>();
+            RequireForUpdate<BuildPhysicsWorldData>();
         }
         
         protected override void OnUpdate()
         {
-            var physicsWorld = _buildPhysicsWorldSystem.PhysicsWorld;
-            
-            var localToWorldComponents = GetComponentDataFromEntity<LocalToWorld>(true);
-            var vehicleEngineComponents = GetComponentDataFromEntity<VehicleEngineData>(true);
-            
+            var physicsWorld = SystemAPI.GetSingleton<BuildPhysicsWorldData>().PhysicsData.PhysicsWorld;
+
             var handle = Entities
-                .WithReadOnly(localToWorldComponents)
-                .WithReadOnly(vehicleEngineComponents)
                 .WithAll<DriveWheelTag>()
                 .ForEach((in WheelRaycastData raycastData, in VehicleRefData vehicleRef, in LocalToWorld wheelRoot, in WheelData wheelData) =>
                 {
@@ -43,9 +37,9 @@ namespace Traffic.VehicleSystems
                     if (vehicleRbIndex == -1 || vehicleRbIndex >= physicsWorld.NumDynamicBodies)
                         return;
 
-                    var engine = vehicleEngineComponents[vehicleRef.Entity];
-                    
-                    var vehicleTransforms = localToWorldComponents[vehicleRef.Entity];
+                    var engine = SystemAPI.GetComponent<VehicleEngineData>(vehicleRef.Entity);
+
+                    var vehicleTransforms = SystemAPI.GetComponent<LocalToWorld>(vehicleRef.Entity);
                     var dirForward = vehicleTransforms.Forward;
                     
                     var wheelForward = wheelRoot.Forward;
@@ -54,19 +48,15 @@ namespace Traffic.VehicleSystems
                     direction /= math.abs(direction);
 
                     var impulse = wheelForward * direction;
-                    var impulseKoef = 1.0f - (engine.currentSpeed / engine.maxSpeed);
-                    var effectiveMass =
-                        physicsWorld.GetEffectiveMass(vehicleRbIndex, impulse, wheelData.wheelPosition);
-                    var impulseValue = effectiveMass * wheelData.forwardFriction * impulseKoef *
-                        engine.acceleration / 100;
-                    impulseValue = math.clamp(impulseValue, -wheelData.maxForwardFriction,
-                        wheelData.maxForwardFriction);
+                    var impulseCoeff = 1.0f - engine.CurrentSpeed / engine.MaxSpeed;
+                    var effectiveMass = physicsWorld.GetEffectiveMass(vehicleRbIndex, impulse, wheelData.wheelPosition);
+                    var impulseValue = effectiveMass * wheelData.forwardFriction * impulseCoeff * engine.Acceleration / 100;
+                    impulseValue = math.clamp(impulseValue, -wheelData.maxForwardFriction, wheelData.maxForwardFriction);
 
                     impulse *= impulseValue;
 
                     physicsWorld.ApplyImpulse(vehicleRbIndex, impulse, wheelData.wheelPosition);
                     physicsWorld.ApplyImpulse(raycastData.HitRBIndex, -impulse, raycastData.HitPosition);
-                    
                 }).ScheduleParallel(_sidewaysFrictionSystem.PublicDependency);
             
             Dependency = JobHandle.CombineDependencies(Dependency, handle);

@@ -4,9 +4,9 @@ using UnityEngine;
 namespace Traffic.RoadComponents
 {
     [DisallowMultipleComponent]
-    public class RoadNodeAuthoring : MonoBehaviour, IConvertGameObjectToEntity
+    public class RoadNodeAuthoring : MonoBehaviour
     {
-        public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
+        public void Convert(Entity entity, EntityManager dstManager)
         {
             var nodeComponent = new RoadNodeData
             {
