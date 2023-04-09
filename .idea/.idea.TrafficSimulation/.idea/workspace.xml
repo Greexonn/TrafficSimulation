@@ -30,92 +30,19 @@
   <component name="ChangeListManager">
     <list default="true" id="75283252-eb04-4257-853c-57a344575703" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TrafficSimulation/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TrafficSimulation/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Components/IRemoveAtFrameEndComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Components/IRemoveAtFrameEndComponent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Systems/RemoveAtFrameEndSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Systems/RemoveAtFrameEndSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Systems/SystemGroups.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Systems/SystemGroups.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Core/Systems/SystemWithPublicDependencyBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Core/Systems/SystemWithPublicDependencyBase.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/Behaviours/CarPrefabsStorage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/Behaviours/CarPrefabsStorage.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GraphTest.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/GraphTest.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/Debug/DrawRoadLinesSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/Debug/DrawRoadLinesSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/CarSpawnerAuthoring.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/CarSpawnerAuthoring.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/CarSpawnerComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/CarSpawnerComponent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/RoadBlockAuthoring.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/RoadBlockAuthoring.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/RoadBlockAuthoring.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/RoadBlock.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/RoadBlockAuthoring.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/RoadBlock.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/RoadChunkAuthoring.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/RoadChunkAuthoring.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/RoadNodeAuthoring.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/RoadNodeAuthoring.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/RoadNodeData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/RoadNodeData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/RoadTargetData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/RoadTargetData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/TrafficControl/IntBufferElement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/TrafficControl/IntBufferElement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/TrafficControl/StartIDsBufferElement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/TrafficControl/StartIDsBufferElement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/TrafficControl/StateTimeBufferElement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/TrafficControl/StateTimeBufferElement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/TrafficControl/TCStateBufferElement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/TrafficControl/TCStateBufferElement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/TrafficControl/TrafficControlBlockAuthoring.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/TrafficControl/TrafficControlBlockAuthoring.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/TrafficControl/TrafficControlBlockComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/TrafficControl/TrafficControlBlockComponent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/TrafficControl/TrafficControlBlockInitTag.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/TrafficControl/TrafficControlBlockInitTag.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/TrafficControl/TrafficControlStateComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/TrafficControl/TrafficControlStateComponent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadSystems.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadSystems/TrafficControls.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadSystems/TrafficControls/TrafficControlInitSystem.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadSystems/TrafficControls/TrafficControlInitSystem.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadSystems/TrafficControls/TrafficControlUpdateSystem.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadSystems/TrafficControls/TrafficControlUpdateSystem.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadSystems/VehicleSpawnSystem.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadSystems/VehicleSpawnSystem.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/TrafficSimulation.Traffic.asmdef" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/TrafficSimulation.Traffic.asmdef" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/DriveVehicle/VehicleBrakesData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/DriveVehicle/VehicleBrakesData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/JustSpawnedTag.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/JustSpawnedTag.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/NodeBufferElement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/NodeBufferElement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/PathfindingRequest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/PathfindingRequest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/VehicleAICollisionDetectionComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/VehicleAICollisionDetectionComponent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/VehicleAIData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/VehicleAIData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/VehicleAuthoring.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/VehicleAuthoring.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/VehicleCurrentNodeData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/VehicleCurrentNodeData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/VehiclePathNodeIndexData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/VehiclePathNodeIndexData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/VehicleTag.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/VehicleTag.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/SuspensionAuthoring.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/SuspensionAuthoring.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/WheelAuthoring.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/WheelAuthoring.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/.idea/.idea.VehicleSystems.dir/.idea/contentModel.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/.idea/.idea.VehicleSystems.dir/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/.idea/.idea.VehicleSystems.dir/.idea/indexLayout.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/.idea/.idea.VehicleSystems.dir/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/.idea/.idea.VehicleSystems.dir/.idea/projectSettingsUpdater.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/.idea/.idea.VehicleSystems.dir/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/.idea/.idea.VehicleSystems.dir/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/.idea/.idea.VehicleSystems.dir/riderModule.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/Input.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/Input/VehicleInputSystem.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/Input/VehicleInputSystem.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/ProcessBrakesSystem.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/ProcessBrakesSystem.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/ProcessDriveWheelsSystem.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/ProcessDriveWheelsSystem.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/ProcessSidewaysFrictionSystem.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/ProcessSidewaysFrictionSystem.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/ProcessSteeringSystem.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/ProcessSteeringSystem.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/ProcessSuspensionSystem.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/ProcessSuspensionSystem.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/SpeedCheckSystem.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/SpeedCheckSystem.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/SystemGroups.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/SystemGroups.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/UpdateWheelPositionSystem.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/UpdateWheelPositionSystem.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/UpdateWheelRotationSystem.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/UpdateWheelRotationSystem.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/VehicleAIControlSystem.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/VehicleAIControlSystem.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/VehicleAfterSpawnConfigureSystem.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/VehicleAfterSpawnConfigureSystem.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/VehicleCollisionCheckSystem.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/VehicleCollisionCheckSystem.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/VehiclePathfindingSystem.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/VehiclePathfindingSystem.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/VehicleSteeringUpdateSystem.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/VehicleSteeringUpdateSystem.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/VehiclesEndProcessSystem.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/VehiclesEndProcessSystem.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/WheelsRaycastSystem.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleSystems/WheelsRaycastSystem.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/VehicleAIControlSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/VehicleAIControlSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/VehiclePathfindingSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/VehiclePathfindingSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/TrafficSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/TrafficSystemAuthoring.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/TrafficSystem.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/TrafficSystemAuthoring.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/ForwardRenderer.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/ForwardRenderer.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -131,16 +58,25 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Core/Systems/RemoveAtFrameEndSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Core/Systems/SystemGroups.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Core/Systems/SystemWithPublicDependencyBase.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Traffic/TrafficSystemAuthoring.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/JustSpawnedTag.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/BrakeWheelTag.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/ControlWheelTag.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/DriveWheelTag.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/VehicleRefData.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/WheelRaycastData.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.collections@2.1.0-pre.18/Unity.Collections/NativeParallelMultiHashMap.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.collections@2.1.0-pre.18/Unity.Collections/UnsafeList.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.entities@1.0.0-pre.65/Unity.Entities.Hybrid/Baking/Baker.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.entities@1.0.0-pre.65/Unity.Entities.Hybrid/Baking/TransformUsageFlags.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.entities@1.0.0-pre.65/Unity.Entities/ComponentSystemBase.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.entities@1.0.0-pre.65/Unity.Entities/EntityManager.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.entities@1.0.0-pre.65/Unity.Entities/Iterators/ComponentLookup.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.entities@1.0.0-pre.65/Unity.Entities/SystemState.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.entities@1.0.0-pre.65/Unity.Transforms/LocalToWorld.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.physics@1.0.0-pre.65/Unity.Physics/ECS/Base/Systems/BuildPhysicsWorld.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/faa26a42eab74afda7d44c37d9d3333d14f800/64/5a656c57/ICleanupComponentData.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/faa26a42eab74afda7d44c37d9d3333d14f800/75/c4fd950e/WorldSystemFilterFlags.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -202,7 +138,13 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="SWEA" />
+  </component>
   <component name="ProjectId" id="1gYyI6bpIeULWVxKhjNsrKFqNKm" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -276,7 +218,7 @@
       <workItem from="1605189454785" duration="475000" />
       <workItem from="1605190356606" duration="2030000" />
       <workItem from="1605192411368" duration="30737000" />
-      <workItem from="1680990881188" duration="6494000" />
+      <workItem from="1680990881188" duration="13008000" />
     </task>
     <servers />
   </component>

@@ -1,18 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Unity.Collections;
 using Unity.Entities;
 using UnityEngine;
 
 namespace TrafficSimulation.Traffic.RoadComponents
 {
     [DisallowMultipleComponent]
-    public class RoadBlockAuthoring : MonoBehaviour
+    public class RoadBlock : MonoBehaviour
     {
-        [SerializeField] private List<RoadBlockAuthoring> _connectedBlocks;
+        [SerializeField] private List<RoadBlock> _connectedBlocks;
 
         [SerializeField] private List<Transform> _exits;
         [SerializeField] public List<Transform> enters;
-
-        [HideInInspector] public RoadChunkAuthoring _parentChunk;
 
         [SerializeField] private List<RoadLine> _lines;
 
@@ -20,15 +20,13 @@ namespace TrafficSimulation.Traffic.RoadComponents
         [Header("Gizmos")]
         [SerializeField] private Mesh _arrow;
 
-
-        public void Convert(Entity entity, EntityManager dstManager)
+        public void Bake(IBaker baker, NativeParallelMultiHashMap<Entity, Entity> chunkGraph)
         {
-            if (_parentChunk == null) 
-                return;
-            
             for (var i = 0; i < _lines.Count; i++)
             {
-                // _parentChunk.ChunkGraph.Add(conversionSystem.GetPrimaryEntity(_lines[i].A.gameObject), conversionSystem.GetPrimaryEntity(_lines[i].B.gameObject));
+                var aEntity = baker.GetEntity(_lines[i].A.gameObject, TransformUsageFlags.Dynamic | TransformUsageFlags.WorldSpace);
+                var bEntity = baker.GetEntity(_lines[i].B.gameObject, TransformUsageFlags.Dynamic | TransformUsageFlags.WorldSpace);
+                chunkGraph.Add(aEntity, bEntity);
             }
         }
 
@@ -95,7 +93,7 @@ namespace TrafficSimulation.Traffic.RoadComponents
         }
 #endif
 
-        [System.Serializable]
+        [Serializable]
         public struct RoadLine
         {
             public RoadNodeAuthoring A, B;

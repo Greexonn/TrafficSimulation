@@ -1,5 +1,4 @@
-﻿using Traffic;
-using TrafficSimulation.Traffic.RoadComponents;
+﻿using TrafficSimulation.Traffic.RoadComponents;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Transforms;
@@ -9,13 +8,17 @@ namespace TrafficSimulation.Traffic.Debug
 {
     public partial class DrawRoadLinesSystem : SystemBase
     {
+        protected override void OnCreate()
+        {
+            RequireForUpdate<TrafficSystemData>();
+        }
+
         protected override void OnUpdate()
         {
-            if (TrafficSystem.Instance == null) 
-                return;
+            var trafficSystemData = SystemAPI.GetSingleton<TrafficSystemData>();
             
-            var graphs = TrafficSystem.Instance.Graphs;
-            for (var i = 0; i < graphs.Count; i++)
+            var graphs = trafficSystemData.Graphs;
+            for (var i = 0; i < graphs.Length; i++)
             {
                 var keys = graphs[i].GetKeyArray(Allocator.Temp);
 

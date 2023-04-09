@@ -13,8 +13,6 @@ namespace TrafficSimulation.Traffic.Systems.VehicleSystems
         private float3 _mapForward;
         private float3 _mapRight;
 
-        private EndSimulationEntityCommandBufferSystem _commandBufferSystem;
-
         protected override void OnCreate()
         {
             _mapForward = new float3(0, 0, 1);
@@ -30,7 +28,8 @@ namespace TrafficSimulation.Traffic.Systems.VehicleSystems
 
             var nodeBuffers = GetBufferLookup<NodeBufferElement>(true);
 
-            var commandBuffer = _commandBufferSystem.CreateCommandBuffer().AsParallelWriter();
+            var commandBuffer = SystemAPI.GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>()
+                .CreateCommandBuffer(World.Unmanaged).AsParallelWriter();
 
             var mapForward = _mapForward;
             var mapRight = _mapRight;

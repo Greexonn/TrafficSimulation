@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Traffic;
 using TrafficSimulation.Traffic.RoadComponents;
 using TrafficSimulation.Traffic.VehicleComponents;
 using Unity.Burst;
@@ -22,8 +21,9 @@ namespace TrafficSimulation.Traffic.Systems.VehicleSystems
         
         protected override void OnCreate()
         {
-            _targetPointsQuery = GetEntityQuery(typeof(RoadTargetData));
+            _targetPointsQuery = GetEntityQuery(ComponentType.ReadOnly<RoadTargetData>());
             RequireForUpdate(_targetPointsQuery);
+            RequireForUpdate<TrafficSystemData>();
             
             _temporalContainers = new List<INativeDisposable>();
             _jobs = new List<PathfindingJob>();
@@ -38,10 +38,7 @@ namespace TrafficSimulation.Traffic.Systems.VehicleSystems
                 return;
             }
 
-            var nodeBuffers = GetBufferLookup<NodeBufferElement>();
-
-            var localToWorldComponents = GetComponentLookup<LocalToWorld>(true);
-            
+            var trafficSystemData = SystemAPI.GetSingleton<TrafficSystemData>();
             var commandBuffer = new EntityCommandBuffer(Allocator.Temp);
             var jobHandles = new NativeList<JobHandle>(Allocator.Temp);
             _temporalContainers.Clear();
@@ -65,8 +62,8 @@ namespace TrafficSimulation.Traffic.Systems.VehicleSystems
                     TargetVehicle = vehicleEntity,
                     FoundNode = vehicleCurrentNode.Node,
                     TargetPoint = targetPoint,
-                    LocalToWorldComponents = localToWorldComponents,
-                    Graph = TrafficSystem.Instance.Graphs[0],
+                    LocalToWorldComponents = GetComponentLookup<LocalToWorld>(),
+                    Graph = trafficSystemData.Graphs[0],
                     CloseList = new NativeList<PathNode>(Allocator.TempJob),
                     OpenList = new NativeList<PathNode>(Allocator.TempJob),
                     ReversePathList = new NativeList<NodeBufferElement>(Allocator.TempJob),
@@ -93,7 +90,7 @@ namespace TrafficSimulation.Traffic.Systems.VehicleSystems
             //write correct path to path buffer
             foreach (var pathfindingJob in _jobs)
             {
-                var pathBuffer = nodeBuffers[pathfindingJob.TargetVehicle];
+                var pathBuffer = SystemAPI.GetBuffer<NodeBufferElement>(pathfindingJob.TargetVehicle);
                 pathBuffer.Clear();
                 var reversePathList = pathfindingJob.ReversePathList;
                 
