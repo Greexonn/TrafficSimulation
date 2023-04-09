@@ -4,6 +4,12 @@ using UnityEngine;
 
 namespace TrafficSimulation.Traffic.VehicleComponents.DriveVehicle
 {
+    public class VehicleSteeringAuthoring : MonoBehaviour
+    {
+        public float maxAngle;
+        public float steeringSpeed;
+    }
+    
     public struct VehicleSteeringData : IComponentData
     {
         public float MaxAngle;
