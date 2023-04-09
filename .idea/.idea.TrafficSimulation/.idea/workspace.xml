@@ -30,20 +30,14 @@
   <component name="ChangeListManager">
     <list default="true" id="75283252-eb04-4257-853c-57a344575703" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TrafficSimulation/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TrafficSimulation/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GraphTest.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/GraphTest.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/Debug/DrawRoadLinesSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/Debug/DrawRoadLinesSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/RoadBlockAuthoring.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/RoadBlock.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/RoadBlockAuthoring.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/RoadBlock.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/RoadChunkAuthoring.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/RoadChunkAuthoring.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/RoadNodeAuthoring.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/RoadNodeAuthoring.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/VehicleAIControlSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/VehicleAIControlSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/VehiclePathfindingSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/VehiclePathfindingSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/TrafficSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/TrafficSystemAuthoring.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/TrafficSystem.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/TrafficSystemAuthoring.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Settings/ForwardRenderer.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/ForwardRenderer.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/GlobalEntitiesDependencies/GlobalEntitySceneDependency.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GlobalEntitiesDependencies/GlobalEntitySceneDependency.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/SceneDependencyCache/2bde9dec7d839a42b74e1db6f1e44a33.sceneWithBuildSettings" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SceneDependencyCache/2bde9dec7d839a42b74e1db6f1e44a33.sceneWithBuildSettings" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GraphTest/GraphTest_RoadChunk_0.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/GraphTest/GraphTest_RoadChunk_0.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GraphTest/GraphTest_SubScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/GraphTest/GraphTest_SubScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/CarSpawnerAuthoring.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/CarSpawnerAuthoring.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/RoadTargetData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/RoadTargetAuthoring.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/RoadTargetData.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/RoadTargetAuthoring.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/TrafficControl/TrafficControlBlockAuthoring.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/TrafficControl/TrafficControlBlockAuthoring.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,6 +52,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Core/Systems/RemoveAtFrameEndSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Core/Systems/SystemGroups.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Core/Systems/SystemWithPublicDependencyBase.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/RoadTargetAuthoring.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Traffic/TrafficSystemAuthoring.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/JustSpawnedTag.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/BrakeWheelTag.cs" root0="FORCE_HIGHLIGHTING" />
@@ -218,7 +213,7 @@
       <workItem from="1605189454785" duration="475000" />
       <workItem from="1605190356606" duration="2030000" />
       <workItem from="1605192411368" duration="30737000" />
-      <workItem from="1680990881188" duration="13008000" />
+      <workItem from="1680990881188" duration="15533000" />
     </task>
     <servers />
   </component>
