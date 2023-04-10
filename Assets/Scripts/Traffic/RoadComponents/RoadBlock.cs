@@ -20,13 +20,13 @@ namespace TrafficSimulation.Traffic.RoadComponents
         [Header("Gizmos")]
         [SerializeField] private Mesh _arrow;
 
-        public void Bake(IBaker baker, BlobBuilderArray<RoadLineBlobData> linesBlobBuilderArray, ref int index)
+        public void Bake(IBaker baker, DynamicBuffer<RoadChunkLineInitializationBufferElement> linesBuffer)
         {
             for (var i = 0; i < _lines.Count; i++)
             {
                 var aEntity = baker.GetEntity(_lines[i].A.gameObject, TransformUsageFlags.Dynamic | TransformUsageFlags.WorldSpace);
                 var bEntity = baker.GetEntity(_lines[i].B.gameObject, TransformUsageFlags.Dynamic | TransformUsageFlags.WorldSpace);
-                linesBlobBuilderArray[index++] = new RoadLineBlobData { A = aEntity, B = bEntity };
+                linesBuffer.Add(new RoadChunkLineInitializationBufferElement { A = aEntity, B = bEntity });
             }
         }
 

@@ -25,15 +25,15 @@ namespace TrafficSimulation.Traffic.Debug
                 foreach (var key in keys)
                 {
                     var values = graphs[i].GetValuesForKey(key);
+                    
+                    var keyLocalToWorld = SystemAPI.GetComponent<LocalToWorld>(key);
 
-                    var keyLocalToWorld = EntityManager.GetComponentData<LocalToWorld>(key);
-
-                    var keyOpen = EntityManager.GetComponentData<RoadNodeData>(key).IsOpen;
+                    var keyOpen = SystemAPI.GetComponent<RoadNodeData>(key).IsOpen;
                     var lineColor = !keyOpen ? Color.red : Color.green;
 
                     foreach (var node in values)
                     {
-                        var valueLocalToWorld = EntityManager.GetComponentData<LocalToWorld>(node);
+                        var valueLocalToWorld = SystemAPI.GetComponent<LocalToWorld>(node);
 
                         UnityEngine.Debug.DrawLine(keyLocalToWorld.Position, valueLocalToWorld.Position, lineColor);
                     }

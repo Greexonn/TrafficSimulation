@@ -1,7 +1,6 @@
 using System.Linq;
 using TrafficSimulation.Core.Components;
 using TrafficSimulation.Traffic.RoadComponents;
-using Unity.Collections;
 using Unity.Entities;
 
 namespace TrafficSimulation.Traffic.Bakers.RoadComponentsBakers
@@ -11,8 +10,7 @@ namespace TrafficSimulation.Traffic.Bakers.RoadComponentsBakers
         public override void Bake(RoadChunkAuthoring authoring)
         {
             var entity = GetEntity(authoring, TransformUsageFlags.None);
-            var initializationData = new RoadChunkInitializationData();
-            
+
             var roadBlocks = GetComponentsInChildren<RoadBlock>();
             
             foreach (var block in roadBlocks)
@@ -23,23 +21,13 @@ namespace TrafficSimulation.Traffic.Bakers.RoadComponentsBakers
             var linesCount = roadBlocks.Sum(block => block.GetLinesCount());
             if (linesCount > 0)
             {
-                var index = 0;
-                var blobBuilder = new BlobBuilder(Allocator.Temp);
-                ref var blobArrayRoot = ref blobBuilder.ConstructRoot<BlobArray<RoadLineBlobData>>();
-                var blobBuilderArray = blobBuilder.Allocate(ref blobArrayRoot, linesCount);
-
+                var initializationBuffer = AddBuffer<RoadChunkLineInitializationBufferElement>(entity);
                 foreach (var roadBlock in roadBlocks)
                 {
-                    roadBlock.Bake(this, blobBuilderArray, ref index);
+                    roadBlock.Bake(this, initializationBuffer);
                 }
-
-                initializationData.LinesBlobArrayRef = blobBuilder.CreateBlobAssetReference<BlobArray<RoadLineBlobData>>(Allocator.Persistent);
-                AddBlobAsset(ref initializationData.LinesBlobArrayRef, out _);
-                
-                blobBuilder.Dispose();
             }
             
-            AddComponent(entity, initializationData);
             AddComponent<RoadChunkTag>(entity);
             AddComponent<JustInstantiatedTag>(entity);
         }

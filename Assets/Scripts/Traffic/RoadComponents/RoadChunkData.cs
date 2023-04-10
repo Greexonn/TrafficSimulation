@@ -10,14 +10,8 @@ namespace TrafficSimulation.Traffic.RoadComponents
         public NativeParallelMultiHashMap<Entity, Entity> ChunkGraph;
     }
 
-    [Serializable]
-    public struct RoadChunkInitializationData : IComponentData
-    {
-        public BlobAssetReference<BlobArray<RoadLineBlobData>> LinesBlobArrayRef;
-    }
-
-    [Serializable]
-    public struct RoadLineBlobData
+    [Serializable, InternalBufferCapacity(64)]
+    public struct RoadChunkLineInitializationBufferElement : IBufferElementData
     {
         public Entity A, B;
     }

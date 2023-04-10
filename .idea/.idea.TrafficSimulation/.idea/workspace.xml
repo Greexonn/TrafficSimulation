@@ -30,22 +30,13 @@
   <component name="ChangeListManager">
     <list default="true" id="75283252-eb04-4257-853c-57a344575703" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TrafficSimulation/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TrafficSimulation/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/RoadBlocks/Road_Staight.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/RoadBlocks/Road_Staight.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/RoadBlocks/Spawn_Point.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/RoadBlocks/Spawn_Point.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/RoadBlocks/TCross.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/RoadBlocks/TCross.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/GlobalEntitiesDependencies/GlobalEntitySceneDependency.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GlobalEntitiesDependencies/GlobalEntitySceneDependency.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/SceneDependencyCache/2bde9dec7d839a42b74e1db6f1e44a33.sceneWithBuildSettings" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SceneDependencyCache/2bde9dec7d839a42b74e1db6f1e44a33.sceneWithBuildSettings" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/Bakers/RoadComponentsBakers/RoadChunkBaker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/Bakers/RoadComponentsBakers/RoadChunkBaker.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/Bakers/TrafficSystemBaker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/Bakers/TrafficSystemBaker.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/Debug/DrawRoadLinesSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/Debug/DrawRoadLinesSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/RoadBlock.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/RoadBlock.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/RoadChunkData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/RoadChunkData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/RoadChunkValidTag.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/RoadChunkTag.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/RoadChunkValidTag.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/RoadComponents/RoadChunkTag.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/RoadSystems/RoadChunksInitializationSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/RoadSystems/RoadChunksInitializationSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/RoadSystems/VehicleSpawnSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/RoadSystems/VehicleSpawnSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/TrafficSystemData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/TrafficSystemData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/TrafficSystemValidTag.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/TrafficSystemTag.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/TrafficSystemValidTag.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/TrafficSystemTag.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Settings/ForwardRenderer.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/ForwardRenderer.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/RoadSystems/RoadChunkInitializationSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/RoadSystems/RoadChunkInitializationSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -76,7 +67,9 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.entities@1.0.0-pre.65/Unity.Entities.Hybrid/Baking/TransformUsageFlags.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.entities@1.0.0-pre.65/Unity.Entities/Blobs.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.entities@1.0.0-pre.65/Unity.Entities/ComponentSystemBase.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.entities@1.0.0-pre.65/Unity.Entities/EntityCommandBuffer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.entities@1.0.0-pre.65/Unity.Entities/EntityManager.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.entities@1.0.0-pre.65/Unity.Entities/EntityRemapUtility.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.entities@1.0.0-pre.65/Unity.Entities/Iterators/ComponentLookup.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.entities@1.0.0-pre.65/Unity.Entities/SystemState.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.entities@1.0.0-pre.65/Unity.Entities/WorldSystemFiltering.cs" root0="SKIP_HIGHLIGHTING" />
@@ -226,7 +219,7 @@
       <workItem from="1605190356606" duration="2030000" />
       <workItem from="1605192411368" duration="30737000" />
       <workItem from="1680990881188" duration="19444000" />
-      <workItem from="1681087651508" duration="5244000" />
+      <workItem from="1681087651508" duration="6955000" />
     </task>
     <servers />
   </component>
