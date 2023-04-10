@@ -6,7 +6,7 @@ using Unity.Entities;
 namespace TrafficSimulation.Traffic
 {
     [Serializable]
-    public struct TrafficSystemData : IComponentData
+    public struct TrafficSystemData : ICleanupComponentData
     {
         public UnsafeList<NativeParallelMultiHashMap<Entity, Entity>> Graphs;
     }

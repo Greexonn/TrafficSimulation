@@ -46,7 +46,7 @@ namespace TrafficSimulation.Traffic.Systems.RoadSystems
                     commandBuffer.AddComponent(vehicleEntity, new VehiclePathNodeIndexData { Value = 0 });
                     commandBuffer.AddBuffer<NodeBufferElement>(vehicleEntity);
                     //
-                    commandBuffer.AddComponent(vehicleEntity, typeof(PathfindingRequest));
+                    commandBuffer.AddComponent(vehicleEntity, ComponentType.ReadOnly<PathfindingRequest>());
                     commandBuffer.AddComponent<JustSpawnedTag>(vehicleEntity);
                 }).Run();
 

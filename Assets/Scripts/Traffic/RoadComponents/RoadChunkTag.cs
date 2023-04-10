@@ -4,6 +4,6 @@ using Unity.Entities;
 namespace TrafficSimulation.Traffic.RoadComponents
 {
     [Serializable]
-    public struct RoadChunkValidTag : IComponentData
+    public struct RoadChunkTag : IComponentData
     {}
 }

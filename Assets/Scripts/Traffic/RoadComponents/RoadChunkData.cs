@@ -5,9 +5,20 @@ using Unity.Entities;
 namespace TrafficSimulation.Traffic.RoadComponents
 {
     [Serializable]
-    public struct RoadChunkData : IComponentData
+    public struct RoadChunkData : ICleanupComponentData
     {
-        public int LinesCount;
         public NativeParallelMultiHashMap<Entity, Entity> ChunkGraph;
+    }
+
+    [Serializable]
+    public struct RoadChunkInitializationData : IComponentData
+    {
+        public BlobAssetReference<BlobArray<RoadLineBlobData>> LinesBlobArrayRef;
+    }
+
+    [Serializable]
+    public struct RoadLineBlobData
+    {
+        public Entity A, B;
     }
 }

@@ -11,7 +11,7 @@ namespace TrafficSimulation.Traffic.Bakers.RoadComponentsBakers
         public override void Bake(RoadChunkAuthoring authoring)
         {
             var entity = GetEntity(authoring, TransformUsageFlags.None);
-            var component = new RoadChunkData();
+            var initializationData = new RoadChunkInitializationData();
             
             var roadBlocks = GetComponentsInChildren<RoadBlock>();
             
@@ -21,18 +21,26 @@ namespace TrafficSimulation.Traffic.Bakers.RoadComponentsBakers
             }
             
             var linesCount = roadBlocks.Sum(block => block.GetLinesCount());
-            component.LinesCount = linesCount;
             if (linesCount > 0)
             {
-                component.ChunkGraph = new NativeParallelMultiHashMap<Entity, Entity>(linesCount, Allocator.Persistent);
+                var index = 0;
+                var blobBuilder = new BlobBuilder(Allocator.Temp);
+                ref var blobArrayRoot = ref blobBuilder.ConstructRoot<BlobArray<RoadLineBlobData>>();
+                var blobBuilderArray = blobBuilder.Allocate(ref blobArrayRoot, linesCount);
+
                 foreach (var roadBlock in roadBlocks)
                 {
-                    roadBlock.Bake(this, component.ChunkGraph);
+                    roadBlock.Bake(this, blobBuilderArray, ref index);
                 }
+
+                initializationData.LinesBlobArrayRef = blobBuilder.CreateBlobAssetReference<BlobArray<RoadLineBlobData>>(Allocator.Persistent);
+                AddBlobAsset(ref initializationData.LinesBlobArrayRef, out _);
+                
+                blobBuilder.Dispose();
             }
             
-            AddComponent(entity, component);
-            AddComponent<RoadChunkValidTag>(entity);
+            AddComponent(entity, initializationData);
+            AddComponent<RoadChunkTag>(entity);
             AddComponent<JustInstantiatedTag>(entity);
         }
     }

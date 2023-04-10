@@ -1,5 +1,4 @@
-using Unity.Collections;
-using Unity.Collections.LowLevel.Unsafe;
+using TrafficSimulation.Core.Components;
 using Unity.Entities;
 
 namespace TrafficSimulation.Traffic.Bakers
@@ -9,11 +8,8 @@ namespace TrafficSimulation.Traffic.Bakers
         public override void Bake(TrafficSystemAuthoring authoring)
         {
             var entity = GetEntity(authoring, TransformUsageFlags.None);
-            AddComponent(entity, new TrafficSystemData
-            {
-                Graphs = new UnsafeList<NativeParallelMultiHashMap<Entity, Entity>>(10, Allocator.Persistent)
-            });
-            AddComponent<TrafficSystemValidTag>(entity);
+            AddComponent<TrafficSystemTag>(entity);
+            AddComponent<JustInstantiatedTag>(entity);
         }
     }
 }

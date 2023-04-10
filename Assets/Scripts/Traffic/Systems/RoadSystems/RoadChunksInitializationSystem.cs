@@ -13,9 +13,9 @@ namespace TrafficSimulation.Traffic.Systems.RoadSystems
         {
             state.RequireForUpdate<TrafficSystemData>();
             state.RequireForUpdate(new EntityQueryBuilder(state.WorldUpdateAllocator)
-                .WithAll<TrafficSystemData, TrafficSystemValidTag>().Build(ref state));
+                .WithAll<TrafficSystemData, TrafficSystemTag>().Build(ref state));
             state.RequireForUpdate(new EntityQueryBuilder(state.WorldUpdateAllocator)
-                .WithAll<RoadChunkData, RoadChunkValidTag, JustInstantiatedTag>().Build(ref state));
+                .WithAll<RoadChunkData, RoadChunkTag, JustInstantiatedTag>().Build(ref state));
         }
 
         [BurstCompile]
