@@ -7,7 +7,7 @@ namespace TrafficSimulation.Traffic.Systems.VehicleSystems
     // fixed
     
     [UpdateInGroup(typeof(FixedStepSimulationSystemGroup))]
-    [UpdateAfter(typeof(BuildPhysicsWorld))]
+    [UpdateAfter(typeof(PhysicsSystemGroup))]
     public partial class VehiclesFixedStepSystemGroup : ComponentSystemGroup
     {}
     
