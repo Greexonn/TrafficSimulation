@@ -2,6 +2,7 @@ using TrafficSimulation.Traffic.VehicleComponents.DriveVehicle;
 using TrafficSimulation.Traffic.VehicleComponents.Wheel;
 using Unity.Burst;
 using Unity.Collections;
+using Unity.Collections.LowLevel.Unsafe;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
@@ -10,31 +11,39 @@ using static Unity.Entities.SystemAPI;
 namespace TrafficSimulation.Traffic.Systems.VehicleSystems
 {
     [UpdateInGroup(typeof(VehiclesProcessUpdateSystemGroup))]
-    public partial struct UpdateWheelRotationSystem : ISystem
+    public partial struct UpdateWheelsRotationsSystem : ISystem
     {
+        [BurstCompile]
+        public void OnCreate(ref SystemState state)
+        {
+            state.RequireForUpdate(new EntityQueryBuilder(state.WorldUpdateAllocator)
+                .WithAll<WheelData, LocalToWorld>()
+                .Build(ref state));
+        }
+
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
             var updateDriveWheelsRotationsJob = new UpdateDriveWheelsRotationsJob
             {
-                VehicleEngineDataLookup = GetComponentLookup<VehicleEngineData>(true),
+                VehicleEngineDataLookup = GetComponentLookup<VehicleEngineData>(),
                 LocalTransformLookup = GetComponentLookup<LocalTransform>()
             };
-            var handle = updateDriveWheelsRotationsJob.ScheduleParallelByRef(state.Dependency);
+            var handle = updateDriveWheelsRotationsJob.ScheduleParallel(state.Dependency);
 
             var updateAllWheelsRotationsJob = new UpdateAllWheelsRotationsJob
             {
                 LocalTransformLookup = GetComponentLookup<LocalTransform>()
             };
-            handle = updateAllWheelsRotationsJob.ScheduleParallelByRef(handle);
-            handle.Complete();
+            handle = updateAllWheelsRotationsJob.ScheduleParallel(handle);
+            state.Dependency = handle;
         }
         
         [BurstCompile]
         private partial struct UpdateDriveWheelsRotationsJob : IJobEntity
         {
             [ReadOnly] public ComponentLookup<VehicleEngineData> VehicleEngineDataLookup;
-            public ComponentLookup<LocalTransform> LocalTransformLookup;
+            [NativeDisableContainerSafetyRestriction] public ComponentLookup<LocalTransform> LocalTransformLookup;
 
             private void Execute(in WheelData wheelData, in VehicleRefData vehicleRef)
             {
@@ -50,7 +59,7 @@ namespace TrafficSimulation.Traffic.Systems.VehicleSystems
         [BurstCompile]
         private partial struct UpdateAllWheelsRotationsJob : IJobEntity
         {
-            public ComponentLookup<LocalTransform> LocalTransformLookup;
+            [NativeDisableContainerSafetyRestriction] public ComponentLookup<LocalTransform> LocalTransformLookup;
             
             private void Execute(in WheelData wheelData, in WheelRaycastData raycastData, in LocalToWorld wheelRoot)
             {

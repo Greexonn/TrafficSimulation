@@ -29,16 +29,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="75283252-eb04-4257-853c-57a344575703" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/VehiclesCollisionsCheckSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TrafficSimulation/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TrafficSimulation/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/VehicleTest.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/VehicleTest.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/SystemGroups.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/SystemGroups.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/VehicleCollisionCheckSystem.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/VehicleCollisionCheckSystem.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/VehiclesCollisionsCheckSystem.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/WheelsRaycastSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/WheelsRaycastSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/SuspensionAuthoring.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/SuspensionAuthoring.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/WheelAuthoring.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/WheelAuthoring.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/GlobalEntitiesDependencies/GlobalEntitySceneDependency.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GlobalEntitiesDependencies/GlobalEntitySceneDependency.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/SceneDependencyCache/ea111849ac6cd5a30fe4c114138a82ea.sceneWithBuildSettings" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SceneDependencyCache/ea111849ac6cd5a30fe4c114138a82ea.sceneWithBuildSettings" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/Bakers/VehicleComponentsBakers/VehicleBaker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/Bakers/VehicleComponentsBakers/VehicleBaker.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/UpdateWheelPositionSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/UpdateWheelsPositionsSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/UpdateWheelPositionSystem.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/UpdateWheelsPositionsSystem.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/UpdateWheelRotationSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/UpdateWheelsRotationsSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/UpdateWheelRotationSystem.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/UpdateWheelsRotationsSystem.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/VehicleAfterSpawnConfigureSystem.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/VehicleAfterSpawnConfigureSystem.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/WheelElement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/WheelElement.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +76,9 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.entities@1.0.0-pre.65/Unity.Entities/SystemState.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.entities@1.0.0-pre.65/Unity.Entities/WorldSystemFiltering.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.entities@1.0.0-pre.65/Unity.Transforms/LocalToWorld.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.performance.profile-analyzer@1.2.2/Editor/Units.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.physics@1.0.0-pre.65/Unity.Physics/ECS/Base/Systems/BuildPhysicsWorld.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c12633dd338c4a80bf804084d3d2a55316e800/7e/5a076eae/NativeSetThreadIndexAttribute.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/faa26a42eab74afda7d44c37d9d3333d14f800/64/5a656c57/ICleanupComponentData.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/faa26a42eab74afda7d44c37d9d3333d14f800/75/c4fd950e/WorldSystemFilterFlags.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
@@ -221,7 +224,7 @@
       <workItem from="1605192411368" duration="30737000" />
       <workItem from="1680990881188" duration="19444000" />
       <workItem from="1681087651508" duration="6955000" />
-      <workItem from="1681172116578" duration="3014000" />
+      <workItem from="1681172116578" duration="6389000" />
     </task>
     <servers />
   </component>

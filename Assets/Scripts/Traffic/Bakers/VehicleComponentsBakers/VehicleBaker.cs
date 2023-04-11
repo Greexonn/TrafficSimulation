@@ -20,7 +20,7 @@ namespace TrafficSimulation.Traffic.Bakers.VehicleComponentsBakers
             foreach (var wheel in authoring._wheels)
             {
                 var wheelEntity = GetEntity(wheel, TransformUsageFlags.Dynamic);
-                wheelBuffer.Add(new WheelElement { wheel = wheelEntity });
+                wheelBuffer.Add(new WheelElement { Wheel = wheelEntity });
             }
             
             foreach (var wheel in authoring._driveWheels)

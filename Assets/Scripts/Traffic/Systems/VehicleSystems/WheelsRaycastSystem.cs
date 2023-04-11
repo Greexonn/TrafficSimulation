@@ -5,7 +5,6 @@ using Unity.Entities;
 using Unity.Physics;
 using Unity.Physics.Extensions;
 using Unity.Transforms;
-using UnityEngine;
 using static Unity.Entities.SystemAPI;
 
 namespace TrafficSimulation.Traffic.Systems.VehicleSystems
@@ -42,8 +41,6 @@ namespace TrafficSimulation.Traffic.Systems.VehicleSystems
             
             private void Execute(ref WheelRaycastData raycastData, in WheelData wheelData, in SuspensionData suspensionData, in LocalToWorld wheelRoot, in VehicleRefData vehicleRef)
             {
-                Debug.Log("raycast wheels");
-                
                 var vehicleRbIndex = PhysicsSingleton.GetRigidBodyIndex(vehicleRef.Entity);
                 if (vehicleRbIndex == -1 || vehicleRbIndex >= PhysicsSingleton.NumDynamicBodies)
                     return;
