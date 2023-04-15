@@ -195,13 +195,13 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.serialization": {
-      "version": "3.0.0-pre.1",
-      "depth": 1,
+      "version": "3.0.0-pre.3",
+      "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.collections": "2.1.0-pre.2",
         "com.unity.burst": "1.7.2",
-        "com.unity.test-framework.performance": "2.8.0-preview"
+        "com.unity.test-framework.performance": "3.0.0-pre.1"
       },
       "url": "https://packages.unity.com"
     },

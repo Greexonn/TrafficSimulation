@@ -29,17 +29,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="75283252-eb04-4257-853c-57a344575703" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TrafficSimulation/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TrafficSimulation/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/GlobalEntitiesDependencies/GlobalEntitySceneDependency.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GlobalEntitiesDependencies/GlobalEntitySceneDependency.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/SceneDependencyCache/ea111849ac6cd5a30fe4c114138a82ea.sceneWithBuildSettings" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SceneDependencyCache/ea111849ac6cd5a30fe4c114138a82ea.sceneWithBuildSettings" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/Bakers/VehicleComponentsBakers/VehicleBaker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/Bakers/VehicleComponentsBakers/VehicleBaker.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/UpdateWheelPositionSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/UpdateWheelsPositionsSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/UpdateWheelPositionSystem.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/UpdateWheelsPositionsSystem.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/UpdateWheelRotationSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/UpdateWheelsRotationsSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/UpdateWheelRotationSystem.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/UpdateWheelsRotationsSystem.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/VehicleAfterSpawnConfigureSystem.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/VehicleAfterSpawnConfigureSystem.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/WheelElement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/VehicleComponents/Wheel/WheelElement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -224,7 +214,7 @@
       <workItem from="1605192411368" duration="30737000" />
       <workItem from="1680990881188" duration="19444000" />
       <workItem from="1681087651508" duration="6955000" />
-      <workItem from="1681172116578" duration="6389000" />
+      <workItem from="1681172116578" duration="6710000" />
     </task>
     <servers />
   </component>
