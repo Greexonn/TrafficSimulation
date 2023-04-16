@@ -1,58 +1,70 @@
-using TrafficSimulation.Core.Systems;
 using TrafficSimulation.Traffic.VehicleComponents.Wheel;
+using Unity.Burst;
+using Unity.Collections.LowLevel.Unsafe;
 using Unity.Entities;
-using Unity.Jobs;
 using Unity.Mathematics;
+using Unity.Physics;
 using Unity.Physics.Extensions;
-using Unity.Physics.Systems;
 using Unity.Transforms;
+using static Unity.Entities.SystemAPI;
 
 namespace TrafficSimulation.Traffic.Systems.VehicleSystems
 {
     [UpdateInGroup(typeof(ProcessVehiclesSystemGroup))]
     [UpdateAfter(typeof(ProcessSuspensionSystem))]
-    public partial class ProcessSidewaysFrictionSystem : SystemWithPublicDependencyBase
+    public partial struct ProcessSidewaysFrictionSystem : ISystem
     {
-        private SystemWithPublicDependencyBase _suspensionSystem;
-
-        protected override void OnCreate()
+        [BurstCompile]
+        public void OnCreate(ref SystemState state)
         {
-            _suspensionSystem = World.GetOrCreateSystemManaged<ProcessSuspensionSystem>();
+            state.RequireForUpdate<PhysicsWorldSingleton>();
+            state.RequireForUpdate(new EntityQueryBuilder(state.WorldUpdateAllocator)
+                .WithAll<WheelRaycastData, VehicleRefData, LocalToWorld, WheelData>()
+                .Build(ref state));
+        }
+
+        [BurstCompile]
+        public void OnUpdate(ref SystemState state)
+        {
+            var physicsSingleton = GetSingleton<PhysicsWorldSingleton>();
+
+            var job = new ProcessSidewaysFrictionJob
+            {
+                PhysicsWorldSingleton = physicsSingleton
+            };
+            state.Dependency = job.ScheduleParallel(state.Dependency);
         }
         
-        protected override void OnUpdate()
+        [BurstCompile]
+        private partial struct ProcessSidewaysFrictionJob : IJobEntity
         {
-            var physicsWorld = SystemAPI.GetSingleton<BuildPhysicsWorldData>().PhysicsData.PhysicsWorld;
+            [NativeDisableContainerSafetyRestriction] public PhysicsWorldSingleton PhysicsWorldSingleton;
             
-            var handle = Entities
-                .ForEach((in WheelRaycastData raycastData, in VehicleRefData vehicleRef, in LocalToWorld wheelRoot, in WheelData wheelData) =>
-                {
-                    if (!raycastData.IsHitThisFrame)
-                        return;
-                    
-                    var vehicleRbIndex = physicsWorld.GetRigidBodyIndex(vehicleRef.Entity);
-                    if (vehicleRbIndex == -1 || vehicleRbIndex >= physicsWorld.NumDynamicBodies)
-                        return;
-                    
-                    var wheelRight = wheelRoot.Right;
-                    
-                    var currentSpeedRight = math.dot(raycastData.VelocityAtWheel, wheelRight);
-                    
-                    var impulseValue = -currentSpeedRight * wheelData.sideFriction;
-                    var impulse = impulseValue * wheelRight;
-                    
-                    var effectiveMass = physicsWorld.GetEffectiveMass(vehicleRbIndex, impulse, raycastData.HitPosition) / vehicleRef.WheelsCount;
-                    impulseValue *= effectiveMass;
-                    
-                    impulseValue = math.clamp(impulseValue, -wheelData.maxSideFriction,
-                        wheelData.maxSideFriction);
-                    impulse = impulseValue * wheelRight;
-                    
-                    physicsWorld.ApplyImpulse(vehicleRbIndex, impulse, raycastData.HitPosition);
-                    physicsWorld.ApplyImpulse(raycastData.HitRBIndex, -impulse, raycastData.HitPosition);
-                }).ScheduleParallel(_suspensionSystem.PublicDependency);
-            
-            Dependency = JobHandle.CombineDependencies(Dependency, handle);
+            private void Execute(in WheelRaycastData raycastData, in VehicleRefData vehicleRef, in LocalToWorld wheelRoot, in WheelData wheelData)
+            {
+                if (!raycastData.IsHitThisFrame)
+                    return;
+
+                var vehicleRbIndex = PhysicsWorldSingleton.GetRigidBodyIndex(vehicleRef.Entity);
+                if (vehicleRbIndex == -1 || vehicleRbIndex >= PhysicsWorldSingleton.NumDynamicBodies)
+                    return;
+
+                var wheelRight = wheelRoot.Right;
+
+                var currentSpeedRight = math.dot(raycastData.VelocityAtWheel, wheelRight);
+
+                var impulseValue = -currentSpeedRight * wheelData.sideFriction;
+                var impulse = impulseValue * wheelRight;
+
+                var effectiveMass = PhysicsWorldSingleton.PhysicsWorld.GetEffectiveMass(vehicleRbIndex, impulse, raycastData.HitPosition) / vehicleRef.WheelsCount;
+                impulseValue *= effectiveMass;
+
+                impulseValue = math.clamp(impulseValue, -wheelData.maxSideFriction, wheelData.maxSideFriction);
+                impulse = impulseValue * wheelRight;
+
+                PhysicsWorldSingleton.PhysicsWorld.ApplyImpulse(vehicleRbIndex, impulse, raycastData.HitPosition);
+                PhysicsWorldSingleton.PhysicsWorld.ApplyImpulse(raycastData.HitRBIndex, -impulse, raycastData.HitPosition);
+            }
         }
     }
 }

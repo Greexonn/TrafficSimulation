@@ -1,45 +1,58 @@
-﻿using TrafficSimulation.Core.Systems;
-using TrafficSimulation.Traffic.VehicleComponents;
+﻿using TrafficSimulation.Traffic.VehicleComponents;
 using TrafficSimulation.Traffic.VehicleComponents.DriveVehicle;
+using Unity.Burst;
+using Unity.Collections.LowLevel.Unsafe;
 using Unity.Entities;
 using Unity.Mathematics;
+using Unity.Physics;
 using Unity.Physics.Extensions;
-using Unity.Physics.Systems;
 using Unity.Transforms;
+using static Unity.Entities.SystemAPI;
 
 namespace TrafficSimulation.Traffic.Systems.VehicleSystems
 {
     [UpdateInGroup(typeof(AfterProcessVehiclesSystemGroup))]
-    [UpdateAfter(typeof(VehiclesEndProcessSystem))]
-    [AlwaysSynchronizeSystem]
-    public partial class SpeedCheckSystem : SystemBase
+    [UpdateAfter(typeof(ProcessDriveWheelsSystem))]
+    public partial struct SpeedCheckSystem : ISystem
     {
-        private SystemWithPublicDependencyBase _lastSystem;
-
-        protected override void OnCreate()
+        [BurstCompile]
+        public void OnCreate(ref SystemState state)
         {
-            _lastSystem = World.GetOrCreateSystemManaged<VehiclesEndProcessSystem>();
-            RequireForUpdate<BuildPhysicsWorldData>();
+            state.RequireForUpdate<PhysicsWorldSingleton>();
+            state.RequireForUpdate(new EntityQueryBuilder(state.WorldUpdateAllocator)
+                .WithAll<VehicleTag, VehicleEngineData, LocalToWorld>()
+                .Build(ref state));
         }
 
-        protected override void OnUpdate()
+        [BurstCompile]
+        public void OnUpdate(ref SystemState state)
         {
-            var physicsWorld = SystemAPI.GetSingleton<BuildPhysicsWorldData>().PhysicsData.PhysicsWorld;
-            
-            Entities
-                .WithReadOnly(physicsWorld)
-                .WithAll<VehicleTag>()
-                .ForEach((Entity vehicleEntity, ref VehicleEngineData engine, in LocalToWorld vehicleTransforms) =>
-                {
-                    var vehicleRbIndex = physicsWorld.GetRigidBodyIndex(vehicleEntity);
-                    if (vehicleRbIndex == -1 || vehicleRbIndex >= physicsWorld.NumDynamicBodies)
-                        return;
+            var physicsSingleton = GetSingleton<PhysicsWorldSingleton>();
 
-                    var dirForward = vehicleTransforms.Forward;
+            var job = new SpeedCheckJob
+            {
+                PhysicsWorldSingleton = physicsSingleton
+            };
+            state.Dependency = job.ScheduleParallel(state.Dependency);
+        }
+        
+        [BurstCompile]
+        [WithAll(typeof(VehicleTag))]
+        private partial struct SpeedCheckJob : IJobEntity
+        {
+            [NativeDisableContainerSafetyRestriction] public PhysicsWorldSingleton PhysicsWorldSingleton;
+            
+            private void Execute(Entity vehicleEntity, ref VehicleEngineData engine, in LocalToWorld vehicleTransforms)
+            {
+                var vehicleRbIndex = PhysicsWorldSingleton.GetRigidBodyIndex(vehicleEntity);
+                if (vehicleRbIndex == -1 || vehicleRbIndex >= PhysicsWorldSingleton.NumDynamicBodies)
+                    return;
+
+                var dirForward = vehicleTransforms.Forward;
                     
-                    var vehicleLinearVelocity = physicsWorld.GetLinearVelocity(vehicleRbIndex);
-                    engine.CurrentSpeed = math.dot(vehicleLinearVelocity, dirForward);
-                }).ScheduleParallel(_lastSystem.PublicDependency).Complete();
+                var vehicleLinearVelocity = PhysicsWorldSingleton.PhysicsWorld.GetLinearVelocity(vehicleRbIndex);
+                engine.CurrentSpeed = math.dot(vehicleLinearVelocity, dirForward);
+            }
         }
     }
 }

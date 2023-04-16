@@ -1,28 +1,22 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &4581709102103594144
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1546506721032992708}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4078527ba41fa6f419b5d330d9bad2cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &5617883869375173693
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 6377361187116278777, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
         type: 3}
       propertyPath: m_Name
       value: Vehicle3_PlayerControl
+      objectReference: {fileID: 0}
+    - target: {fileID: 6377361187116278779, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6377361187116278779, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
         type: 3}
@@ -41,6 +35,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6377361187116278779, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6377361187116278779, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -52,16 +51,6 @@ PrefabInstance:
     - target: {fileID: 6377361187116278779, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6377361187116278779, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6377361187116278779, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
-        type: 3}
-      propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6377361187116278779, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
@@ -78,6 +67,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6377361187197962456, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
+        type: 3}
+      propertyPath: m_SphereRadius
+      value: 2.1
       objectReference: {fileID: 0}
     - target: {fileID: 6377361187197962456, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
         type: 3}
@@ -99,11 +93,6 @@ PrefabInstance:
       propertyPath: m_Cylinder.Radius
       value: 0.89999986
       objectReference: {fileID: 0}
-    - target: {fileID: 6377361187197962456, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
-        type: 3}
-      propertyPath: m_SphereRadius
-      value: 2.1
-      objectReference: {fileID: 0}
     - target: {fileID: 7781180884654285603, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
         type: 3}
       propertyPath: maxSpeed
@@ -111,13 +100,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8004724338484280100, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
         type: 3}
-      propertyPath: wheel.maxForwardFriction
-      value: 800
+      propertyPath: wheel.forwardFriction
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 8004724338484280100, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
         type: 3}
-      propertyPath: wheel.forwardFriction
-      value: 0.3
+      propertyPath: wheel.maxForwardFriction
+      value: 800
+      objectReference: {fileID: 0}
+    - target: {fileID: 8004724338484280101, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
+        type: 3}
+      propertyPath: damperStrengthCoeff
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8004724338484280102, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
         type: 3}
@@ -126,11 +120,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8004724338927168534, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
         type: 3}
-      propertyPath: wheel.maxForwardFriction
-      value: 800
+      propertyPath: wheel.forwardFriction
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 8004724338927168534, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
         type: 3}
+      propertyPath: wheel.maxForwardFriction
+      value: 800
+      objectReference: {fileID: 0}
+    - target: {fileID: 8004724338927168535, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
+        type: 3}
+      propertyPath: damperStrengthCoeff
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8004724339253598232, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
+        type: 3}
+      propertyPath: damperStrengthCoeff
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8004724339253598233, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
+        type: 3}
       propertyPath: wheel.forwardFriction
       value: 0.3
       objectReference: {fileID: 0}
@@ -139,7 +148,7 @@ PrefabInstance:
       propertyPath: wheel.maxForwardFriction
       value: 800
       objectReference: {fileID: 0}
-    - target: {fileID: 8004724339253598233, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
+    - target: {fileID: 8004724340176022004, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
         type: 3}
       propertyPath: wheel.forwardFriction
       value: 0.3
@@ -149,10 +158,10 @@ PrefabInstance:
       propertyPath: wheel.maxForwardFriction
       value: 800
       objectReference: {fileID: 0}
-    - target: {fileID: 8004724340176022004, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
+    - target: {fileID: 8004724340176022005, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
         type: 3}
-      propertyPath: wheel.forwardFriction
-      value: 0.3
+      propertyPath: damperStrengthCoeff
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8004724340176022006, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
         type: 3}
@@ -160,6 +169,13 @@ PrefabInstance:
       value: -10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6377361187116278777, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4581709102103594144}
   m_SourcePrefab: {fileID: 100100000, guid: a3fdc7dd6a5b1a84ea0495aaf798043e, type: 3}
 --- !u!1 &1546506721032992708 stripped
 GameObject:
@@ -167,3 +183,15 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5617883869375173693}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4581709102103594144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546506721032992708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4078527ba41fa6f419b5d330d9bad2cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

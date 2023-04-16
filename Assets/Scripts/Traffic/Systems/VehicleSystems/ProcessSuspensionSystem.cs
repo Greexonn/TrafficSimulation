@@ -1,81 +1,97 @@
-using TrafficSimulation.Core.Systems;
 using TrafficSimulation.Traffic.VehicleComponents.Wheel;
+using Unity.Burst;
+using Unity.Collections;
+using Unity.Collections.LowLevel.Unsafe;
 using Unity.Entities;
-using Unity.Jobs;
 using Unity.Mathematics;
+using Unity.Physics;
 using Unity.Physics.Extensions;
-using Unity.Physics.Systems;
 using Unity.Transforms;
+using static Unity.Entities.SystemAPI;
 
 namespace TrafficSimulation.Traffic.Systems.VehicleSystems
 {
     [UpdateInGroup(typeof(ProcessVehiclesSystemGroup))]
-    public partial class ProcessSuspensionSystem : SystemWithPublicDependencyBase
+    public partial struct ProcessSuspensionSystem : ISystem
     {
-        protected override void OnCreate()
+        [BurstCompile]
+        public void OnCreate(ref SystemState state)
         {
-            RequireForUpdate<BuildPhysicsWorldData>();
+            state.RequireForUpdate<PhysicsWorldSingleton>();
+            state.RequireForUpdate(new EntityQueryBuilder(state.WorldUpdateAllocator)
+                .WithAll<WheelData, WheelRaycastData, SuspensionData, LocalToWorld, VehicleRefData>()
+                .Build(ref state));
+        }
+
+        [BurstCompile]
+        public void OnUpdate(ref SystemState state)
+        {
+            var physicsSingleton = GetSingleton<PhysicsWorldSingleton>();
+
+            var job = new ProcessSuspensionJob
+            {
+                LocalToWorldLookup = GetComponentLookup<LocalToWorld>(true),
+                DeltaTime = Time.fixedDeltaTime,
+                PhysicsWorldSingleton = physicsSingleton
+            };
+            state.Dependency = job.ScheduleParallel(state.Dependency);
         }
         
-        protected override void OnUpdate()
+        [BurstCompile]
+        private partial struct ProcessSuspensionJob : IJobEntity
         {
-            var physicsWorld = SystemAPI.GetSingleton<BuildPhysicsWorldData>().PhysicsData.PhysicsWorld;
+            [ReadOnly] public ComponentLookup<LocalToWorld> LocalToWorldLookup;
+            public float DeltaTime;
 
-            const float deltaTime = 1.0f / 60.0f;
-            
-            var handle = Entities
-                .ForEach((ref WheelData wheelData, in WheelRaycastData raycastData, in VehicleRefData vehicleRef, in SuspensionData suspensionData, in LocalToWorld wheelRoot) =>
+            [NativeDisableContainerSafetyRestriction] public PhysicsWorldSingleton PhysicsWorldSingleton;
+
+            private void Execute(ref WheelData wheelData, in WheelRaycastData raycastData, in VehicleRefData vehicleRef, in SuspensionData suspensionData, in LocalToWorld wheelRoot)
+            {
+                var vehicleRbIndex = PhysicsWorldSingleton.GetRigidBodyIndex(vehicleRef.Entity);
+                if (vehicleRbIndex == -1 || vehicleRbIndex >= PhysicsWorldSingleton.NumDynamicBodies)
+                    return;
+
+
+                float3 wheelPos;
+                var suspensionTop = wheelRoot.Position;
+
+                var vehicleTransforms = LocalToWorldLookup[vehicleRef.Entity];
+                var dirUp = vehicleTransforms.Up;
+
+                if (raycastData.IsHitThisFrame)
                 {
-                    var vehicleRbIndex = physicsWorld.GetRigidBodyIndex(vehicleRef.Entity);
-                    if (vehicleRbIndex == -1 || vehicleRbIndex >= physicsWorld.NumDynamicBodies)
-                        return;
+                    // calculate wheel position
+                    wheelPos = raycastData.HitPosition + dirUp * wheelData.radius;
 
+                    //get vehicle up speed
+                    var vehicleUpAtWheel = PhysicsWorldSingleton.PhysicsWorld.GetLinearVelocity(vehicleRbIndex, suspensionTop);
+                    var speedUp = math.dot(vehicleUpAtWheel, dirUp);
+                    //get spring compression'
+                    var suspensionCurrentLength = math.length(wheelPos - suspensionTop);
+                    var compression = 1.0f - suspensionCurrentLength / suspensionData.suspensionLength;
 
-                    float3 wheelPos;
-                    var suspensionTop = wheelRoot.Position;
-
-                    var vehicleTransforms = SystemAPI.GetComponent<LocalToWorld>(vehicleRef.Entity);
-                    var dirUp = vehicleTransforms.Up;
-
-                    if (raycastData.IsHitThisFrame)
+                    var impulseValue = compression * suspensionData.springStrength - suspensionData.damperStrength * speedUp / 10;
+                    if (impulseValue > 0)
                     {
-                        // calculate wheel position
-                        wheelPos = raycastData.HitPosition + dirUp * wheelData.radius;
-                        
-                        //get vehicle up speed
-                        var vehicleUpAtWheel = physicsWorld.GetLinearVelocity(vehicleRbIndex, suspensionTop);
-                        var speedUp = math.dot(vehicleUpAtWheel, dirUp);
-                        //get spring compression'
-                        var suspensionCurrentLength = math.length(wheelPos - suspensionTop);
+                        var impulse = dirUp * impulseValue;
 
-                        var compression = 1.0f - suspensionCurrentLength / suspensionData.suspensionLength;
-
-                        var impulseValue = compression * suspensionData.springStrength - suspensionData.damperStrength * speedUp / 10;
-
-                        if (impulseValue > 0)
-                        {
-                            var impulse = dirUp * impulseValue;
-
-                            physicsWorld.ApplyImpulse(vehicleRbIndex, impulse, suspensionTop);
-                            physicsWorld.ApplyImpulse(raycastData.HitRBIndex, -impulse, raycastData.HitPosition);
-                        }
+                        PhysicsWorldSingleton.PhysicsWorld.ApplyImpulse(vehicleRbIndex, impulse, suspensionTop);
+                        PhysicsWorldSingleton.PhysicsWorld.ApplyImpulse(raycastData.HitRBIndex, -impulse, raycastData.HitPosition);
                     }
-                    else
-                    {
-                        var wheelDesiredPos = suspensionTop - dirUp * suspensionData.suspensionLength;
-                        var height = math.dot(wheelData.wheelPosition - suspensionTop, dirUp);
-                        height = math.abs(height);
-                        var fraction = height / suspensionData.suspensionLength;
-                        fraction += suspensionData.damperStrength / suspensionData.springStrength * deltaTime * 2;
-                        fraction = math.clamp(fraction, 0, 1);
-                        wheelPos = math.lerp(suspensionTop, wheelDesiredPos, fraction);
-                    }
-                    
-                    wheelData.wheelPosition = wheelPos;
+                }
+                else
+                {
+                    var wheelDesiredPos = suspensionTop - dirUp * suspensionData.suspensionLength;
+                    var height = math.dot(wheelData.wheelPosition - suspensionTop, dirUp);
+                    height = math.abs(height);
+                    var fraction = height / suspensionData.suspensionLength;
+                    fraction += suspensionData.damperStrength / suspensionData.springStrength * DeltaTime * 2;
+                    fraction = math.clamp(fraction, 0, 1);
+                    wheelPos = math.lerp(suspensionTop, wheelDesiredPos, fraction);
+                }
 
-                }).ScheduleParallel(Dependency);
-
-            Dependency = JobHandle.CombineDependencies(Dependency, handle);
+                wheelData.wheelPosition = wheelPos;
+            }
         }
     }
 }
