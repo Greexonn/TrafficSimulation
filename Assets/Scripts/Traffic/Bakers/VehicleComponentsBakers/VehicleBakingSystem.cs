@@ -16,6 +16,7 @@ namespace TrafficSimulation.Traffic.Bakers.VehicleComponentsBakers
         {
             state.RequireForUpdate(new EntityQueryBuilder(state.WorldUpdateAllocator)
                 .WithAll<VehicleTag, WheelElement, BrakeWheelElement, DriveWheelElement, ControlWheelElement>()
+                .WithOptions(EntityQueryOptions.IncludePrefab | EntityQueryOptions.IncludeDisabledEntities)
                 .Build(ref state));
         }
 
@@ -38,6 +39,7 @@ namespace TrafficSimulation.Traffic.Bakers.VehicleComponentsBakers
         }
         
         [BurstCompile]
+        [WithOptions(EntityQueryOptions.IncludePrefab | EntityQueryOptions.IncludeDisabledEntities)]
         [WithAll(typeof(WheelElement), typeof(BrakeWheelElement), typeof(DriveWheelElement), typeof(ControlWheelElement))]
         private partial struct BakeVehiclesJob : IJobEntity
         {
