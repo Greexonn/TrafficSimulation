@@ -189,9 +189,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
         type: 3}
+      propertyPath: body
+      value: 
+      objectReference: {fileID: 6377361187116278726}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
       propertyPath: _body
       value: 
       objectReference: {fileID: 6377361187116278726}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: wheelPos
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
         type: 3}
       propertyPath: _wheelPos
@@ -206,6 +216,26 @@ PrefabInstance:
         type: 3}
       propertyPath: _springStrengthKoef
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: damperStrengthCoeff
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: springStrengthCoeff
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: suspension.damperStrength
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: suspension.springStrength
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
         type: 3}
@@ -392,9 +422,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
         type: 3}
+      propertyPath: body
+      value: 
+      objectReference: {fileID: 6377361187116278726}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
       propertyPath: _body
       value: 
       objectReference: {fileID: 6377361187116278726}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: wheelPos
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
         type: 3}
       propertyPath: _wheelPos
@@ -409,6 +449,26 @@ PrefabInstance:
         type: 3}
       propertyPath: _springStrengthKoef
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: damperStrengthCoeff
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: springStrengthCoeff
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: suspension.damperStrength
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: suspension.springStrength
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
         type: 3}
@@ -595,9 +655,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
         type: 3}
+      propertyPath: body
+      value: 
+      objectReference: {fileID: 6377361187116278726}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
       propertyPath: _body
       value: 
       objectReference: {fileID: 6377361187116278726}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: wheelPos
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
         type: 3}
       propertyPath: _wheelPos
@@ -612,6 +682,26 @@ PrefabInstance:
         type: 3}
       propertyPath: _springStrengthKoef
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: damperStrengthCoeff
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: springStrengthCoeff
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: suspension.damperStrength
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: suspension.springStrength
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
         type: 3}
@@ -798,9 +888,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
         type: 3}
+      propertyPath: body
+      value: 
+      objectReference: {fileID: 6377361187116278726}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
       propertyPath: _body
       value: 
       objectReference: {fileID: 6377361187116278726}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: wheelPos
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
         type: 3}
       propertyPath: _wheelPos
@@ -815,6 +915,26 @@ PrefabInstance:
         type: 3}
       propertyPath: _springStrengthKoef
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: damperStrengthCoeff
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: springStrengthCoeff
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: suspension.damperStrength
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
+        type: 3}
+      propertyPath: suspension.springStrength
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 4005545419133638308, guid: 4a72d9c7c30ef9848b9fb347527479bc,
         type: 3}

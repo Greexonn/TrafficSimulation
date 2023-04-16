@@ -671,7 +671,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81b25e7b2cbc11a47939500086d12c6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _wheel:
+  wheel:
     radius: 0.3
     sideFriction: 0.4
     forwardFriction: 0.3
@@ -693,15 +693,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82fb73cf11e926f44890ab0557846de5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _suspension:
+  suspension:
     suspensionLength: 0.2
     springStrength: 200
     damperStrength: 400
-  _springStrengthKoef: 2
-  _damperStrengthKoef: 4
+  springStrengthCoeff: 2
+  damperStrengthCoeff: 12
   wheelModel: {fileID: 5751321026402198645}
-  _wheelPos: 0
-  _body: {fileID: 4701005461315905461}
+  wheelPos: 0
+  body: {fileID: 4701005461315905461}
 --- !u!1 &8551172242856762479
 GameObject:
   m_ObjectHideFlags: 0
@@ -748,7 +748,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81b25e7b2cbc11a47939500086d12c6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _wheel:
+  wheel:
     radius: 0.3
     sideFriction: 0.4
     forwardFriction: 0.3
@@ -770,15 +770,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82fb73cf11e926f44890ab0557846de5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _suspension:
+  suspension:
     suspensionLength: 0.23
     springStrength: 200
     damperStrength: 400
-  _springStrengthKoef: 2
-  _damperStrengthKoef: 4
+  springStrengthCoeff: 2
+  damperStrengthCoeff: 12
   wheelModel: {fileID: 5751321025141740952}
-  _wheelPos: 0
-  _body: {fileID: 4701005461315905461}
+  wheelPos: 0
+  body: {fileID: 4701005461315905461}
 --- !u!1 &8551172243228294994
 GameObject:
   m_ObjectHideFlags: 0
@@ -825,7 +825,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81b25e7b2cbc11a47939500086d12c6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _wheel:
+  wheel:
     radius: 0.3
     sideFriction: 0.4
     forwardFriction: 0.3
@@ -847,15 +847,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82fb73cf11e926f44890ab0557846de5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _suspension:
+  suspension:
     suspensionLength: 0.2
     springStrength: 200
     damperStrength: 400
-  _springStrengthKoef: 2
-  _damperStrengthKoef: 4
+  springStrengthCoeff: 2
+  damperStrengthCoeff: 12
   wheelModel: {fileID: 5751321024703116965}
-  _wheelPos: 0
-  _body: {fileID: 4701005461315905461}
+  wheelPos: 0
+  body: {fileID: 4701005461315905461}
 --- !u!1 &8551172243586508896
 GameObject:
   m_ObjectHideFlags: 0
@@ -902,7 +902,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81b25e7b2cbc11a47939500086d12c6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _wheel:
+  wheel:
     radius: 0.3
     sideFriction: 0.4
     forwardFriction: 0.3
@@ -924,15 +924,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82fb73cf11e926f44890ab0557846de5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _suspension:
+  suspension:
     suspensionLength: 0.23
     springStrength: 200
     damperStrength: 400
-  _springStrengthKoef: 2
-  _damperStrengthKoef: 4
+  springStrengthCoeff: 2
+  damperStrengthCoeff: 12
   wheelModel: {fileID: 5751321024796828055}
-  _wheelPos: 0
-  _body: {fileID: 4701005461315905461}
+  wheelPos: 0
+  body: {fileID: 4701005461315905461}
 --- !u!1001 &1847363320387995437
 PrefabInstance:
   m_ObjectHideFlags: 0

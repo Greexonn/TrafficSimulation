@@ -8,85 +8,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6620564921556878771, guid: 0af0bc29593363549afef2908ce3da09,
+    - target: {fileID: 6620564921556878770, guid: 0af0bc29593363549afef2908ce3da09,
         type: 3}
-      propertyPath: wheelPos
-      value: 0.5
+      propertyPath: wheel.maxForwardFriction
+      value: 150
       objectReference: {fileID: 0}
-    - target: {fileID: 6620564921556878771, guid: 0af0bc29593363549afef2908ce3da09,
+    - target: {fileID: 6620564922057778831, guid: 0af0bc29593363549afef2908ce3da09,
         type: 3}
-      propertyPath: damperStrengthCoeff
-      value: 12
+      propertyPath: wheel.maxForwardFriction
+      value: 150
       objectReference: {fileID: 0}
-    - target: {fileID: 6620564921556878771, guid: 0af0bc29593363549afef2908ce3da09,
+    - target: {fileID: 6620564922419933629, guid: 0af0bc29593363549afef2908ce3da09,
         type: 3}
-      propertyPath: springStrengthCoeff
-      value: 3
+      propertyPath: wheel.maxForwardFriction
+      value: 150
       objectReference: {fileID: 0}
-    - target: {fileID: 6620564922057778830, guid: 0af0bc29593363549afef2908ce3da09,
+    - target: {fileID: 6620564922515354719, guid: 0af0bc29593363549afef2908ce3da09,
         type: 3}
-      propertyPath: wheelPos
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6620564922057778830, guid: 0af0bc29593363549afef2908ce3da09,
-        type: 3}
-      propertyPath: damperStrengthCoeff
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 6620564922057778830, guid: 0af0bc29593363549afef2908ce3da09,
-        type: 3}
-      propertyPath: springStrengthCoeff
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6620564922419933628, guid: 0af0bc29593363549afef2908ce3da09,
-        type: 3}
-      propertyPath: wheelPos
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6620564922419933628, guid: 0af0bc29593363549afef2908ce3da09,
-        type: 3}
-      propertyPath: damperStrengthCoeff
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 6620564922419933628, guid: 0af0bc29593363549afef2908ce3da09,
-        type: 3}
-      propertyPath: springStrengthCoeff
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6620564922515354718, guid: 0af0bc29593363549afef2908ce3da09,
-        type: 3}
-      propertyPath: wheelPos
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6620564922515354718, guid: 0af0bc29593363549afef2908ce3da09,
-        type: 3}
-      propertyPath: damperStrengthCoeff
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 6620564922515354718, guid: 0af0bc29593363549afef2908ce3da09,
-        type: 3}
-      propertyPath: springStrengthCoeff
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7105529440642743725, guid: 0af0bc29593363549afef2908ce3da09,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.049999997
-      objectReference: {fileID: 0}
-    - target: {fileID: 7105529441267036029, guid: 0af0bc29593363549afef2908ce3da09,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.049999997
-      objectReference: {fileID: 0}
-    - target: {fileID: 7105529441356822607, guid: 0af0bc29593363549afef2908ce3da09,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.049999997
-      objectReference: {fileID: 0}
-    - target: {fileID: 7105529441566592064, guid: 0af0bc29593363549afef2908ce3da09,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.049999997
+      propertyPath: wheel.maxForwardFriction
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 7815564968551579216, guid: 0af0bc29593363549afef2908ce3da09,
         type: 3}

@@ -30,15 +30,15 @@
   <component name="ChangeListManager">
     <list default="true" id="75283252-eb04-4257-853c-57a344575703" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TrafficSimulation/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TrafficSimulation/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Cars/PlayerControl/Vehicle1_PlayerControl.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Cars/PlayerControl/Vehicle1_PlayerControl.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Cars/PlayerControl/Vehicle2_PlayerControl.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Cars/PlayerControl/Vehicle2_PlayerControl.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/ProcessBrakesSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/ProcessBrakesSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/ProcessDriveWheelsSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/ProcessDriveWheelsSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/ProcessSidewaysFrictionSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/ProcessSidewaysFrictionSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/ProcessSuspensionSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/ProcessSuspensionSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/SpeedCheckSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/SpeedCheckSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/VehiclesEndProcessSystem.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/VehiclesEndProcessSystem.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Settings/ForwardRenderer.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/ForwardRenderer.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Cars/PlayerControl/Vehicle3_PlayerControl.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Cars/PlayerControl/Vehicle3_PlayerControl.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Cars/Vehicle1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Cars/Vehicle1.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Cars/Vehicle2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Cars/Vehicle2.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Cars/Vehicle3.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Cars/Vehicle3.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/VehicleTest/VehicleTest_SubScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/VehicleTest/VehicleTest_SubScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/ProcessSteeringSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/ProcessSteeringSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/VehicleSteeringUpdateSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Traffic/Systems/VehicleSystems/VehicleSteeringUpdateSystem.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -227,7 +227,7 @@
       <workItem from="1680990881188" duration="19444000" />
       <workItem from="1681087651508" duration="6955000" />
       <workItem from="1681172116578" duration="6710000" />
-      <workItem from="1681566196856" duration="4235000" />
+      <workItem from="1681566196856" duration="6208000" />
     </task>
     <servers />
   </component>

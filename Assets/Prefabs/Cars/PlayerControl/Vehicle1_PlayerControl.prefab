@@ -68,26 +68,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Vehicle1_PlayerControl
       objectReference: {fileID: 0}
-    - target: {fileID: 8551172241698024838, guid: acb24cdb99a5b5c40a680a73c15c79eb,
-        type: 3}
-      propertyPath: damperStrengthCoeff
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 8551172242856762475, guid: acb24cdb99a5b5c40a680a73c15c79eb,
-        type: 3}
-      propertyPath: damperStrengthCoeff
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 8551172243228294998, guid: acb24cdb99a5b5c40a680a73c15c79eb,
-        type: 3}
-      propertyPath: damperStrengthCoeff
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 8551172243586508900, guid: acb24cdb99a5b5c40a680a73c15c79eb,
-        type: 3}
-      propertyPath: damperStrengthCoeff
-      value: 6
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -510,12 +510,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81b25e7b2cbc11a47939500086d12c6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _wheel:
+  wheel:
     radius: 0.3
     sideFriction: 0.4
     forwardFriction: 0.3
     maxSideFriction: 200
-    maxForwardFriction: 100
+    maxForwardFriction: 1000
     wheelPosition:
       x: -1.42
       y: -0.1
@@ -532,15 +532,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82fb73cf11e926f44890ab0557846de5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _suspension:
+  suspension:
     suspensionLength: 0.1
     springStrength: 200
     damperStrength: 400
-  _springStrengthKoef: 3
-  _damperStrengthKoef: 5
+  springStrengthCoeff: 3
+  damperStrengthCoeff: 18
   wheelModel: {fileID: 7105529441566592064}
-  _wheelPos: 0
-  _body: {fileID: 7815564968551579245}
+  wheelPos: 0.5
+  body: {fileID: 7815564968551579245}
 --- !u!1 &6620564922057778826
 GameObject:
   m_ObjectHideFlags: 0
@@ -587,12 +587,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81b25e7b2cbc11a47939500086d12c6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _wheel:
+  wheel:
     radius: 0.3
     sideFriction: 0.4
     forwardFriction: 0.3
     maxSideFriction: 200
-    maxForwardFriction: 150
+    maxForwardFriction: 1000
     wheelPosition:
       x: 1.88
       y: -0.1
@@ -609,15 +609,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82fb73cf11e926f44890ab0557846de5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _suspension:
+  suspension:
     suspensionLength: 0.1
     springStrength: 200
     damperStrength: 400
-  _springStrengthKoef: 3
-  _damperStrengthKoef: 5
+  springStrengthCoeff: 3
+  damperStrengthCoeff: 18
   wheelModel: {fileID: 7105529441267036029}
-  _wheelPos: 0
-  _body: {fileID: 7815564968551579245}
+  wheelPos: 0.5
+  body: {fileID: 7815564968551579245}
 --- !u!1 &6620564922419933624
 GameObject:
   m_ObjectHideFlags: 0
@@ -664,12 +664,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81b25e7b2cbc11a47939500086d12c6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _wheel:
+  wheel:
     radius: 0.3
     sideFriction: 0.4
     forwardFriction: 0.3
     maxSideFriction: 200
-    maxForwardFriction: 100
+    maxForwardFriction: 1000
     wheelPosition:
       x: -1.42
       y: -0.1
@@ -686,15 +686,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82fb73cf11e926f44890ab0557846de5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _suspension:
+  suspension:
     suspensionLength: 0.1
     springStrength: 200
     damperStrength: 400
-  _springStrengthKoef: 3
-  _damperStrengthKoef: 5
+  springStrengthCoeff: 3
+  damperStrengthCoeff: 18
   wheelModel: {fileID: 7105529441356822607}
-  _wheelPos: 0
-  _body: {fileID: 7815564968551579245}
+  wheelPos: 0.5
+  body: {fileID: 7815564968551579245}
 --- !u!1 &6620564922515354714
 GameObject:
   m_ObjectHideFlags: 0
@@ -741,12 +741,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81b25e7b2cbc11a47939500086d12c6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _wheel:
+  wheel:
     radius: 0.3
     sideFriction: 0.4
     forwardFriction: 0.3
     maxSideFriction: 200
-    maxForwardFriction: 150
+    maxForwardFriction: 1000
     wheelPosition:
       x: 1.88
       y: -0.1
@@ -763,15 +763,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82fb73cf11e926f44890ab0557846de5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _suspension:
+  suspension:
     suspensionLength: 0.1
     springStrength: 200
     damperStrength: 400
-  _springStrengthKoef: 3
-  _damperStrengthKoef: 5
+  springStrengthCoeff: 3
+  damperStrengthCoeff: 18
   wheelModel: {fileID: 7105529440642743725}
-  _wheelPos: 0
-  _body: {fileID: 7815564968551579245}
+  wheelPos: 0.5
+  body: {fileID: 7815564968551579245}
 --- !u!1 &7815564968551579218
 GameObject:
   m_ObjectHideFlags: 0
@@ -826,7 +826,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MotionType: 0
-  m_Smoothing: 0
+  m_Smoothing: 1
   m_Mass: 2000
   m_LinearDamping: 0.01
   m_AngularDamping: 0.05

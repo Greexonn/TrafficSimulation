@@ -64,7 +64,7 @@ namespace TrafficSimulation.Traffic.Systems.VehicleSystems
             private void Execute(in WheelData wheelData, in WheelRaycastData raycastData, in LocalToWorld wheelRoot)
             {
                 var velocityForward = math.dot(raycastData.VelocityAtWheel, wheelRoot.Forward);
-                var rotationAngle = velocityForward / wheelData.radius;
+                var rotationAngle = velocityForward / (wheelData.radius * 2f);
                     
                 rotationAngle = math.radians(rotationAngle);
                 var wheelModelTransformRef = LocalTransformLookup.GetRefRW(wheelData.wheelModel, false);

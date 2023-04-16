@@ -108,11 +108,6 @@ PrefabInstance:
       propertyPath: wheel.maxForwardFriction
       value: 800
       objectReference: {fileID: 0}
-    - target: {fileID: 8004724338484280101, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
-        type: 3}
-      propertyPath: damperStrengthCoeff
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 8004724338484280102, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -128,16 +123,6 @@ PrefabInstance:
       propertyPath: wheel.maxForwardFriction
       value: 800
       objectReference: {fileID: 0}
-    - target: {fileID: 8004724338927168535, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
-        type: 3}
-      propertyPath: damperStrengthCoeff
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 8004724339253598232, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
-        type: 3}
-      propertyPath: damperStrengthCoeff
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 8004724339253598233, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
         type: 3}
       propertyPath: wheel.forwardFriction
@@ -157,11 +142,6 @@ PrefabInstance:
         type: 3}
       propertyPath: wheel.maxForwardFriction
       value: 800
-      objectReference: {fileID: 0}
-    - target: {fileID: 8004724340176022005, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
-        type: 3}
-      propertyPath: damperStrengthCoeff
-      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8004724340176022006, guid: a3fdc7dd6a5b1a84ea0495aaf798043e,
         type: 3}

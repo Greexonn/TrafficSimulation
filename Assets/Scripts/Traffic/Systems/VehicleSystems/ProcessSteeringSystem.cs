@@ -1,25 +1,46 @@
 using TrafficSimulation.Traffic.VehicleComponents.DriveVehicle;
 using TrafficSimulation.Traffic.VehicleComponents.Wheel;
+using Unity.Burst;
+using Unity.Collections;
 using Unity.Entities;
-using Unity.Mathematics;
 using Unity.Transforms;
+using static Unity.Entities.SystemAPI;
 
 namespace TrafficSimulation.Traffic.Systems.VehicleSystems
 {
     [UpdateInGroup(typeof(VehiclesProcessUpdateSystemGroup))]
-    public partial class ProcessSteeringSystem : SystemBase
+    public partial struct ProcessSteeringSystem : ISystem
     {
-        protected override void OnUpdate()
+        [BurstCompile]
+        public void OnCreate(ref SystemState state)
         {
-            Entities
-                .WithAll<ControlWheelTag>()
-                .ForEach((ref LocalTransform wheelTransform, in VehicleRefData vehicleRef) =>
-                {
-                    var vehicleTransforms = SystemAPI.GetComponent<LocalToWorld>(vehicleRef.Entity);
-                    var steeringData = SystemAPI.GetComponent<VehicleSteeringData>(vehicleRef.Entity);
+            state.RequireForUpdate(new EntityQueryBuilder(state.WorldUpdateAllocator)
+                .WithAll<ControlWheelTag, LocalTransform, VehicleRefData>()
+                .Build(ref state));
+        }
+
+        [BurstCompile]
+        public void OnUpdate(ref SystemState state)
+        {
+            var job = new ProcessSteeringJob
+            {
+                VehicleSteeringDataLookup = GetComponentLookup<VehicleSteeringData>(true)
+            };
+            state.Dependency = job.ScheduleParallel(state.Dependency);
+        }
+        
+        [BurstCompile]
+        [WithAll(typeof(ControlWheelTag))]
+        private partial struct ProcessSteeringJob : IJobEntity
+        {
+            [ReadOnly] public ComponentLookup<VehicleSteeringData> VehicleSteeringDataLookup;
+
+            private void Execute(ref LocalTransform wheelTransform, in VehicleRefData vehicleRef)
+            {
+                var steeringData = VehicleSteeringDataLookup[vehicleRef.Entity];
                     
-                    wheelTransform.Rotation = math.mul(math.inverse(vehicleTransforms.Rotation), steeringData.CurrentRotation);
-                }).ScheduleParallel();
+                wheelTransform.Rotation = steeringData.CurrentRotation;
+            }
         }
     }
 }
