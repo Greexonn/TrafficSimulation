@@ -46,12 +46,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81b25e7b2cbc11a47939500086d12c6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _wheel:
+  wheel:
     radius: 0.3
-    sideFriction: 0.4
-    forwardFriction: 0.3
-    maxSideFriction: 2.5
-    maxForwardFriction: 2
+    sideFriction: 12
+    forwardFriction: 10
+    maxSideFriction: 2500
+    maxForwardFriction: 2000
     wheelPosition:
       x: 0
       y: 0
@@ -68,15 +68,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82fb73cf11e926f44890ab0557846de5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _suspension:
+  suspension:
     suspensionLength: 0.15
     springStrength: 2000
     damperStrength: 200
-  _springStrengthKoef: 0
-  _damperStrengthKoef: 0
+  springStrengthCoeff: 0
+  damperStrengthCoeff: 0
   wheelModel: {fileID: 1075691324541247319}
-  _wheelPos: 1
-  _body: {fileID: 0}
+  wheelPos: 1
+  body: {fileID: 0}
 --- !u!1 &4951535443004269597
 GameObject:
   m_ObjectHideFlags: 0

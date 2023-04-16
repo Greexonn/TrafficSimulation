@@ -8,6 +8,6 @@ namespace TrafficSimulation.Traffic.VehicleComponents.DriveVehicle
     
     public struct VehicleBrakesData : IComponentData
     {
-        [HideInInspector] public int BrakesUsage;
+        public int BrakesUsage;
     }
 }

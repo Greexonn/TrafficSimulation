@@ -518,7 +518,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MotionType: 0
-  m_Smoothing: 0
+  m_Smoothing: 1
   m_Mass: 2000
   m_LinearDamping: 0.01
   m_AngularDamping: 0.05
@@ -598,7 +598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eacf9aed771b3d648b3d9699f3886b89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 7
+  maxSpeed: 2
 --- !u!114 &5038315594222571112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -673,10 +673,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wheel:
     radius: 0.3
-    sideFriction: 0.4
-    forwardFriction: 0.3
-    maxSideFriction: 200
-    maxForwardFriction: 100
+    sideFriction: 12
+    forwardFriction: 10
+    maxSideFriction: 2500
+    maxForwardFriction: 200
     wheelPosition:
       x: 1.88
       y: -0.1
@@ -750,10 +750,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wheel:
     radius: 0.3
-    sideFriction: 0.4
-    forwardFriction: 0.3
-    maxSideFriction: 200
-    maxForwardFriction: 100
+    sideFriction: 12
+    forwardFriction: 10
+    maxSideFriction: 2500
+    maxForwardFriction: 200
     wheelPosition:
       x: -1.42
       y: -0.1
@@ -827,10 +827,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wheel:
     radius: 0.3
-    sideFriction: 0.4
-    forwardFriction: 0.3
-    maxSideFriction: 200
-    maxForwardFriction: 100
+    sideFriction: 12
+    forwardFriction: 10
+    maxSideFriction: 2500
+    maxForwardFriction: 200
     wheelPosition:
       x: 1.88
       y: -0.1
@@ -904,10 +904,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wheel:
     radius: 0.3
-    sideFriction: 0.4
-    forwardFriction: 0.3
-    maxSideFriction: 200
-    maxForwardFriction: 100
+    sideFriction: 12
+    forwardFriction: 10
+    maxSideFriction: 2500
+    maxForwardFriction: 200
     wheelPosition:
       x: -1.42
       y: -0.1

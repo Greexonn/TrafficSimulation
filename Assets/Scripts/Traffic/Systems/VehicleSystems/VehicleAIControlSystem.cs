@@ -1,85 +1,108 @@
 ﻿using TrafficSimulation.Traffic.RoadComponents;
 using TrafficSimulation.Traffic.VehicleComponents;
 using TrafficSimulation.Traffic.VehicleComponents.DriveVehicle;
+using Unity.Burst;
+using Unity.Collections;
+using Unity.Collections.LowLevel.Unsafe;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
+using static Unity.Entities.SystemAPI;
+using static UnityEngine.Debug;
 
 namespace TrafficSimulation.Traffic.Systems.VehicleSystems
 {
     [UpdateInGroup(typeof(ProcessAISystemGroup))]
-    public partial class VehicleAIControlSystem : SystemBase
+    public partial struct VehicleAIControlSystem : ISystem
     {
         private float3 _mapForward;
         private float3 _mapRight;
 
-        protected override void OnCreate()
+        [BurstCompile]
+        public void OnCreate(ref SystemState state)
         {
             _mapForward = new float3(0, 0, 1);
             _mapRight = new float3(1, 0, 0);
+            
+            state.RequireForUpdate(new EntityQueryBuilder(state.WorldUpdateAllocator)
+                .WithAll<VehicleTag, VehicleCurrentNodeData, VehiclePathNodeIndexData, VehicleSteeringData, VehicleEngineData, VehicleBrakesData, VehicleAIData>()
+                .WithNone<PathfindingRequest>()
+                .Build(ref state));
+            state.RequireForUpdate<EndSimulationEntityCommandBufferSystem.Singleton>();
         }
 
-        protected override void OnUpdate()
+        [BurstCompile]
+        public void OnUpdate(ref SystemState state)
         {
-            // var deltaTime = SystemAPI.Time.DeltaTime;
+            var commandBuffer = GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>()
+                .CreateCommandBuffer(state.WorldUnmanaged).AsParallelWriter();
+            
+            var job = new VehicleAIControlJob
+            {
+                LocalToWorldLookup = GetComponentLookup<LocalToWorld>(true),
+                RoadNodeDataLookup = GetComponentLookup<RoadNodeData>(true),
+                NodeBufferLookup = GetBufferLookup<NodeBufferElement>(true),
+                MapRight = _mapRight,
+                MapForward = _mapForward,
+                CommandBuffer = commandBuffer
+            };
+            state.Dependency = job.ScheduleParallel(state.Dependency);
+        }
 
-            var roadNodeComponents = GetComponentLookup<RoadNodeData>(true);
-            var localToWorldComponents = GetComponentLookup<LocalToWorld>(true);
+        [BurstCompile]
+        [WithAll(typeof(VehicleTag))]
+        [WithNone(typeof(PathfindingRequest))]
+        private partial struct VehicleAIControlJob : IJobEntity
+        {
+            [ReadOnly] public ComponentLookup<LocalToWorld> LocalToWorldLookup;
+            [ReadOnly] public ComponentLookup<RoadNodeData> RoadNodeDataLookup;
+            [ReadOnly] public BufferLookup<NodeBufferElement> NodeBufferLookup;
 
-            var nodeBuffers = GetBufferLookup<NodeBufferElement>(true);
+            public float3 MapRight, MapForward;
 
-            var commandBuffer = SystemAPI.GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>()
-                .CreateCommandBuffer(World.Unmanaged).AsParallelWriter();
+            public EntityCommandBuffer.ParallelWriter CommandBuffer;
 
-            var mapForward = _mapForward;
-            var mapRight = _mapRight;
+            [NativeSetThreadIndex] private int _nativeThreadIndex;
+            
+            private void Execute(Entity vehicleEntity, ref VehicleCurrentNodeData currentNode, ref VehiclePathNodeIndexData pathNodeIndex,
+                ref VehicleSteeringData steering, ref VehicleEngineData engine, ref VehicleBrakesData brakes, in VehicleAIData aiData)
+            {
+                var aiTransforms = LocalToWorldLookup[aiData.VehicleAITransform];
+                var aiPosition = aiTransforms.Position;
+                var aiUp = aiTransforms.Up;
+                var aiForward = aiTransforms.Forward;
 
-            Entities
-                .WithReadOnly(roadNodeComponents)
-                .WithReadOnly(localToWorldComponents)
-                .WithReadOnly(nodeBuffers)
-                .WithAll<VehicleTag>()
-                .WithNone<PathfindingRequest>()
-                .ForEach((int nativeThreadIndex, Entity vehicleEntity, ref VehicleCurrentNodeData currentNode, ref VehiclePathNodeIndexData pathNodeIndex,
-                    ref VehicleSteeringData steering, ref VehicleEngineData engine, ref VehicleBrakesData brakes, 
-                    in VehicleAIData aiData) =>
+                var pathBuffer = NodeBufferLookup[vehicleEntity].Reinterpret<Entity>();
+                
+                //get nodes data
+                pathNodeIndex.Value = math.clamp(pathNodeIndex.Value, 0, pathBuffer.Length - 1);
+                var nextNodeId = math.clamp(pathNodeIndex.Value + 1, 0, pathBuffer.Length - 1);
+                var thirdNodeId = math.clamp(pathNodeIndex.Value + 2, 0, pathBuffer.Length - 1);
+                var currentNodePos = LocalToWorldLookup[currentNode.Node].Position;
+                var nextNodePos = LocalToWorldLookup[pathBuffer[nextNodeId]].Position;
+                var thirdNodePos = LocalToWorldLookup[pathBuffer[thirdNodeId]].Position;
+                
+                //check if we've reached our target
+                if (currentNode.Node.Equals(pathBuffer[^1]))
                 {
-                    var aiTransforms = localToWorldComponents[aiData.VehicleAITransform];
-                    var aiPosition = aiTransforms.Position;
-                    var aiUp = aiTransforms.Up;
-                    var aiForward = aiTransforms.Forward;
-
-                    var pathBuffer = nodeBuffers[vehicleEntity].Reinterpret<Entity>();
-
-                    //get nodes data
-                    pathNodeIndex.Value = math.clamp(pathNodeIndex.Value, 0, pathBuffer.Length - 1);
-                    var nextNodeId = math.clamp(pathNodeIndex.Value + 1, 0, pathBuffer.Length - 1);
-                    var thirdNodeId = math.clamp(pathNodeIndex.Value + 2, 0, pathBuffer.Length - 1);
-                    var currentNodePos = localToWorldComponents[currentNode.Node].Position;
-                    var nextNodePos = localToWorldComponents[pathBuffer[nextNodeId]].Position;
-                    var thirdNodePos = localToWorldComponents[pathBuffer[thirdNodeId]].Position;
-
-                    //check if we've reached our target
-                    if (currentNode.Node.Equals(pathBuffer[^1]))
-                    {
-                        commandBuffer.AddComponent<PathfindingRequest>(nativeThreadIndex, vehicleEntity);
-                        return;
-                    }
-
-                    #region next node reaching
+                    CommandBuffer.AddComponent<PathfindingRequest>(_nativeThreadIndex, vehicleEntity);
+                    return;
+                }
+                
+                #region next node reaching
 
                     //check if we've reached current target node
                     //vehicle pos on the map
-                    var mapX = math.dot(aiPosition, mapRight);
-                    var mapY = math.dot(aiPosition, mapForward);
+                    var mapX = math.dot(aiPosition, MapRight);
+                    var mapY = math.dot(aiPosition, MapForward);
                     var aiMapPos = new float2(mapX, mapY);
                     //next node pos on the map
-                    mapX = math.dot(nextNodePos, mapRight);
-                    mapY = math.dot(nextNodePos, mapForward);
+                    mapX = math.dot(nextNodePos, MapRight);
+                    mapY = math.dot(nextNodePos, MapForward);
                     var nextNodeMapPos = new float2(mapX, mapY);
                     //current node pos on the map
-                    mapX = math.dot(currentNodePos, mapRight);
-                    mapY = math.dot(currentNodePos, mapForward);
+                    mapX = math.dot(currentNodePos, MapRight);
+                    mapY = math.dot(currentNodePos, MapForward);
                     var currentNodeMapPos = new float2(mapX, mapY);
                     //vector from current to next node on the map
                     var currentToNext = nextNodeMapPos - currentNodeMapPos;
@@ -96,7 +119,7 @@ namespace TrafficSimulation.Traffic.Systems.VehicleSystems
                     if (nodeToVehicleProjection >= pathPartProjection)
                     {
                         pathNodeIndex.Value = nextNodeId;
-                        var pathNodeData = roadNodeComponents[pathBuffer[pathNodeIndex.Value]];
+                        var pathNodeData = RoadNodeDataLookup[pathBuffer[pathNodeIndex.Value]];
                         if (pathNodeData.IsOpen)
                         {
                             currentNode.Node = pathBuffer[pathNodeIndex.Value];
@@ -113,12 +136,12 @@ namespace TrafficSimulation.Traffic.Systems.VehicleSystems
                     }
 
                     #endregion
-
+                    
                     #region calculate next turn angle
 
                     //third node map pos
-                    mapX = math.dot(thirdNodePos, mapRight);
-                    mapY = math.dot(thirdNodePos, mapForward);
+                    mapX = math.dot(thirdNodePos, MapRight);
+                    mapY = math.dot(thirdNodePos, MapForward);
                     var thirdNodeMapPos = new float2(mapX, mapY);
 
                     //angle parts
@@ -134,7 +157,7 @@ namespace TrafficSimulation.Traffic.Systems.VehicleSystems
                     var angle = math.acos(angleCos);
 
                     //calculate turn angle koef
-                    var turnAngleKoef = 1.0f - (angle / math.PI);
+                    var turnAngleKoef = 1.0f - angle / math.PI;
                     if (float.IsNaN(turnAngleKoef))
                         turnAngleKoef = 0.5f;
 
@@ -173,18 +196,18 @@ namespace TrafficSimulation.Traffic.Systems.VehicleSystems
 
                         var worldDirection = new float3(direction.x, 0, direction.y);
                         //debug
-                        //DrawRay(_aiPosition, _worldDirection, UnityEngine.Color.blue);
-                        //DrawLine((_aiPosition + _worldDirection), new float3(_thirdNodeMapPos.x, _aiPosition.y, _thirdNodeMapPos.y), UnityEngine.Color.red);
+                        DrawRay(aiPosition, worldDirection, UnityEngine.Color.blue);
+                        DrawLine(aiPosition + worldDirection, new float3(thirdNodeMapPos.x, aiPosition.y, thirdNodeMapPos.y), UnityEngine.Color.red);
 
                         worldDirection = math.normalize(worldDirection);
                         var rotation = quaternion.LookRotation(worldDirection, aiUp);
 
                         //debug
-                        //DrawRay(_aiPosition, _aiUp, UnityEngine.Color.green);
-                        //DrawRay(_aiPosition, math.forward(_rotation), UnityEngine.Color.blue);
-                        //DrawRay(_aiPosition, math.cross(_aiUp, math.forward(_rotation)), UnityEngine.Color.red);
+                        DrawRay(aiPosition, aiUp, UnityEngine.Color.green);
+                        DrawRay(aiPosition, math.forward(rotation), UnityEngine.Color.blue);
+                        DrawRay(aiPosition, math.cross(aiUp, math.forward(rotation)), UnityEngine.Color.red);
 
-                        steering.CurrentRotation = rotation;
+                        steering.CurrentRotation = math.mul(math.inverse(aiTransforms.Rotation), rotation);
 
                         //set acceleration
                         var directionLength = math.length(worldDirection);
@@ -193,7 +216,7 @@ namespace TrafficSimulation.Traffic.Systems.VehicleSystems
                         engine.Acceleration = acceleration;
 
                         //set brakes
-                        var nextNodeData = roadNodeComponents[pathBuffer[nextNodeId]];
+                        var nextNodeData = RoadNodeDataLookup[pathBuffer[nextNodeId]];
                         if (!nextNodeData.IsOpen) //if in front of closed node
                         {
                             var depth = 1.0f - nodeToVehicleProjection / pathPartProjection;
@@ -218,7 +241,7 @@ namespace TrafficSimulation.Traffic.Systems.VehicleSystems
                         }
                     }
                     #endregion
-                }).ScheduleParallel(Dependency).Complete();
+            }
         }
 
         private static float2 CalmullRom(float t0, float t1, float t2, float t3, float2 p0, float2 p1, float2 p2, float2 p3, float t)
