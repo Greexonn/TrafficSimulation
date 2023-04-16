@@ -1,6 +1,9 @@
 ﻿using Unity.Entities;
 
-public struct NodeBufferElement : IBufferElementData
+namespace TrafficSimulation.Traffic.VehicleComponents
 {
-    public Entity node;
+    public struct NodeBufferElement : IBufferElementData
+    {
+        public Entity Node;
+    }
 }

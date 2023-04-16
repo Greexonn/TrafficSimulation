@@ -1,7 +1,7 @@
 using System;
-using Core.Components;
+using TrafficSimulation.Core.Components;
 
-namespace Traffic.VehicleComponents
+namespace TrafficSimulation.Traffic.VehicleComponents
 {
     [Serializable]
     public struct JustSpawnedTag : IRemoveAtFrameEndComponent

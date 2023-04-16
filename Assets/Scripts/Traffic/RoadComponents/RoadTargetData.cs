@@ -1,10 +1,9 @@
-﻿using Unity.Entities;
+using Unity.Entities;
 
-namespace Traffic.RoadComponents
+namespace TrafficSimulation.Traffic.RoadComponents
 {
-    [GenerateAuthoringComponent]
     public struct RoadTargetData : IComponentData
     {
-        public Entity node;
+        public Entity Node;
     }
 }

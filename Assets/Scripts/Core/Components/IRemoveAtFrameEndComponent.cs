@@ -1,6 +1,6 @@
 using Unity.Entities;
 
-namespace Core.Components
+namespace TrafficSimulation.Core.Components
 {
     public interface IRemoveAtFrameEndComponent : IComponentData
     {}

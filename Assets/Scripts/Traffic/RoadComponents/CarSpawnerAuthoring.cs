@@ -1,16 +1,8 @@
-﻿using Unity.Entities;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Traffic.RoadComponents
+namespace TrafficSimulation.Traffic.RoadComponents
 {
-    [DisallowMultipleComponent]
-    public class CarSpawnerAuthoring : MonoBehaviour, IConvertGameObjectToEntity
-    {
-        [SerializeField] private RoadNodeAuthoring _spawnNode;
-
-        public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
-        {
-            dstManager.AddComponent(conversionSystem.GetPrimaryEntity(_spawnNode.gameObject), typeof(CarSpawnerComponent));
-        }
-    }
+    [DisallowMultipleComponent, RequireComponent(typeof(RoadNodeAuthoring))]
+    public class CarSpawnerAuthoring : MonoBehaviour
+    {}
 }

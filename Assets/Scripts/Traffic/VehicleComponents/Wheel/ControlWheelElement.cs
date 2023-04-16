@@ -1,10 +1,10 @@
 ﻿using Unity.Entities;
 
-namespace Traffic.VehicleComponents.Wheel
+namespace TrafficSimulation.Traffic.VehicleComponents.Wheel
 {
     [InternalBufferCapacity(32)]
     public struct ControlWheelElement : IBufferElementData
     {
-        public int wheelID;
+        public int WheelID;
     }
 }

@@ -2,7 +2,7 @@ using System;
 using Unity.Entities;
 using Unity.Mathematics;
 
-namespace Traffic.VehicleComponents.Wheel
+namespace TrafficSimulation.Traffic.VehicleComponents.Wheel
 {
     [Serializable]
     public struct WheelRaycastData : IComponentData

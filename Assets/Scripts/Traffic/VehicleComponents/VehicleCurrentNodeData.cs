@@ -1,9 +1,9 @@
 ﻿using Unity.Entities;
 
-namespace Traffic.VehicleComponents
+namespace TrafficSimulation.Traffic.VehicleComponents
 {
     public struct VehicleCurrentNodeData : IComponentData
     {
-        public Entity node;
+        public Entity Node;
     }
 }

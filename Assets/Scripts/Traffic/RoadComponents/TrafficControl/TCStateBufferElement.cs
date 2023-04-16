@@ -1,6 +1,9 @@
 ﻿using Unity.Entities;
 
-public struct TCStateBufferElement : IBufferElementData
+namespace TrafficSimulation.Traffic.RoadComponents.TrafficControl
 {
-    public bool value;
+    public struct TCStateBufferElement : IBufferElementData
+    {
+        public bool Value;
+    }
 }

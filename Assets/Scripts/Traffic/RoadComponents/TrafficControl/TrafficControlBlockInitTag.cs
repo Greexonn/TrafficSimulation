@@ -1,7 +1,7 @@
 ﻿using System;
 using Unity.Entities;
 
-namespace Traffic.RoadComponents.TrafficControl
+namespace TrafficSimulation.Traffic.RoadComponents.TrafficControl
 {
     [Serializable]
     public struct TrafficControlBlockInitTag : IComponentData

@@ -1,19 +1,8 @@
-﻿using Unity.Entities;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Traffic.RoadComponents
+namespace TrafficSimulation.Traffic.RoadComponents
 {
     [DisallowMultipleComponent]
-    public class RoadNodeAuthoring : MonoBehaviour, IConvertGameObjectToEntity
-    {
-        public void Convert(Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem)
-        {
-            var nodeComponent = new RoadNodeData
-            {
-                isOpen = true
-            };
-
-            dstManager.AddComponentData(entity, nodeComponent);
-        }
-    }
+    public class RoadNodeAuthoring : MonoBehaviour
+    {}
 }

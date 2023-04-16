@@ -1,11 +1,12 @@
 ﻿using System;
-using Unity.Collections;
 using Unity.Entities;
-using Unity.Mathematics;
 
-[Serializable]
-public struct TrafficControlBlockComponent : IComponentData
+namespace TrafficSimulation.Traffic.RoadComponents.TrafficControl
 {
-    public int groupsCount;
-    public int statesCount;
+    [Serializable]
+    public struct TrafficControlBlockComponent : IComponentData
+    {
+        public int groupsCount;
+        public int statesCount;
+    }
 }
