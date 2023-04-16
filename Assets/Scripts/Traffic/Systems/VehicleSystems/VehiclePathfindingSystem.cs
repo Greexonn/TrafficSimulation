@@ -1,58 +1,62 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using TrafficSimulation.Traffic.RoadComponents;
 using TrafficSimulation.Traffic.VehicleComponents;
 using Unity.Burst;
 using Unity.Collections;
+using Unity.Collections.LowLevel.Unsafe;
 using Unity.Entities;
 using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Transforms;
+using static Unity.Entities.SystemAPI;
+using Random = Unity.Mathematics.Random;
 
 namespace TrafficSimulation.Traffic.Systems.VehicleSystems
 {
     [UpdateInGroup(typeof(PreprocessAISystemGroup))]
-    public partial class VehiclePathfindingSystem : SystemBase
+    public partial struct VehiclePathfindingSystem : ISystem
     {
         private EntityQuery _targetPointsQuery;
         private NativeArray<RoadTargetData> _targetPoints;
 
-        private List<INativeDisposable> _temporalContainers;
-        private List<PathfindingJob> _jobs;
-        
-        protected override void OnCreate()
+        private Random _random;
+
+        [BurstCompile]
+        public void OnCreate(ref SystemState state)
         {
-            _targetPointsQuery = GetEntityQuery(ComponentType.ReadOnly<RoadTargetData>());
-            RequireForUpdate(_targetPointsQuery);
-            RequireForUpdate<TrafficSystemData>();
+            _targetPointsQuery = new EntityQueryBuilder(state.WorldUpdateAllocator)
+                .WithAll<RoadTargetData>()
+                .Build(ref state);
+            state.RequireForUpdate(_targetPointsQuery);
+            state.RequireForUpdate<TrafficSystemData>();
             
-            _temporalContainers = new List<INativeDisposable>();
-            _jobs = new List<PathfindingJob>();
+            _random = Random.CreateFromIndex(17105);
         }
 
-        protected override void OnUpdate()
+        [BurstCompile]
+        public void OnUpdate(ref SystemState state)
         {
-            _targetPoints = _targetPointsQuery.ToComponentDataArray<RoadTargetData>(Allocator.Temp);
+            _targetPoints = _targetPointsQuery.ToComponentDataArray<RoadTargetData>(state.WorldUpdateAllocator);
             if (_targetPoints.Length < 1)
             {
                 _targetPoints.Dispose();
                 return;
             }
+            
+            var trafficSystemData = GetSingleton<TrafficSystemData>();
+            var commandBuffer = new EntityCommandBuffer(state.WorldUpdateAllocator);
+            var jobs = new UnsafeList<PathfindingJob>(4, state.WorldUpdateAllocator);
+            var jobHandles = new NativeList<JobHandle>(state.WorldUpdateAllocator);
 
-            var trafficSystemData = SystemAPI.GetSingleton<TrafficSystemData>();
-            var commandBuffer = new EntityCommandBuffer(Allocator.Temp);
-            var jobHandles = new NativeList<JobHandle>(Allocator.Temp);
-            _temporalContainers.Clear();
-            _jobs.Clear();
-
-            Entities
-                .WithoutBurst()
-                .WithAll<VehicleTag, PathfindingRequest>()
-                .ForEach((Entity vehicleEntity, ref VehicleCurrentNodeData vehicleCurrentNode, ref VehiclePathNodeIndexData vehiclePathNodeIndex) => 
+            foreach (var (vehicleCurrentNodeDataRef, vehiclePathNodeIndexDataRef, vehicleEntity) 
+                     in Query<RefRW<VehicleCurrentNodeData>, RefRW<VehiclePathNodeIndexData>>().WithEntityAccess().WithAll<VehicleTag, PathfindingRequest>())
             {
+                ref var vehicleCurrentNode = ref vehicleCurrentNodeDataRef.ValueRW;
+                ref var vehiclePathNodeIndex = ref vehiclePathNodeIndexDataRef.ValueRW;
                 vehiclePathNodeIndex.Value = 0;
-
+                
                 //select target
-                var targetId = UnityEngine.Random.Range(0, _targetPoints.Length);
+                var targetId = _random.NextInt(0, _targetPoints.Length);
                 var targetPoint = _targetPoints[targetId].Node;
                 if (targetPoint.Equals(vehicleCurrentNode.Node))
                     return;
@@ -62,35 +66,24 @@ namespace TrafficSimulation.Traffic.Systems.VehicleSystems
                     TargetVehicle = vehicleEntity,
                     FoundNode = vehicleCurrentNode.Node,
                     TargetPoint = targetPoint,
-                    LocalToWorldComponents = GetComponentLookup<LocalToWorld>(),
+                    LocalToWorldComponents = GetComponentLookup<LocalToWorld>(true),
                     Graph = trafficSystemData.Graphs[0],
-                    CloseList = new NativeList<PathNode>(Allocator.TempJob),
-                    OpenList = new NativeList<PathNode>(Allocator.TempJob),
-                    ReversePathList = new NativeList<NodeBufferElement>(Allocator.TempJob),
+                    CloseList = new NativeList<PathNode>(state.WorldUpdateAllocator),
+                    OpenList = new NativeList<PathNode>(state.WorldUpdateAllocator),
+                    ReversePathList = new NativeList<NodeBufferElement>(state.WorldUpdateAllocator)
                 };
+                jobs.Add(pathfindingJob);
+                jobHandles.Add(pathfindingJob.Schedule(state.Dependency));
                 
-                _temporalContainers.Add(pathfindingJob.CloseList);
-                _temporalContainers.Add(pathfindingJob.OpenList);
-                _temporalContainers.Add(pathfindingJob.ReversePathList);
-                
-                _jobs.Add(pathfindingJob);
-                
-                //remove request component
                 commandBuffer.RemoveComponent<PathfindingRequest>(vehicleEntity);
-            }).Run();
-            
-            // schedule
-            foreach (var job in _jobs)
-            {
-                jobHandles.Add(job.Schedule(Dependency));
             }
             
             JobHandle.CompleteAll(jobHandles.AsArray());
-
+            
             //write correct path to path buffer
-            foreach (var pathfindingJob in _jobs)
+            foreach (var pathfindingJob in jobs)
             {
-                var pathBuffer = SystemAPI.GetBuffer<NodeBufferElement>(pathfindingJob.TargetVehicle);
+                var pathBuffer = GetBuffer<NodeBufferElement>(pathfindingJob.TargetVehicle);
                 pathBuffer.Clear();
                 var reversePathList = pathfindingJob.ReversePathList;
                 
@@ -99,19 +92,10 @@ namespace TrafficSimulation.Traffic.Systems.VehicleSystems
                     pathBuffer.Add(reversePathList[i]);
                 }
             }
-
-            commandBuffer.Playback(EntityManager);
-
-            jobHandles.Dispose();
-            commandBuffer.Dispose();
-            _targetPoints.Dispose();
-
-            foreach (var temporalContainer in _temporalContainers)
-            {
-                temporalContainer.Dispose();
-            }
+            
+            commandBuffer.Playback(state.EntityManager);
         }
-        
+
         [BurstCompile]
         private struct PathfindingJob : IJob
         {
@@ -136,13 +120,12 @@ namespace TrafficSimulation.Traffic.Systems.VehicleSystems
                 var distanceToFinish = (int)(math.distance(finishPos, startPos) * 10);
                 OpenList.Add(new PathNode
                 {
-                    nodeEntity = FoundNode,
-                    parentNode = Entity.Null,
-                    sValue = 0,
-                    fValue = distanceToFinish,
-                    rValue = distanceToFinish
+                    NodeEntity = FoundNode,
+                    ParentNode = Entity.Null,
+                    SValue = 0,
+                    RValue = distanceToFinish
                 });
-                
+
                 while (!FoundNode.Equals(TargetPoint))
                 {
                     if (OpenList.Length < 1)
@@ -150,22 +133,23 @@ namespace TrafficSimulation.Traffic.Systems.VehicleSystems
                         UnityEngine.Debug.Log("Not Found");
                         break;
                     }
+
                     //get node with min result value
                     var bestNode = OpenList[0];
                     var bestNodeId = 0;
                     for (var i = 1; i < OpenList.Length; i++)
                     {
-                        if (OpenList[i].rValue >= bestNode.rValue) 
+                        if (OpenList[i].RValue >= bestNode.RValue)
                             continue;
-                        
+
                         bestNode = OpenList[i];
                         bestNodeId = i;
                     }
 
-                    var bestNodePos = LocalToWorldComponents[bestNode.nodeEntity].Position;
+                    var bestNodePos = LocalToWorldComponents[bestNode.NodeEntity].Position;
 
                     //add all paths from "best" node
-                    var variants = Graph.GetValuesForKey(bestNode.nodeEntity);
+                    var variants = Graph.GetValuesForKey(bestNode.NodeEntity);
                     foreach (var node in variants)
                     {
                         if (node.Equals(TargetPoint))
@@ -174,27 +158,26 @@ namespace TrafficSimulation.Traffic.Systems.VehicleSystems
                             break;
                         }
 
-                        if (CloseList.Contains(node)) 
+                        if (CloseList.Contains(node))
                             continue;
-                        
+
                         var nodePos = LocalToWorldComponents[node].Position;
-                        var sValue = bestNode.sValue + (int)(math.distance(bestNodePos, nodePos) * 10);
-                        var fValue = (int) (math.distance(finishPos, nodePos) * 10);
+                        var sValue = bestNode.SValue + (int)(math.distance(bestNodePos, nodePos) * 10);
+                        var fValue = (int)(math.distance(finishPos, nodePos) * 10);
                         var rValue = sValue + fValue;
                         var newNode = new PathNode
                         {
-                            nodeEntity = node,
-                            parentNode = bestNode.nodeEntity,
-                            sValue = sValue,
-                            fValue = fValue,
-                            rValue = rValue
+                            NodeEntity = node,
+                            ParentNode = bestNode.NodeEntity,
+                            SValue = sValue,
+                            RValue = rValue
                         };
-                        
+
                         var nodeId = OpenList.IndexOf(newNode);
 
                         if (nodeId != -1)
                         {
-                            if (rValue < OpenList[nodeId].rValue)
+                            if (rValue < OpenList[nodeId].RValue)
                             {
                                 OpenList[nodeId] = newNode;
                             }
@@ -208,37 +191,37 @@ namespace TrafficSimulation.Traffic.Systems.VehicleSystems
                     OpenList.RemoveAtSwapBack(bestNodeId);
                     CloseList.Add(bestNode);
                 }
-                
+
                 //get correct reverse path
-                ReversePathList.Add(new NodeBufferElement{Node = TargetPoint});
-                ReversePathList.Add(new NodeBufferElement{Node = CloseList[^1].nodeEntity});
-                var parentEntity = CloseList[^1].parentNode;
+                ReversePathList.Add(new NodeBufferElement { Node = TargetPoint });
+                ReversePathList.Add(new NodeBufferElement { Node = CloseList[^1].NodeEntity });
+                var parentEntity = CloseList[^1].ParentNode;
                 for (var i = CloseList.Length - 2; i >= 0; i--)
                 {
                     var node = CloseList[i];
-                    if (!node.Equals(parentEntity)) 
+                    if (!node.Equals(parentEntity))
                         continue;
-                    
-                    parentEntity = node.parentNode;
-                    ReversePathList.Add(new NodeBufferElement{Node = node.nodeEntity});
+
+                    parentEntity = node.ParentNode;
+                    ReversePathList.Add(new NodeBufferElement { Node = node.NodeEntity });
                 }
             }
         }
 
-        private struct PathNode : System.IEquatable<PathNode>, System.IEquatable<Entity>
+        private struct PathNode : IEquatable<PathNode>, IEquatable<Entity>
         {
-            public Entity nodeEntity;
-            public Entity parentNode;
-            public int sValue, fValue, rValue;
+            public Entity NodeEntity;
+            public Entity ParentNode;
+            public int SValue, RValue;
 
             public bool Equals(PathNode other)
             {
-                return nodeEntity.Equals(other.nodeEntity);
+                return NodeEntity.Equals(other.NodeEntity);
             }
 
             public bool Equals(Entity other)
             {
-                return nodeEntity.Equals(other);
+                return NodeEntity.Equals(other);
             }
         }
     }
