@@ -51,7 +51,7 @@ namespace TrafficSimulation.Traffic.Systems.VehicleSystems
                 var rotationAngle = engineData.MaxSpeed * engineData.Acceleration / wheelData.radius;
                     
                 rotationAngle = math.radians(rotationAngle);
-                var wheelModelTransformRef = LocalTransformLookup.GetRefRW(wheelData.wheelModel, false);
+                var wheelModelTransformRef = LocalTransformLookup.GetRefRW(wheelData.wheelModel);
                 wheelModelTransformRef.ValueRW.Rotation = math.mul(wheelModelTransformRef.ValueRO.Rotation, quaternion.RotateZ(-rotationAngle));
             }
         }
@@ -67,7 +67,7 @@ namespace TrafficSimulation.Traffic.Systems.VehicleSystems
                 var rotationAngle = velocityForward / (wheelData.radius * 2f);
                     
                 rotationAngle = math.radians(rotationAngle);
-                var wheelModelTransformRef = LocalTransformLookup.GetRefRW(wheelData.wheelModel, false);
+                var wheelModelTransformRef = LocalTransformLookup.GetRefRW(wheelData.wheelModel);
                 wheelModelTransformRef.ValueRW.Rotation = math.mul(wheelModelTransformRef.ValueRO.Rotation, quaternion.RotateZ(-rotationAngle));
             }
         }

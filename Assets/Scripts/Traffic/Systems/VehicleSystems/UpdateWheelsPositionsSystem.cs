@@ -35,7 +35,7 @@ namespace TrafficSimulation.Traffic.Systems.VehicleSystems
             private void Execute(in WheelData wheelData, in LocalToWorld wheelRoot)
             {
                 var wheelLocalPos = wheelData.wheelPosition - wheelRoot.Position;
-                var wheelModelTransformRef = LocalTransformLookup.GetRefRW(wheelData.wheelModel, false);
+                var wheelModelTransformRef = LocalTransformLookup.GetRefRW(wheelData.wheelModel);
                 wheelModelTransformRef.ValueRW.Position = wheelLocalPos;
             }
         }
